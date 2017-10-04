@@ -42,7 +42,7 @@ def classExtractor(file_name):
                         except:
                             print(i)
 
-        return classesList, classesP31
+    return [classesList, classesP31]
 
 
 def main():

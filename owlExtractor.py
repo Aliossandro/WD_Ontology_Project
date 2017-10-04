@@ -534,7 +534,7 @@ def classExtractor(lineParsed):
 
 def fileAnalyser(file_name, classFile):
     #load classes list
-    classesList = classExtractor(classFile)
+    classesList = classesReader(classFile)
     entitiesAll = []
     # collect other properties
     otherKeys = []

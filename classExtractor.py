@@ -4,6 +4,9 @@
 import ujson
 import bz2
 import sys
+import smart_open
+import threading
+import queue
 
 def writeClasslist(classList, file_name):
     ###write properties
@@ -15,11 +18,14 @@ def writeClasslist(classList, file_name):
 def classExtractor(file_name):
     classesList = []
     classesP31 = []
+    counter = 0
 
     # open dumps
     with bz2.BZ2File(file_name, 'r') as f:
 
         for line in f:
+            if counter % 10000 == 0:
+                print(counter, " items processed")
 
             try:
                 lineParsed = ujson.loads(line[:-2])
@@ -31,6 +37,7 @@ def classExtractor(file_name):
                         try:
                             superClass = i['mainsnak']['datavalue']['value']['id']
                             classesList.append(superClass)
+                            counter += 1
                         except:
                             print(i)
 
@@ -41,6 +48,8 @@ def classExtractor(file_name):
                             classesP31.append(superClass)
                         except:
                             print(i)
+            except:
+                print(line)
 
     return [classesList, classesP31]
 

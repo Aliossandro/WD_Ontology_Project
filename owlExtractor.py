@@ -441,22 +441,20 @@ def classExtractor(lineParsed):
                     print(i)
 
         elif key == 'P2737': #UnionOf
-            resourceDisjointUnionList = []
-            resourceDisjointUnionList.append('<owl:DisjointUnion>')
+            resourceUnionList = ['<owl:unionOf>']
             try:
-                disjointUnionClassesList = [disjointUnionClasses(x['datavalue']['value']['id']) for x in i['qualifiers']['P642']]
-                resourceDisjointUnionList +=  disjointUnionClassesList
-                resourceDisjointUnionList.append('</owl:DisjointUnion>')
+                unionClassesList = [disjointUnionClasses(x['datavalue']['value']['id']) for x in i['qualifiers']['P642']]
+                resourceUnionList += unionClassesList
+                resourceUnionList.append('</owl:unionOf>')
             ###account for somevalue/no value
             except:
                 print(lineParsed['claims'][key])
 
         elif key == 'P2738': #disjointUnionOf
-            resourceDisjointUnionList = []
-            resourceDisjointUnionList.append('<owl:DisjointUnion>')
+            resourceDisjointUnionList = ['<owl:DisjointUnion>']
             try:
                 disjointUnionClassesList = [disjointUnionClasses(x['datavalue']['value']['id']) for x in i['qualifiers']['P642']]
-                resourceDisjointUnionList +=  disjointUnionClassesList
+                resourceDisjointUnionList += disjointUnionClassesList
                 resourceDisjointUnionList.append('</owl:DisjointUnion>')
             ###account for somevalue/no value
             except:
@@ -485,7 +483,6 @@ def classExtractor(lineParsed):
     # print(classDeclaration, classDeclarationClosure)
 
 
-# file_name = '/Users/alessandro/Documents/PhD/WD_ontology/four_properties.json'
 def fileAnalyser(file_name):
     #load classes list
     classesList = classesGenerator()

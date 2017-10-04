@@ -52,6 +52,7 @@ def extractClassesP279(line):
 def read_file(file_name, queueJob):
     for line in smart_open.smart_open(file_name):
         queueJob.put(line)
+    print('100k read')
     queueJob.put(sentinel)
 
 
@@ -60,14 +61,14 @@ def process(inqueue, outqueue):
         outqueue.put(extractClassesP279(line))
     print('100k P279 done!')
     outqueue.put(sentinel)
-    write_file('P279_classes.csv', outq)
+    write_file('P279_classes.csv', outqueue)
 
 def processP31(inqueue, outqueue):
     for line in iter(inqueue.get, sentinel):
         outqueue.put(extractClassesP31(line))
     print('100k P31 done!')
     outqueue.put(sentinel)
-    write_file('P31_classes.csv', outq)
+    write_file('P31_classes.csv', outqueue)
 
 
 def write_file(name, queue):

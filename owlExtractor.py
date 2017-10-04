@@ -8,19 +8,27 @@ import os
 import fileWriter
 
 ###classes list generator
-def classesGenerator(**args):
+# def classesGenerator(**args):
+#     classesList = []
+#     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+#     with open(os.path.join(__location__, 'classes.json'), 'r') as f:
+#         resultClasses = ujson.load(f)
+#         for binding in resultClasses['results']['bindings']:
+#             classUri = binding['cl']['value']
+#             if classUri[0:31] == 'http://www.wikidata.org/entity/':
+#                 classId = classUri[31:]
+#                 classesList.append(classId)
+#
+#     return classesList
+
+def classesReader(fileName):
     classesList = []
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(__location__, 'classes.json'), 'r') as f:
-        resultClasses = ujson.load(f)
-        for binding in resultClasses['results']['bindings']:
-            classUri = binding['cl']['value']
-            if classUri[0:31] == 'http://www.wikidata.org/entity/':
-                classId = classUri[31:]
-                classesList.append(classId)
+    with open(fileName, 'r') as f:
+        for line in f:
+            classesList.append(line)
 
+    classesList = list(set(classesList))
     return classesList
-
 
 def resourceNamer(resource):
     resourceUri = "http://www.wikidata.org/entity/" + resource
@@ -73,6 +81,7 @@ def propertyExtractor(lineParsed):
     constraintKeys = []
     functional = False
     inverseFunctional = False
+    conflictsWith = []
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -189,8 +198,11 @@ def propertyExtractor(lineParsed):
                     # Q21503252 instance of for constraints
                     if len(relation) == 1:
                         relation = relation[0]
-                        if relation == 'Q21503252':
+                        if (relation == 'Q21503252') or (relation == 'Q30208840'):
                             rangeTemp = '<rdfs:domain rdf:resource="'
+                        elif relation == 'Q21514624':
+                            #add subclass
+                            print(relation)
                         else:
                             print(relation, 'relation type')
                             # check if other qualifiers are used; what to do with them?
@@ -211,7 +223,32 @@ def propertyExtractor(lineParsed):
                     # constraintList += list(classDomain)
 
                 # Q21510851 "allowed qualifiers" constraint ### what to do with it?
-                # Q21502838 "conflicts-with" constraint ### what to do with it?
+
+
+
+                # Q21502838 "conflicts-with" constraint
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+                    propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
+                    if 'P2305' in i['qualifiers'].keys():
+                        try:
+                            conflictingObjects = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2305']]
+
+                            if propertyConflicts[0] == 'P31':
+                                for obj in conflictingObjects:
+                                    obj = '<owl:Class> \n<owl:complementOf rdf:resource="#' + obj + '" /> \n</owl:Class>'
+                                    conflictsWith.append(obj)
+                            else:
+                                for obj in conflictingObjects:
+                                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="#' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="#' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                                    conflictsWith.append(obj)
+                        except:
+                            print(i['qualifiers']['P2305'])
+
+                    else:
+                        obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="#' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="&owl;Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                        conflictsWith.append(obj)
+
+
 
                 # Q21510859 "one-of" constraint ###owl:oneOf: subject must be class, object must be list
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
@@ -324,10 +361,22 @@ def propertyExtractor(lineParsed):
                     #     rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</own:Class>\n</rdfs:range>'
                     # else:
                     domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</own:Class>\n</rdfs:domain>'
-                else:
-                    domainInfo = list(map(domainLine, classDomain))
-                    domainInfo = '\n'.join(list(domainInfo))
+                    if conflictsWith:
+                        conflictList = '\n'.join(list(conflictsWith))
+                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</own:Class>\n'+ conflictList +'\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
 
+                else:
+                    if conflictsWith:
+                        conflictList = '\n'.join(list(conflictsWith))
+                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class rdf:about="#' + classDomain[0] + '"/>\n' + conflictList + '\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
+
+                    else:
+                        domainInfo = list(map(domainLine, classDomain))
+                        domainInfo = '\n'.join(list(domainInfo))
+            else:
+                if conflictsWith:
+                    conflictList =  '\n'.join(list(conflictsWith))
+                    domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n' + conflictList + '\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
 
         else:
             otherKeys.append(key)
@@ -347,9 +396,9 @@ def propertyExtractor(lineParsed):
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
     if inverseFunctional:
-        propertyDescription.append('<rdf:type rdf:resource = "&owl;InverseFunctionalProperty" />')
+        propertyDescription.append('<rdf:type rdf:resource="&owl;InverseFunctionalProperty" />')
     if functional:
-        propertyDescription.append('<rdf:type rdf:resource = "&owl;FunctionalProperty" />')
+        propertyDescription.append('<rdf:type rdf:resource="&owl;FunctionalProperty" />')
     if 'domainInfo' in locals():
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():
@@ -483,9 +532,9 @@ def classExtractor(lineParsed):
     # print(classDeclaration, classDeclarationClosure)
 
 
-def fileAnalyser(file_name):
+def fileAnalyser(file_name, classFile):
     #load classes list
-    classesList = classesGenerator()
+    classesList = classExtractor(classFile)
     entitiesAll = []
     # collect other properties
     otherKeys = []

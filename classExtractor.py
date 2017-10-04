@@ -4,14 +4,13 @@
 import ujson
 import bz2
 import sys
-import smart_open
-import threading
-import queue
 
 def writeClasslist(classList, file_name):
     ###write properties
-    with open(file_name, 'w') as f:
-        f.write(classList)
+    with open(file_name, 'a') as f:
+        for ele in list(classList):
+            f.write(ele + '\n')
+
         f.close()
 
 
@@ -24,11 +23,17 @@ def classExtractor(file_name):
     with bz2.BZ2File(file_name, 'r') as f:
 
         for line in f:
-            if counter % 10000 == 0:
-                print(counter, " items processed")
-
             try:
                 lineParsed = ujson.loads(line[:-2])
+
+                if counter % 100000 == 0:
+                    print(counter, " items processed")
+                    classesList = set(classesList)
+                    classesP31 = set(classesP31)
+                    writeClasslist(classesList, 'classesP279.txt')
+                    writeClasslist(classesP31, 'classesP31.txt')
+                    classesList = []
+                    classesP31 = []
 
                 if 'P279' in lineParsed['claims'].keys():
                     entityID = lineParsed['id']

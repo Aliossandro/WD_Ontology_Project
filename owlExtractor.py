@@ -58,6 +58,8 @@ def disjointUnionClasses(object):
     return resourceDisjointUnionOf
 
 
+
+
 ###property extractor
 class entityExtractor:
 
@@ -69,6 +71,8 @@ class entityExtractor:
 def propertyExtractor(lineParsed):
     otherKeys = []
     constraintKeys = []
+    functional = False
+    inverseFunctional = False
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -156,6 +160,7 @@ def propertyExtractor(lineParsed):
             for i in lineParsed['claims']['P2302']:
                 # print(i['mainsnak']['datavalue']['value']['id'], resourceName)
                 constraintKeys.append(i['mainsnak']['datavalue']['value']['id'])
+
                 # Q21510865 'value type', range
                 if i['mainsnak']['datavalue']['value']['id'] == 'Q21510865':
                     domainList = []
@@ -195,7 +200,6 @@ def propertyExtractor(lineParsed):
                         # check if there are other qualifiers; what to do with them?
                         # break
 
-
                     if 'P2308' in i['qualifiers'].keys():
                         try:
                             classDomain = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2308']]
@@ -227,6 +231,72 @@ def propertyExtractor(lineParsed):
 
 
                    # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?
+
+                # Q21502410; inverse functional property
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+                    inverseFunctional = True
+
+                # Q19474404; functional property
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+                    functional = True
+
+                # Q21510860; range constraint
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
+                    rangeDatatypeList = [' <rdfs:range>\n<rdfs:Datatype>']
+
+                    if ('P2313' in i['qualifiers'].keys()) or ('P2312' in i['qualifiers'].keys()):
+                        rangeDatatypeList.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal" />\n<owl:withRestrictions rdf:parseType="Collection">')
+                        # min value
+                        if 'P2313' in i['qualifiers'].keys():
+
+                            for x in i['qualifiers']['P2312']:
+                                if x['datatype'] == 'quantity':
+                                    minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + x['datavalue']['value']['amount'] + '</xsd:minInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(minRange)
+                                else:
+                                    print(x['datatype'])
+
+                        #max value
+                        elif 'P2312' in i['qualifiers'].keys():
+                            for x in i['qualifiers']['P2312']:
+                                if x['datatype'] == 'quantity':
+                                    maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + \
+                                               x['datavalue']['value']['amount'] + '</xsd:maxInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(maxRange)
+                                else:
+                                    print(x['datatype'])
+
+                        closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
+                        rangeDatatypeList.append(closure)
+
+                    elif ('P2311' in i['qualifiers'].keys()) or ('P2310' in i['qualifiers'].keys()):
+                        rangeDatatypeList.append(
+                            '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime" />\n<owl:withRestrictions rdf:parseType="Collection">')
+                        # max date
+                        if 'P2311' in i['qualifiers'].keys():
+
+                            for x in i['qualifiers']['P2311']:
+                                if x['datatype'] == 'time':
+                                    minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
+                                               x['datavalue']['value'][
+                                                   'time'] + '</xsd:maxInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(minRange)
+                                else:
+                                    print(x['datatype'])
+
+                        # min date
+                        elif 'P2310' in i['qualifiers'].keys():
+                            for x in i['qualifiers']['P2310']:
+                                if x['datatype'] == 'time':
+                                    maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
+                                               x['datavalue']['value'][
+                                                   'time'] + '</xsd:minInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(maxRange)
+                                else:
+                                    print(x['datatype'])
+
+                        closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
+                        rangeDatatypeList.append(closure)
 
             if 'classRange' in locals():
                 if len(list(classRange)) > 1:
@@ -276,6 +346,10 @@ def propertyExtractor(lineParsed):
     if 'resourceEquivalentList' in locals():
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
+    if inverseFunctional:
+        propertyDescription.append('<rdf:type rdf:resource = "&owl;InverseFunctionalProperty" />')
+    if functional:
+        propertyDescription.append('<rdf:type rdf:resource = "&owl;FunctionalProperty" />')
     if 'domainInfo' in locals():
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():
@@ -333,7 +407,7 @@ def classExtractor(lineParsed):
                 except:
                     print(i)
 
-        elif key == 'P1709':
+        elif key == 'P1709': #equivalent class
             resourceEquivalentClassList = []
             for i in lineParsed['claims']['P1709']:
                 try:
@@ -343,6 +417,39 @@ def classExtractor(lineParsed):
                     resourceEquivalentClassList.append(resourceEquivalentClassOf)
                 except:
                     print(i)
+
+        elif key == 'P527': #has part
+            resourceHasPartList = []
+            for i in lineParsed['claims']['P527']:
+                try:
+                    hasPart = i['mainsnak']['datavalue']['value']['id']
+                    hasPart = "http://www.wikidata.org/entity/" + hasPart
+                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+                    resourceHasPartList.append(resourcehasPart)
+                except:
+                    print(i)
+
+        elif key == 'P361': #is part of
+            resourceIsPartList = []
+            for i in lineParsed['claims']['P361']:
+                try:
+                    isPart = i['mainsnak']['datavalue']['value']['id']
+                    isPart = "http://www.wikidata.org/entity/" + isPart
+                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+                    resourceIsPartList.append(resourceIsPart)
+                except:
+                    print(i)
+
+        elif key == 'P2737': #UnionOf
+            resourceDisjointUnionList = []
+            resourceDisjointUnionList.append('<owl:DisjointUnion>')
+            try:
+                disjointUnionClassesList = [disjointUnionClasses(x['datavalue']['value']['id']) for x in i['qualifiers']['P642']]
+                resourceDisjointUnionList +=  disjointUnionClassesList
+                resourceDisjointUnionList.append('</owl:DisjointUnion>')
+            ###account for somevalue/no value
+            except:
+                print(lineParsed['claims'][key])
 
         elif key == 'P2738': #disjointUnionOf
             resourceDisjointUnionList = []

@@ -1,0 +1,7 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
+#other files
+data/four_properties.json
+data/*.bz2

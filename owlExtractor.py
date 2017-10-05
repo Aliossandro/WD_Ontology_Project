@@ -531,7 +531,6 @@ def classExtractor(lineParsed):
 
         elif key == 'P2738': #disjointUnionOf
             resourceDisjointUnionList = ['<owl:DisjointUnion>']
-            print(lineParsed['claims'])
             for j in lineParsed['claims']['P2738']:
                 for x in j['qualifiers']['P642']:
                     try:

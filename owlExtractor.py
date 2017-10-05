@@ -273,11 +273,12 @@ def propertyExtractor(lineParsed):
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
                     classOneOf = []
                     for y in i['qualifiers']['P2305']:
-                        try:
-                            classOneOf.append(y['datavalue']['value']['id'])
-                            ###it can be 'no value' in snaktype
-                        except:
-                            print(i['qualifiers']['P2305'])
+                        if y['snaktype'] is not 'somevalue' or y['snaktype'] is not 'novalue':
+                            try:
+                                classOneOf.append(y['datavalue']['value']['id'])
+                                ###it can be 'no value' in snaktype
+                            except:
+                                print(i['qualifiers']['P2305'])
                     classOneOf = map(collectionItems, classOneOf)
                     # try:
                     #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
@@ -310,7 +311,7 @@ def propertyExtractor(lineParsed):
                         if 'P2313' in i['qualifiers'].keys():
 
                             for x in i['qualifiers']['P2312']:
-                                if x['datatype'] == 'quantity':
+                                if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
                                     minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + x['datavalue']['value']['amount'] + '</xsd:minInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(minRange)
                                 else:
@@ -319,7 +320,7 @@ def propertyExtractor(lineParsed):
                         #max value
                         elif 'P2312' in i['qualifiers'].keys():
                             for x in i['qualifiers']['P2312']:
-                                if x['datatype'] == 'quantity':
+                                if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
                                     maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + \
                                                x['datavalue']['value']['amount'] + '</xsd:maxInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(maxRange)
@@ -336,10 +337,9 @@ def propertyExtractor(lineParsed):
                         if 'P2311' in i['qualifiers'].keys():
 
                             for x in i['qualifiers']['P2311']:
-                                if x['datatype'] == 'time':
+                                if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
                                     minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
-                                               x['datavalue']['value'][
-                                                   'time'] + '</xsd:maxInclusive>\n</rdf:Description>'
+                                               x['datavalue']['value']['time'] + '</xsd:maxInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(minRange)
                                 else:
                                     print(x['datatype'])
@@ -347,7 +347,7 @@ def propertyExtractor(lineParsed):
                         # min date
                         elif 'P2310' in i['qualifiers'].keys():
                             for x in i['qualifiers']['P2310']:
-                                if x['datatype'] == 'time':
+                                if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
                                     maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
                                                x['datavalue']['value'][
                                                    'time'] + '</xsd:minInclusive>\n</rdf:Description>'

@@ -8,26 +8,27 @@ import os
 import fileWriter
 
 ###classes list generator
-# def classesGenerator(**args):
-#     classesList = []
-#     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-#     with open(os.path.join(__location__, 'classes.json'), 'r') as f:
-#         resultClasses = ujson.load(f)
-#         for binding in resultClasses['results']['bindings']:
-#             classUri = binding['cl']['value']
-#             if classUri[0:31] == 'http://www.wikidata.org/entity/':
-#                 classId = classUri[31:]
-#                 classesList.append(classId)
-#
-#     return classesList
+def classesGenerator(**args):
+    classesList = []
+    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    with open(os.path.join(__location__, 'classes.json'), 'r') as f:
+        resultClasses = ujson.load(f)
+        for binding in resultClasses['results']['bindings']:
+            classUri = binding['cl']['value']
+            if classUri[0:31] == 'http://www.wikidata.org/entity/':
+                classId = classUri[31:]
+                classesList.append(classId)
+    print(len(classesList))
+    return classesList
 
 def classesReader(fileName):
     classesList = []
     with open(fileName, 'r') as f:
         for line in f:
-            classesList.append(line)
+            classesList.append(line.replace('\n', ''))
 
-    classesList = list(set(classesList))
+    classesList = set(classesList)
+    print(len(classesList))
     return classesList
 
 def resourceNamer(resource):
@@ -36,19 +37,31 @@ def resourceNamer(resource):
     return resourceUri
 
 def rangeLine(resource):
-    resourceUri = resourceNamer(resource)
+    if resource != 'owl:Class':
+        resourceUri = resourceNamer(resource)
+    else:
+        resourceUri = resource
+
     rangeOutput = '<rdfs:range rdf:resource="' + resourceUri + '"/>'
 
     return rangeOutput
 
 def rangeMultiple(resource):
-    resourceUri = resourceNamer(resource)
+    if resource != 'owl:Class':
+        resourceUri = resourceNamer(resource)
+    else:
+        resourceUri = resource
+
     rangeOutput = '<owl:Class rdf:resource="' + resourceUri + '"/>'
 
     return rangeOutput
 
 def domainLine(resource):
-    resourceUri = resourceNamer(resource)
+    if resource != 'owl:Class':
+        resourceUri = resourceNamer(resource)
+    else:
+        resourceUri = resource
+
     domainOutput = '<rdfs:domain rdf:resource="' + resourceUri + '"/>'
 
     return domainOutput
@@ -214,10 +227,15 @@ def propertyExtractor(lineParsed):
                         # break
 
                     if 'P2308' in i['qualifiers'].keys():
-                        try:
-                            classDomain = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2308']]
-                        except:
-                            print(i['qualifiers']['P2308'])
+                        classDomain = []
+                        for y in i['qualifiers']['P2308']:
+                            if y['datavalue']['value']['id'] == 'Q5127848':
+                                classDomain.append('owl:Class')
+                            else:
+                                try:
+                                    classDomain.append(y['datavalue']['value']['id'])
+                                except:
+                                    print(y)
                     else:
                         print(i['qualifiers'].keys())
                     # classDomain = map(domainLine, classDomain)
@@ -450,7 +468,7 @@ def classExtractor(lineParsed):
                     resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
                     resourceInstanceList.append(resourceInstanceOf)
                 except:
-                    print(i)
+                    print(i, "A")
 
         elif key == 'P279':
             resourceSubClassList = []
@@ -461,7 +479,7 @@ def classExtractor(lineParsed):
                     resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
                     resourceSubClassList.append(resourceSubClassOf)
                 except:
-                    print(i)
+                    print(i, 'B')
 
         elif key == 'P1709': #equivalent class
             resourceEquivalentClassList = []
@@ -472,7 +490,12 @@ def classExtractor(lineParsed):
                     resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
                     resourceEquivalentClassList.append(resourceEquivalentClassOf)
                 except:
-                    print(i)
+                    try:
+                        equivalentClass = i['mainsnak']['datavalue']['value']
+                        resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
+                        resourceEquivalentClassList.append(resourceEquivalentClassOf)
+                    except:
+                        print(i, 'C')
 
         elif key == 'P527': #has part
             resourceHasPartList = []
@@ -483,7 +506,7 @@ def classExtractor(lineParsed):
                     resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
                     resourceHasPartList.append(resourcehasPart)
                 except:
-                    print(i)
+                    print(i, 'D')
 
         elif key == 'P361': #is part of
             resourceIsPartList = []
@@ -494,7 +517,7 @@ def classExtractor(lineParsed):
                     resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
                     resourceIsPartList.append(resourceIsPart)
                 except:
-                    print(i)
+                    print(i, 'E')
 
         elif key == 'P2737': #UnionOf
             resourceUnionList = ['<owl:unionOf>']
@@ -504,17 +527,20 @@ def classExtractor(lineParsed):
                 resourceUnionList.append('</owl:unionOf>')
             ###account for somevalue/no value
             except:
-                print(lineParsed['claims'][key])
+                print(lineParsed['claims'][key], 'F')
 
         elif key == 'P2738': #disjointUnionOf
             resourceDisjointUnionList = ['<owl:DisjointUnion>']
-            try:
-                disjointUnionClassesList = [disjointUnionClasses(x['datavalue']['value']['id']) for x in i['qualifiers']['P642']]
-                resourceDisjointUnionList += disjointUnionClassesList
-                resourceDisjointUnionList.append('</owl:DisjointUnion>')
-            ###account for somevalue/no value
-            except:
-                print(lineParsed['claims'][key])
+            print(lineParsed['claims'])
+            for j in lineParsed['claims']['P2738']:
+                for x in j['qualifiers']['P642']:
+                    try:
+                        resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                ###account for somevalue/no value
+                    except:
+                        print(x, 'G')
+            resourceDisjointUnionList.append('</owl:DisjointUnion>')
+
 
 
         else:
@@ -542,6 +568,7 @@ def classExtractor(lineParsed):
 def fileAnalyser(file_name, classFile):
     #load classes list
     classesList = classesReader(classFile)
+    # classesList = classesGenerator()
     entitiesAll = []
     # collect other properties
     otherKeys = []
@@ -564,7 +591,9 @@ def fileAnalyser(file_name, classFile):
             try:
                 lineParsed = ujson.loads(line[:-2])
                 entityID = lineParsed['id']
+
                 if re.match('[P][0-9]{1,}', entityID):
+                    # print(entityID)
                     # lineParsed = lineParsed['entities'][propertyId]
                     # extract resource name
                     propertyData = propertyExtractor(lineParsed)
@@ -580,6 +609,7 @@ def fileAnalyser(file_name, classFile):
                     constraintKeys += propertyData[2]
 
                 elif entityID in classesList:
+                    # print(entityID)
                     # if counterI == 3000:
                     #     pass
                     # else:

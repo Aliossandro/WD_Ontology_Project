@@ -338,9 +338,12 @@ def propertyExtractor(lineParsed):
 
                             for x in i['qualifiers']['P2311']:
                                 if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
-                                    minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
-                                               x['datavalue']['value']['time'] + '</xsd:maxInclusive>\n</rdf:Description>'
-                                    rangeDatatypeList.append(minRange)
+                                    try:
+                                        minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
+                                                   x['datavalue']['value']['time'] + '</xsd:maxInclusive>\n</rdf:Description>'
+                                        rangeDatatypeList.append(minRange)
+                                    except:
+                                        print(x)
                                 else:
                                     print(x['datatype'])
 
@@ -348,10 +351,13 @@ def propertyExtractor(lineParsed):
                         elif 'P2310' in i['qualifiers'].keys():
                             for x in i['qualifiers']['P2310']:
                                 if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
-                                    maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
-                                               x['datavalue']['value'][
-                                                   'time'] + '</xsd:minInclusive>\n</rdf:Description>'
-                                    rangeDatatypeList.append(maxRange)
+                                    try:
+                                        maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
+                                                   x['datavalue']['value'][
+                                                       'time'] + '</xsd:minInclusive>\n</rdf:Description>'
+                                        rangeDatatypeList.append(maxRange)
+                                    except:
+                                        print(x)
                                 else:
                                     print(x['datatype'])
 

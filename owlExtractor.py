@@ -250,7 +250,7 @@ def propertyExtractor(lineParsed):
                     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
                     if 'P2305' in i['qualifiers'].keys():
                         try:
-                            conflictingObjects = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2305']]
+                            conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
 
                             if propertyConflicts[0] == 'P31':
                                 for obj in conflictingObjects:

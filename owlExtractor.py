@@ -249,19 +249,31 @@ def propertyExtractor(lineParsed):
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
                     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
                     if 'P2305' in i['qualifiers'].keys():
-                        try:
-                            conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+                        conflictingObjects = []
+                        for x in i['qualifiers']['P2305']:
+                            if x['snaktype'] == 'value':
+                                try:
+                                    conflictingObjects.append(x['datavalue']['value']['id'])
+                                except:
+                                    print(i['qualifiers']['P2305'], 'H')
+                            elif x['snaktype'] == 'somevalue':
+                                conflictingObjects.append('somevalue')
+                            elif x['snaktype'] == 'novalue':
+                                conflictingObjects.append('novalue')
 
-                            if propertyConflicts[0] == 'P31':
-                                for obj in conflictingObjects:
-                                    obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
-                                    conflictsWith.append(obj)
-                            else:
-                                for obj in conflictingObjects:
-                                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-                                    conflictsWith.append(obj)
-                        except:
-                            print(i['qualifiers']['P2305'])
+                        # try:
+                        #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+
+                        if propertyConflicts[0] == 'P31':
+                            for obj in conflictingObjects:
+                                obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
+                                conflictsWith.append(obj)
+                        else:
+                            for obj in conflictingObjects:
+                                obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                                conflictsWith.append(obj)
+                        # except:
+                        #     print(i['qualifiers']['P2305'])
 
                     else:
                         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="&owl;Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
@@ -337,7 +349,7 @@ def propertyExtractor(lineParsed):
                         if 'P2311' in i['qualifiers'].keys():
 
                             for x in i['qualifiers']['P2311']:
-                                if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
+                                if x['datatype'] == 'time' and x['snaktype'] != 'somevalue':
                                     try:
                                         minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
                                                    x['datavalue']['value']['time'] + '</xsd:maxInclusive>\n</rdf:Description>'
@@ -345,7 +357,7 @@ def propertyExtractor(lineParsed):
                                     except:
                                         print(x)
                                 else:
-                                    print(x['datatype'])
+                                    print(x['datatype'], 'J')
 
                         # min date
                         elif 'P2310' in i['qualifiers'].keys():
@@ -468,83 +480,90 @@ def classExtractor(lineParsed):
         if key == 'P31':
             resourceInstanceList = []
             for i in lineParsed['claims']['P31']:
-                try:
-                    instanceOf = i['mainsnak']['datavalue']['value']['id']
-                    instanceOf = "http://www.wikidata.org/entity/" + instanceOf
-                    resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
-                    resourceInstanceList.append(resourceInstanceOf)
-                except:
-                    print(i, "A")
+                if i['mainsnak']['snaktype'] == 'value':
+                    try:
+                        instanceOf = i['mainsnak']['datavalue']['value']['id']
+                        instanceOf = "http://www.wikidata.org/entity/" + instanceOf
+                        resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
+                        resourceInstanceList.append(resourceInstanceOf)
+                    except:
+                        print(i, "A")
 
         elif key == 'P279':
             resourceSubClassList = []
             for i in lineParsed['claims']['P279']:
-                try:
-                    subClassOf = i['mainsnak']['datavalue']['value']['id']
-                    subClassOf = "http://www.wikidata.org/entity/" + subClassOf
-                    resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
-                    resourceSubClassList.append(resourceSubClassOf)
-                except:
-                    print(i, 'B')
+                if i['mainsnak']['snaktype'] == 'value':
+                    try:
+                        subClassOf = i['mainsnak']['datavalue']['value']['id']
+                        subClassOf = "http://www.wikidata.org/entity/" + subClassOf
+                        resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
+                        resourceSubClassList.append(resourceSubClassOf)
+                    except:
+                        print(i, 'B')
 
         elif key == 'P1709': #equivalent class
             resourceEquivalentClassList = []
             for i in lineParsed['claims']['P1709']:
-                try:
-                    equivalentClass = i['mainsnak']['datavalue']['value']['id']
-                    equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
-                    resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
-                    resourceEquivalentClassList.append(resourceEquivalentClassOf)
-                except:
+                if i['mainsnak']['snaktype'] == 'value':
                     try:
-                        equivalentClass = i['mainsnak']['datavalue']['value']
+                        equivalentClass = i['mainsnak']['datavalue']['value']['id']
+                        equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
                         resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
                         resourceEquivalentClassList.append(resourceEquivalentClassOf)
                     except:
-                        print(i, 'C')
+                        try:
+                            equivalentClass = i['mainsnak']['datavalue']['value']
+                            resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
+                            resourceEquivalentClassList.append(resourceEquivalentClassOf)
+                        except:
+                            print(i, 'C')
 
         elif key == 'P527': #has part
             resourceHasPartList = []
             for i in lineParsed['claims']['P527']:
-                try:
-                    hasPart = i['mainsnak']['datavalue']['value']['id']
-                    hasPart = "http://www.wikidata.org/entity/" + hasPart
-                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
-                    resourceHasPartList.append(resourcehasPart)
-                except:
-                    print(i, 'D')
+                if i['mainsnak']['snaktype'] == 'value':
+                    try:
+                        hasPart = i['mainsnak']['datavalue']['value']['id']
+                        hasPart = "http://www.wikidata.org/entity/" + hasPart
+                        resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+                        resourceHasPartList.append(resourcehasPart)
+                    except:
+                        print(i, 'D')
 
         elif key == 'P361': #is part of
             resourceIsPartList = []
             for i in lineParsed['claims']['P361']:
-                try:
-                    isPart = i['mainsnak']['datavalue']['value']['id']
-                    isPart = "http://www.wikidata.org/entity/" + isPart
-                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
-                    resourceIsPartList.append(resourceIsPart)
-                except:
-                    print(i, 'E')
+                if i['mainsnak']['snaktype'] == 'value':
+                    try:
+                        isPart = i['mainsnak']['datavalue']['value']['id']
+                        isPart = "http://www.wikidata.org/entity/" + isPart
+                        resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+                        resourceIsPartList.append(resourceIsPart)
+                    except:
+                        print(i, 'E')
 
         elif key == 'P2737': #UnionOf
             resourceUnionList = ['<owl:unionOf>']
             for j in lineParsed['claims']['P2737']:
                 for x in j['qualifiers']['P642']:
-                    try:
-                        resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-                ###account for somevalue/no value
-                    except:
-                        print(lineParsed['claims'][key], 'F')
+                    if x['mainsnak']['snaktype'] == 'value':
+                        try:
+                            resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                    ###account for somevalue/no value
+                        except:
+                            print(lineParsed['claims'][key], 'F')
             resourceUnionList.append('</owl:unionOf>')
 
         elif key == 'P2738': #disjointUnionOf
             resourceDisjointUnionList = ['<owl:DisjointUnion>']
             for j in lineParsed['claims']['P2738']:
                 for x in j['qualifiers']['P642']:
-                    try:
-                        resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-                ###account for somevalue/no value
-                    except:
-                        print(x, 'G')
+                    if x['mainsnak']['snaktype'] == 'value':
+                        try:
+                            resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                    ###account for somevalue/no value
+                        except:
+                            print(x, 'G')
             resourceDisjointUnionList.append('</owl:DisjointUnion>')
 
 

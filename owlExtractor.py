@@ -88,6 +88,45 @@ class entityExtractor:
         self.lineParsed = lineParsed
 
 
+def lineProcessor(lineParsed):
+    entitiesAll = []
+    # collect other properties
+    otherKeys = []
+    constraintKeys = []
+
+    entityID = lineParsed['id']
+
+    if re.match('[P][0-9]{1,}', entityID):
+        # print(entityID)
+        # lineParsed = lineParsed['entities'][propertyId]
+        # extract resource name
+        propertyData = propertyExtractor(lineParsed)
+
+        try:
+            propertyDescriptionLine = '\n'.join(propertyData[0])
+            entitiesAll.append(propertyDescriptionLine)
+            # counterP += 1
+        except TypeError:
+            print(propertyData[0])
+
+        otherKeys += propertyData[1]
+        constraintKeys += propertyData[2]
+
+    elif entityID in classesList:
+        # print(entityID)
+        # if counterI == 3000:
+        #     pass
+        # else:
+        # lineParsed = lineParsed['entities']['Q5'] ###temporary
+        classData = classExtractor(lineParsed)
+        try:
+            classDescriptionLine = '\n'.join(classData[0])
+            entitiesAll.append(classDescriptionLine)
+            # counterI += 1
+        except TypeError:
+            print(classData[0])
+
+        otherKeys += classData[1]
 
 def propertyExtractor(lineParsed):
     otherKeys = []
@@ -627,7 +666,6 @@ def fileAnalyser(file_name, classFile):
             #     break
 
             try:
-                line = line.replace('\n', '')
                 lineParsed = ujson.loads(line[:-2])
                 entityID = lineParsed['id']
 
@@ -664,7 +702,44 @@ def fileAnalyser(file_name, classFile):
                     otherKeys += classData[1]
 
             except ValueError:
-                print(line)
+                try:
+                    line = line.replace('\n', '')
+                    lineParsed = ujson.loads(line[:-2])
+                    entityID = lineParsed['id']
+
+                    if re.match('[P][0-9]{1,}', entityID):
+                        # print(entityID)
+                        # lineParsed = lineParsed['entities'][propertyId]
+                        # extract resource name
+                        propertyData = propertyExtractor(lineParsed)
+
+                        try:
+                            propertyDescriptionLine = '\n'.join(propertyData[0])
+                            entitiesAll.append(propertyDescriptionLine)
+                            # counterP += 1
+                        except TypeError:
+                            print(propertyData[0])
+
+                        otherKeys += propertyData[1]
+                        constraintKeys += propertyData[2]
+
+                    elif entityID in classesList:
+                        # print(entityID)
+                        # if counterI == 3000:
+                        #     pass
+                        # else:
+                        # lineParsed = lineParsed['entities']['Q5'] ###temporary
+                        classData = classExtractor(lineParsed)
+                        try:
+                            classDescriptionLine = '\n'.join(classData[0])
+                            entitiesAll.append(classDescriptionLine)
+                            # counterI += 1
+                        except TypeError:
+                            print(classData[0])
+
+                        otherKeys += classData[1]
+                except:
+                    print(line)
 
 
 

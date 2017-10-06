@@ -274,9 +274,9 @@ def propertyExtractor(lineParsed):
                                 try:
                                     classDomain.append(y['datavalue']['value']['id'])
                                 except:
-                                    print(y)
+                                    print(y, 'K')
                     else:
-                        print(i['qualifiers'].keys())
+                        print(i['qualifiers'].keys(), 'P')
                     # classDomain = map(domainLine, classDomain)
                     # constraintList += list(classDomain)
 
@@ -329,7 +329,7 @@ def propertyExtractor(lineParsed):
                                 classOneOf.append(y['datavalue']['value']['id'])
                                 ###it can be 'no value' in snaktype
                             except:
-                                print(i['qualifiers']['P2305'])#some issue here!!!
+                                print(i['qualifiers']['P2305'], 'O')#some issue here!!!
                     classOneOf = map(collectionItems, classOneOf)
                     # try:
                     #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
@@ -366,7 +366,7 @@ def propertyExtractor(lineParsed):
                                     minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + x['datavalue']['value']['amount'] + '</xsd:minInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(minRange)
                                 else:
-                                    print(x['datatype'])
+                                    print(x['datatype'], 'N')
 
                         #max value
                         elif 'P2312' in i['qualifiers'].keys():
@@ -376,7 +376,7 @@ def propertyExtractor(lineParsed):
                                                x['datavalue']['value']['amount'] + '</xsd:maxInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(maxRange)
                                 else:
-                                    print(x['datatype'])
+                                    print(x['datatype'], 'M')
 
                         closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
                         rangeDatatypeList.append(closure)
@@ -410,7 +410,7 @@ def propertyExtractor(lineParsed):
                                     except:
                                         print(x)
                                 else:
-                                    print(x['datatype'])
+                                    print(x['datatype'], 'L')
 
                         closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
                         rangeDatatypeList.append(closure)

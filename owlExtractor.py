@@ -290,7 +290,7 @@ def propertyExtractor(lineParsed):
                                 classOneOf.append(y['datavalue']['value']['id'])
                                 ###it can be 'no value' in snaktype
                             except:
-                                print(i['qualifiers']['P2305'])
+                                print(i['qualifiers']['P2305'])#some issue here!!!
                     classOneOf = map(collectionItems, classOneOf)
                     # try:
                     #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
@@ -508,12 +508,12 @@ def classExtractor(lineParsed):
                     try:
                         equivalentClass = i['mainsnak']['datavalue']['value']['id']
                         equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
-                        resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
+                        resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
                         resourceEquivalentClassList.append(resourceEquivalentClassOf)
                     except:
                         try:
                             equivalentClass = i['mainsnak']['datavalue']['value']
-                            resourceEquivalentClassOf = '<rdfs:subClassOf rdf:resource="' + equivalentClass + '"/>'
+                            resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
                             resourceEquivalentClassList.append(resourceEquivalentClassOf)
                         except:
                             print(i, 'C')
@@ -583,7 +583,18 @@ def classExtractor(lineParsed):
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)
         classData.append(resourceEquivalentClassOf)
-
+    if 'resourceHasPartList' in locals():
+        resourceHasPartList = '\n'.join(resourceHasPartList)
+        classData.append(resourceHasPartList)
+    if 'resourceIsPartList' in locals():
+        resourceIsPartList = '\n'.join(resourceIsPartList)
+        classData.append(resourceIsPartList)
+    if 'resourceUnionList' in locals():
+        resourceUnionList = '\n'.join(resourceUnionList)
+        classData.append(resourceUnionList)
+    if 'resourceDisjointUnionList' in locals():
+        resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
+        classData.append(resourceDisjointUnionList)
 
     classData.append(classDeclarationClosure)
 
@@ -616,6 +627,7 @@ def fileAnalyser(file_name, classFile):
             #     break
 
             try:
+                line = line.replace('\n', '')
                 lineParsed = ujson.loads(line[:-2])
                 entityID = lineParsed['id']
 

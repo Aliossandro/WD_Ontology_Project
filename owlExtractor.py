@@ -547,7 +547,7 @@ def classExtractor(lineParsed):
             for j in lineParsed['claims']['P2737']:
                 if 'qualifiers' in j.keys():
                     for x in j['qualifiers']['P642']:
-                        if x['mainsnak']['snaktype'] == 'value':
+                        if x['snaktype'] == 'value':
                             try:
                                 resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
                         ###account for somevalue/no value
@@ -559,7 +559,7 @@ def classExtractor(lineParsed):
             resourceDisjointUnionList = ['<owl:DisjointUnion>']
             for j in lineParsed['claims']['P2738']:
                 for x in j['qualifiers']['P642']:
-                    if x['mainsnak']['snaktype'] == 'value':
+                    if x['snaktype'] == 'value':
                         try:
                             resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
                     ###account for somevalue/no value

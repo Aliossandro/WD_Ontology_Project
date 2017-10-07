@@ -315,7 +315,7 @@ def propertyExtractor(lineParsed):
                 #         #     print(i['qualifiers']['P2305'])
                 #
                 #     else:
-                #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="&owl;Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
                 #         conflictsWith.append(obj)
 
 
@@ -329,7 +329,7 @@ def propertyExtractor(lineParsed):
                                 classOneOf.append(y['datavalue']['value']['id'])
                                 ###it can be 'no value' in snaktype
                             except:
-                                print(i['qualifiers']['P2305'], 'O')#some issue here!!!
+                                print(y, 'O')#some issue here!!!
                     classOneOf = map(collectionItems, classOneOf)
                     # try:
                     #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
@@ -476,11 +476,11 @@ def propertyExtractor(lineParsed):
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
     if inverseFunctional:
-        propertyDescription.append('<rdf:type rdf:resource="&owl;InverseFunctionalProperty" />')
+        propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
     if functional:
-        propertyDescription.append('<rdf:type rdf:resource="&owl;FunctionalProperty" />')
+        propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty" />')
     if symmetric:
-        propertyDescription.append('<rdf:type rdf:resource="&owl;SymmetricProperty" />')
+        propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty" />')
     if 'domainInfo' in locals():
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():

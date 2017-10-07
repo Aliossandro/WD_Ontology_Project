@@ -39,20 +39,22 @@ def classExtractor(file_name):
                     entityID = lineParsed['id']
                     classesList.append(entityID)
                     for i in lineParsed['claims']['P279']:
-                        try:
-                            superClass = i['mainsnak']['datavalue']['value']['id']
-                            classesList.append(superClass)
-                            counter += 1
-                        except:
-                            print(i)
+                        if 'qualifiers' not in i.keys():
+                            try:
+                                superClass = i['mainsnak']['datavalue']['value']['id']
+                                classesList.append(superClass)
+                                counter += 1
+                            except:
+                                print(i)
 
                 elif 'P31' in lineParsed['claims'].keys():
                     for i in lineParsed['claims']['P31']:
-                        try:
-                            superClass = i['mainsnak']['datavalue']['value']['id']
-                            classesP31.append(superClass)
-                        except:
-                            print(i)
+                        if 'qualifiers' not in i.keys():
+                            try:
+                                superClass = i['mainsnak']['datavalue']['value']['id']
+                                classesP31.append(superClass)
+                            except:
+                                print(i)
             except:
                 print(line)
 
@@ -66,8 +68,8 @@ def main():
     classP31 = set(classesAll[1])
 
     #write files
-    writeClasslist(classP279, 'classesP279.txt')
-    writeClasslist(classP31, 'classesP31.txt')
+    writeClasslist(classP279, 'classesP279_nq.txt')
+    writeClasslist(classP31, 'classesP31_nq.txt')
 
 
 if __name__ == "__main__":

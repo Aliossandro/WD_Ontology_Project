@@ -285,38 +285,38 @@ def propertyExtractor(lineParsed):
 
 
                 # Q21502838 "conflicts-with" constraint
-                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
-                    propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
-                    if 'P2305' in i['qualifiers'].keys():
-                        conflictingObjects = []
-                        for x in i['qualifiers']['P2305']:
-                            if x['snaktype'] == 'value':
-                                try:
-                                    conflictingObjects.append(x['datavalue']['value']['id'])
-                                except:
-                                    print(i['qualifiers']['P2305'], 'H')
-                            elif x['snaktype'] == 'somevalue':
-                                conflictingObjects.append('somevalue')
-                            elif x['snaktype'] == 'novalue':
-                                conflictingObjects.append('novalue')
-
-                        # try:
-                        #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
-
-                        if propertyConflicts[0] == 'P31':
-                            for obj in conflictingObjects:
-                                obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
-                                conflictsWith.append(obj)
-                        else:
-                            for obj in conflictingObjects:
-                                obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-                                conflictsWith.append(obj)
-                        # except:
-                        #     print(i['qualifiers']['P2305'])
-
-                    else:
-                        obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="&owl;Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-                        conflictsWith.append(obj)
+                # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+                #     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
+                #     if 'P2305' in i['qualifiers'].keys():
+                #         conflictingObjects = []
+                #         for x in i['qualifiers']['P2305']:
+                #             if x['snaktype'] == 'value':
+                #                 try:
+                #                     conflictingObjects.append(x['datavalue']['value']['id'])
+                #                 except:
+                #                     print(i['qualifiers']['P2305'], 'H')
+                #             elif x['snaktype'] == 'somevalue':
+                #                 conflictingObjects.append('somevalue')
+                #             elif x['snaktype'] == 'novalue':
+                #                 conflictingObjects.append('novalue')
+                #
+                #         # try:
+                #         #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+                #
+                #         if propertyConflicts[0] == 'P31':
+                #             for obj in conflictingObjects:
+                #                 obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
+                #                 conflictsWith.append(obj)
+                #         else:
+                #             for obj in conflictingObjects:
+                #                 obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                #                 conflictsWith.append(obj)
+                #         # except:
+                #         #     print(i['qualifiers']['P2305'])
+                #
+                #     else:
+                #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="&owl;Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                #         conflictsWith.append(obj)
 
 
 
@@ -422,9 +422,9 @@ def propertyExtractor(lineParsed):
                     if 'classOneOf' in locals():
                         oneOfCollection = '\n'.join(list(classOneOf))
                         oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
-                        rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</own:Class>\n</rdfs:range>'
+                        rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
                     else:
-                        rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n</owl:unionOf>\n</own:Class>\n</rdfs:range>'
+                        rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
                 else:
                     rangeInfo = list(map(rangeLine, classRange))
                     rangeInfo = '\n'.join(list(rangeInfo))
@@ -438,17 +438,17 @@ def propertyExtractor(lineParsed):
                     # if classOneOf:
                     #     oneOfCollection = '\n'.join(list(classOneOf))
                     #     oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
-                    #     rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</own:Class>\n</rdfs:range>'
+                    #     rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
                     # else:
-                    domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</own:Class>\n</rdfs:domain>'
+                    domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
                     if conflictsWith:
                         conflictList = '\n'.join(list(conflictsWith))
-                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</own:Class>\n'+ conflictList +'\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
+                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n'+ conflictList +'\n</owl:intersectionOf>\n</owl:Class>\n</rdfs:domain>'
 
                 else:
                     if conflictsWith:
                         conflictList = '\n'.join(list(conflictsWith))
-                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class rdf:about="http://www.wikidata.org/entity/' + classDomain[0] + '"/>\n' + conflictList + '\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
+                        domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class rdf:about="http://www.wikidata.org/entity/' + classDomain[0] + '"/>\n' + conflictList + '\n</owl:intersectionOf>\n</owl:Class>\n</rdfs:domain>'
 
                     else:
                         domainInfo = list(map(domainLine, classDomain))
@@ -456,7 +456,7 @@ def propertyExtractor(lineParsed):
             else:
                 if conflictsWith:
                     conflictList =  '\n'.join(list(conflictsWith))
-                    domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n' + conflictList + '\n</owl:intersectionOf>\n</own:Class>\n</rdfs:domain>'
+                    domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n' + conflictList + '\n</owl:intersectionOf>\n</owl:Class>\n</rdfs:domain>'
 
         else:
             otherKeys.append(key)

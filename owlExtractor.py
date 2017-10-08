@@ -154,7 +154,11 @@ def propertyExtractor(lineParsed):
     resourceType = '<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>'
     resourceType2 = '<rdf:type rdf:resource="http://wikiba.se/ontology-beta#Property"/>'
     try:
-        resourceLabel = '<rdfs:label xml:lang="en">' + lineParsed['labels']['en']['value'] + '</rdfs:label>'
+        label = lineParsed['labels']['en']['value']
+        label = label.replace('&', ' and ')
+        label = label.replace('<', ' ')
+        label = label.replace('>', ' ')
+        resourceLabel = '<rdfs:label xml:lang="en">' + label + '</rdfs:label>'
     except KeyError:
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 
@@ -511,7 +515,11 @@ def classExtractor(lineParsed):
     classDeclarationClosure = '</owl:Class>'
 
     try:
-        resourceLabel = '<rdfs:label xml:lang="en">' + lineParsed['labels']['en']['value'] + '</rdfs:label>'
+        label = lineParsed['labels']['en']['value']
+        label = label.replace('&', ' and ')
+        label = label.replace('<', ' ')
+        label = label.replace('>', ' ')
+        resourceLabel = '<rdfs:label xml:lang="en">' + label + '</rdfs:label>'
     except KeyError:
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 

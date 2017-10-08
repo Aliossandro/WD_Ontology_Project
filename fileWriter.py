@@ -28,12 +28,12 @@ class OntologyFile:
         # self.statTripleCount = 0
 
         # Make header:
-        self.output.write('### Wikidata OWL/RDF Ontology\n')
+        #self.output.write('### Wikidata OWL/RDF Ontology\n')
         # self.output.write('# Filter settings (' + self.filterName + ')\n')
         # for infostr in self.dataFilter.getFilterSettingsInfo():
         #     self.output.write('# - ' + infostr + '\n')
 
-        self.output.write('# Generated on ' + str(datetime.datetime.now()) + '\n###\n\n')
+        #self.output.write('# Generated on ' + str(datetime.datetime.now()) + '\n###\n\n')
 
         self.output.write('<?xml version="1.0" encoding="UTF-8"?>\n')
         self.output.write('<rdf:RDF\n')

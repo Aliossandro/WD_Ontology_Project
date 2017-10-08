@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+###fix & and <> in descriptions
+### collectionof and rdf:Class about instead of resource
+
 import ujson
 import re
 import bz2
@@ -52,7 +55,7 @@ def rangeMultiple(resource):
     else:
         resourceUri = resource
 
-    rangeOutput = '<owl:Class rdf:resource="' + resourceUri + '"/>'
+    rangeOutput = '<owl:Class rdf:about="' + resourceUri + '"/>'
 
     return rangeOutput
 
@@ -156,8 +159,11 @@ def propertyExtractor(lineParsed):
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 
     try:
-        resourceDescription = '<schema:description xml:lang="en">' + lineParsed['descriptions']['en'][
-            'value'] + '</schema:description>'
+        description = lineParsed['descriptions']['en']['value']
+        description = description.replace('&', ' and ')
+        description = description.replace('<', ' ')
+        description = description.replace('>', ' ')
+        resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
     except KeyError:
         resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
 
@@ -324,7 +330,7 @@ def propertyExtractor(lineParsed):
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
                     classOneOf = []
                     for y in i['qualifiers']['P2305']:
-                        if y['snaktype'] is not 'somevalue' or y['snaktype'] is not 'novalue':
+                        if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
                             try:
                                 classOneOf.append(y['datavalue']['value']['id'])
                                 ###it can be 'no value' in snaktype
@@ -343,10 +349,12 @@ def propertyExtractor(lineParsed):
                 # Q21502410; inverse functional property
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
                     inverseFunctional = True
+                    print('inverse Functional')
 
                 # Q19474404; functional property
-                elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
                     functional = True
+                    print('Functional')
 
                 # Q21510862 symmetric constraint
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510862':
@@ -508,8 +516,11 @@ def classExtractor(lineParsed):
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 
     try:
-        resourceDescription = '<schema:description xml:lang="en">' + lineParsed['descriptions']['en'][
-            'value'] + '</schema:description>'
+        description = lineParsed['descriptions']['en']['value']
+        description = description.replace('&', ' and ')
+        description = description.replace('<', ' ')
+        description = description.replace('>', ' ')
+        resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
     except KeyError:
         resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
 

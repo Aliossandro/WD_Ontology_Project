@@ -177,10 +177,20 @@ def propertyExtractor(lineParsed):
         if key == 'P31':
             resourceInstanceList = []
             for i in lineParsed['claims']['P31']:
-                instanceOf = i['mainsnak']['datavalue']['value']['id']
-                instanceOf = "http://www.wikidata.org/entity/" + instanceOf
-                resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
-                resourceInstanceList.append(resourceInstanceOf)
+                if i['mainsnak']['datavalue']['value']['id'] == 'Q18647515': #Transitive property
+                    resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>'
+                    resourceInstanceList.append(resourceInstanceOf)
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647519': #asymmetric property
+                    resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>'
+                    resourceInstanceList.append(resourceInstanceOf)
+                elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647521': #reflexive property
+                    resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ReflexiveProperty"/>'
+                    resourceInstanceList.append(resourceInstanceOf)
+                else:
+                    instanceOf = i['mainsnak']['datavalue']['value']['id']
+                    instanceOf = "http://www.wikidata.org/entity/" + instanceOf
+                    resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
+                    resourceInstanceList.append(resourceInstanceOf)
 
         elif key == 'P1659':
             resourceSeeList = []

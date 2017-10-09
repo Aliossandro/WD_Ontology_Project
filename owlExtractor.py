@@ -664,8 +664,7 @@ def classExtractor(lineParsed, hasKey):
         for propertyId in hasKey:
             propertyKey = '<owl:DatatypeProperty rdf:about="http://www.wikidata.org/entity/' + propertyId + '" />'
             classData.append(propertyKey)
-        classData.append('/owl:hasKey')
-            
+        classData.append('</owl:hasKey>')
     if 'resourceHasPartList' in locals():
         resourceHasPartList = '\n'.join(resourceHasPartList)
         classData.append(resourceHasPartList)
@@ -759,6 +758,7 @@ def fileAnalyser(file_name, classFile):
         f.seek(0)
         hasKeyTuples = propertyData[3]
         hasKeyList = [item[1] for item in hasKeyTuples]
+        print('start with items')
         for line in f:
             try:
                 lineParsed = ujson.loads(line[:-2])

@@ -96,6 +96,7 @@ def lineProcessor(lineParsed):
     # collect other properties
     otherKeys = []
     constraintKeys = []
+    hasKeyList =[]
 
     entityID = lineParsed['id']
 
@@ -138,6 +139,7 @@ def propertyExtractor(lineParsed):
     inverseFunctional = False
     symmetric = False
     conflictsWith = []
+    hasKeyList = []
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -151,7 +153,7 @@ def propertyExtractor(lineParsed):
 
     propertyDeclaration = '<owl:' + propertyType + ' rdf:about="' + resourceName + '">'
     propertyDeclarationClosure = '</owl:' + propertyType + '>'
-    resourceType = '<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>'
+    # resourceType = '<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>'
     resourceType2 = '<rdf:type rdf:resource="http://wikiba.se/ontology-beta#Property"/>'
     try:
         label = lineParsed['labels']['en']['value']
@@ -484,7 +486,7 @@ def propertyExtractor(lineParsed):
             otherKeys.append(key)
 
     # constraintList += list(domainInfo)
-    propertyDescription = [propertyDeclaration, resourceLabel, resourceDescription, resourceType, resourceType2]
+    propertyDescription = [propertyDeclaration, resourceLabel, resourceDescription, resourceType2]
     if 'resourceInstanceList' in locals():
         resourceInstanceOf = '\n'.join(resourceInstanceList)
         propertyDescription.append(resourceInstanceOf)
@@ -498,7 +500,12 @@ def propertyExtractor(lineParsed):
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
     if inverseFunctional:
-        propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
+        if propertyType == "DatatypeProperty":
+            if 'classDomain' in locals():
+                for item in classDomain:
+                    hasKeyList.append((lineParsed['id'], item))
+        else:
+            propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
     if functional:
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty" />')
     if symmetric:
@@ -510,9 +517,9 @@ def propertyExtractor(lineParsed):
 
     propertyDescription.append(propertyDeclarationClosure)
 
-    return propertyDescription, otherKeys, constraintKeys
+    return propertyDescription, otherKeys, constraintKeys, hasKeyList
 
-def classExtractor(lineParsed):
+def classExtractor(lineParsed, hasKey):
     otherKeys = []
 
     try:
@@ -651,6 +658,14 @@ def classExtractor(lineParsed):
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)
         classData.append(resourceEquivalentClassOf)
+    if type(hasKey) is 'list':
+        hasKeyObject = '<owl:hasKey rdf:parseType:"Collection">'
+        classData.append(hasKeyObject)
+        for propertyId in hasKey:
+            propertyKey = '<owl:DatatypeProperty rdf:about="http://www.wikidata.org/entity/' + propertyId + '" />'
+            classData.append(propertyKey)
+        classData.append('/owl:hasKey')
+            
     if 'resourceHasPartList' in locals():
         resourceHasPartList = '\n'.join(resourceHasPartList)
         classData.append(resourceHasPartList)
@@ -714,21 +729,6 @@ def fileAnalyser(file_name, classFile):
                     otherKeys += propertyData[1]
                     constraintKeys += propertyData[2]
 
-                elif entityID in classesList:
-                    # print(entityID)
-                    # if counterI == 3000:
-                    #     pass
-                    # else:
-                    # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                    classData = classExtractor(lineParsed)
-                    try:
-                        classDescriptionLine = '\n'.join(classData[0])
-                        entitiesAll.append(classDescriptionLine)
-                        # counterI += 1
-                    except TypeError:
-                        print(classData[0])
-
-                    otherKeys += classData[1]
 
             except ValueError:
                 try:
@@ -752,7 +752,45 @@ def fileAnalyser(file_name, classFile):
                         otherKeys += propertyData[1]
                         constraintKeys += propertyData[2]
 
-                    elif entityID in classesList:
+                except:
+                    print(line)
+
+
+        f.seek(0)
+        hasKeyTuples = propertyData[3]
+        hasKeyList = [item[1] for item in hasKeyTuples]
+        for line in f:
+            try:
+                lineParsed = ujson.loads(line[:-2])
+                entityID = lineParsed['id']
+
+                if entityID in classesList:
+                    # print(entityID)
+                    # if counterI == 3000:
+                    #     pass
+                    # else:
+                    # lineParsed = lineParsed['entities']['Q5'] ###temporary
+                    if entityID in hasKeyList:
+                        propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
+                        classData = classExtractor(lineParsed, propertyKeyList)
+                    else:
+                        classData = classExtractor(lineParsed, 0)
+                    try:
+                        classDescriptionLine = '\n'.join(classData[0])
+                        entitiesAll.append(classDescriptionLine)
+                        # counterI += 1
+                    except TypeError:
+                        print(classData[0])
+
+                    otherKeys += classData[1]
+
+            except ValueError:
+                try:
+                    line = line.replace('\n', '')
+                    lineParsed = ujson.loads(line[:-2])
+                    entityID = lineParsed['id']
+
+                    if entityID in classesList:
                         # print(entityID)
                         # if counterI == 3000:
                         #     pass
@@ -769,9 +807,6 @@ def fileAnalyser(file_name, classFile):
                         otherKeys += classData[1]
                 except:
                     print(line)
-
-
-
 
         otherKeys = set(otherKeys)
         constraintKeys = set(constraintKeys)

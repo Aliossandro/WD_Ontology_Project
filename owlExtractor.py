@@ -707,7 +707,7 @@ def fileAnalyser(file_name, classFile):
             #     return entitiesAll, otherKeys, constraintKeys
             #     break
 
-            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', line)
+            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
             if not matcho:
                 try:
                     print(line[0:30])
@@ -765,7 +765,7 @@ def fileAnalyser(file_name, classFile):
         print('start with items')
         print(hasKeyList)
         for line in f:
-            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', line)
+            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
             if matcho:
                 sea = re.search(r'[Qq][0-9]{1,}', matcho.group(0))
                 if sea.group(0) in classesList:

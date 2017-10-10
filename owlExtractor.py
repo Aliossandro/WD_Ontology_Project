@@ -712,7 +712,6 @@ def fileAnalyser(file_name, classFile):
                 try:
                     print(line[0:30])
                     lineParsed = ujson.loads(line[:-2])
-                    print(lineParsed)
 
                 # entityID = lineParsed['id']
 

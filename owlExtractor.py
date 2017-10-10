@@ -804,9 +804,9 @@ def fileAnalyser(file_name, classFile):
 
 
         f.seek(0)
-        hasKeyTuples = propertyData[3]
-        hasKeyList = [item[1] for item in hasKeyTuples]
+        hasKeyList = [item[1] for item in propertyData[3]]
         print('start with items')
+        print(propertyData[3])
         print(hasKeyList)
         for line in f:
             matcho = re.search(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))

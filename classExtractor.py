@@ -17,6 +17,7 @@ def writeClasslist(classList, file_name):
 def classExtractor(file_name):
     classesList = []
     classesP31 = []
+    superClasses = []
     counter = 0
 
     # open dumps
@@ -35,19 +36,23 @@ def classExtractor(file_name):
                     classesList = []
                     classesP31 = []
 
-                if 'P279' in lineParsed['claims'].keys():
+                # if 'P279' in lineParsed['claims'].keys():
+                try:
                     entityID = lineParsed['id']
                     classesList.append(entityID)
                     for i in lineParsed['claims']['P279']:
                         if 'qualifiers' not in i.keys():
                             try:
                                 superClass = i['mainsnak']['datavalue']['value']['id']
-                                classesList.append(superClass)
+                                superClasses.append(superClass)
                                 counter += 1
                             except:
                                 print(i)
+                except:
+                    print('no class')
 
-                elif 'P31' in lineParsed['claims'].keys():
+                # elif 'P31' in lineParsed['claims'].keys():
+                try:
                     for i in lineParsed['claims']['P31']:
                         if 'qualifiers' not in i.keys():
                             try:
@@ -55,21 +60,25 @@ def classExtractor(file_name):
                                 classesP31.append(superClass)
                             except:
                                 print(i)
+                except:
+                    print('no class')
             except:
                 print(line)
 
-    return [classesList, classesP31]
+    return [superClasses, classesList, classesP31]
 
 
 def main():
     file_name = sys.argv[1]
     classesAll = classExtractor(file_name)
-    classP279 = set(classesAll[0])
-    classP31 = set(classesAll[1])
+    classP279 = set(classesAll[1])
+    classP31 = set(classesAll[2])
+    superclasses = set(classesAll[0])
 
     #write files
-    writeClasslist(classP279, 'classesP279_nq.txt')
-    writeClasslist(classP31, 'classesP31_nq.txt')
+    writeClasslist(classP279, 'classesP279_new.txt')
+    writeClasslist(classP31, 'classesP31_new.txt')
+    writeClasslist(superclasses, 'superclasses_new.txt')
 
 
 if __name__ == "__main__":

@@ -365,12 +365,10 @@ def propertyExtractor(lineParsed):
                 # Q21502410; inverse functional property
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
                     inverseFunctional = True
-                    print('inverse Functional')
 
                 # Q19474404; functional property
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
                     functional = True
-                    print('Functional')
 
                 # Q21510862 symmetric constraint
                 elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510862':
@@ -504,6 +502,7 @@ def propertyExtractor(lineParsed):
             if 'classDomain' in locals():
                 for item in classDomain:
                     hasKeyList.append((lineParsed['id'], item))
+                    print((lineParsed['id'], item))
         else:
             propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
     if functional:
@@ -708,11 +707,16 @@ def fileAnalyser(file_name, classFile):
             #     return entitiesAll, otherKeys, constraintKeys
             #     break
 
-            try:
-                lineParsed = ujson.loads(line[:-2])
-                entityID = lineParsed['id']
+            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', line)
+            if not matcho:
+                try:
+                    print(line[0:30])
+                    lineParsed = ujson.loads(line[:-2])
 
-                if re.match('[P][0-9]{1,}', entityID):
+
+                # entityID = lineParsed['id']
+
+                # if re.match('[P][0-9]{1,}', entityID):
                     # print(entityID)
                     # lineParsed = lineParsed['entities'][propertyId]
                     # extract resource name
@@ -729,84 +733,90 @@ def fileAnalyser(file_name, classFile):
                     constraintKeys += propertyData[2]
 
 
-            except ValueError:
-                try:
-                    line = line.replace('\n', '')
-                    lineParsed = ujson.loads(line[:-2])
-                    entityID = lineParsed['id']
+                except ValueError:
+                    try:
+                        line = line.replace('\n', '')
+                        lineParsed = ujson.loads(line[:-2])
+                        entityID = lineParsed['id']
 
-                    if re.match('[P][0-9]{1,}', entityID):
-                        # print(entityID)
-                        # lineParsed = lineParsed['entities'][propertyId]
-                        # extract resource name
-                        propertyData = propertyExtractor(lineParsed)
+                        if re.match('[P][0-9]{1,}', entityID):
+                            # print(entityID)
+                            # lineParsed = lineParsed['entities'][propertyId]
+                            # extract resource name
+                            propertyData = propertyExtractor(lineParsed)
 
-                        try:
-                            propertyDescriptionLine = '\n'.join(propertyData[0])
-                            entitiesAll.append(propertyDescriptionLine)
-                            # counterP += 1
-                        except TypeError:
-                            print(propertyData[0])
+                            try:
+                                propertyDescriptionLine = '\n'.join(propertyData[0])
+                                entitiesAll.append(propertyDescriptionLine)
+                                # counterP += 1
+                            except TypeError:
+                                print(propertyData[0])
 
-                        otherKeys += propertyData[1]
-                        constraintKeys += propertyData[2]
+                            otherKeys += propertyData[1]
+                            constraintKeys += propertyData[2]
 
-                except:
-                    print(line)
+                    except:
+                        print(line)
 
 
         f.seek(0)
         hasKeyTuples = propertyData[3]
         hasKeyList = [item[1] for item in hasKeyTuples]
         print('start with items')
+        print(hasKeyList)
         for line in f:
-            try:
-                lineParsed = ujson.loads(line[:-2])
-                entityID = lineParsed['id']
+            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', line)
+            if matcho:
+                sea = re.search(r'[Qq][0-9]{1,}', matcho.group(0))
+                if sea.group(0) in classesList:
 
-                if entityID in classesList:
-                    # print(entityID)
-                    # if counterI == 3000:
-                    #     pass
-                    # else:
-                    # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                    if entityID in hasKeyList:
-                        propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
-                        classData = classExtractor(lineParsed, propertyKeyList)
-                    else:
-                        classData = classExtractor(lineParsed, 0)
                     try:
-                        classDescriptionLine = '\n'.join(classData[0])
-                        entitiesAll.append(classDescriptionLine)
-                        # counterI += 1
-                    except TypeError:
-                        print(classData[0])
+                        lineParsed = ujson.loads(line[:-2])
+                        entityID = lineParsed['id']
 
-                    otherKeys += classData[1]
+                        if entityID in classesList:
+                            # print(entityID)
+                            # if counterI == 3000:
+                            #     pass
+                            # else:
+                            # lineParsed = lineParsed['entities']['Q5'] ###temporary
+                            if entityID in hasKeyList:
+                                propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
+                                classData = classExtractor(lineParsed, propertyKeyList)
+                            else:
+                                classData = classExtractor(lineParsed, 0)
+                            try:
+                                classDescriptionLine = '\n'.join(classData[0])
+                                entitiesAll.append(classDescriptionLine)
+                                # counterI += 1
+                            except TypeError:
+                                print(classData[0])
 
-            except ValueError:
-                try:
-                    line = line.replace('\n', '')
-                    lineParsed = ujson.loads(line[:-2])
-                    entityID = lineParsed['id']
+                            otherKeys += classData[1]
 
-                    if entityID in classesList:
-                        # print(entityID)
-                        # if counterI == 3000:
-                        #     pass
-                        # else:
-                        # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                        classData = classExtractor(lineParsed)
+                    except ValueError:
                         try:
-                            classDescriptionLine = '\n'.join(classData[0])
-                            entitiesAll.append(classDescriptionLine)
-                            # counterI += 1
-                        except TypeError:
-                            print(classData[0])
+                            line = line.replace('\n', '')
+                            lineParsed = ujson.loads(line[:-2])
+                            entityID = lineParsed['id']
 
-                        otherKeys += classData[1]
-                except:
-                    print(line)
+                            if entityID in classesList:
+                                # print(entityID)
+                                # if counterI == 3000:
+                                #     pass
+                                # else:
+                                # lineParsed = lineParsed['entities']['Q5'] ###temporary
+                                classData = classExtractor(lineParsed)
+                                try:
+                                    classDescriptionLine = '\n'.join(classData[0])
+                                    entitiesAll.append(classDescriptionLine)
+                                    # counterI += 1
+                                except TypeError:
+                                    print(classData[0])
+
+                                otherKeys += classData[1]
+                        except:
+                            print(line)
 
         otherKeys = set(otherKeys)
         constraintKeys = set(constraintKeys)

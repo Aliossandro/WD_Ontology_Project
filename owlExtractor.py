@@ -597,102 +597,139 @@ def classExtractor(lineParsed, hasKey):
 
     # analyse claims
     # print(lineParsed['claims'].keys())
-    for key in lineParsed['claims']:
-        if key == 'P31':
-            resourceInstanceList = []
-            for i in lineParsed['claims']['P31']:
-                if i['mainsnak']['snaktype'] == 'value':
-                    try:
-                        instanceOf = i['mainsnak']['datavalue']['value']['id']
-                        instanceOf = "http://www.wikidata.org/entity/" + instanceOf
-                        resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
-                        resourceInstanceList.append(resourceInstanceOf)
-                    except:
-                        print(i, "A")
+    if 'P31' in lineParsed['claims'].keys():
+        resourceInstanceList = []
+    if 'P279' in lineParsed['claims'].keys():
+        resourceSubClassList = []
+    if 'P1709' in lineParsed['claims'].keys():
+        resourceEquivalentClassList = []
+    if 'P527' in lineParsed['claims'].keys():
+        resourceHasPartList = []
+    if 'P361' in lineParsed['claims'].keys():
+        resourceIsPartList = []
+    if 'P2737' in lineParsed['claims'].keys():
+        resourceUnionList = []
+    if 'P2738' in lineParsed['claims'].keys():
+        resourceDisjointUnionList = []
 
-        elif key == 'P279':
-            resourceSubClassList = []
-            for i in lineParsed['claims']['P279']:
-                if i['mainsnak']['snaktype'] == 'value':
-                    try:
-                        subClassOf = i['mainsnak']['datavalue']['value']['id']
-                        subClassOf = "http://www.wikidata.org/entity/" + subClassOf
-                        resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
-                        resourceSubClassList.append(resourceSubClassOf)
-                    except:
-                        print(i, 'B')
+    # for key in lineParsed['claims']:
 
-        elif key == 'P1709': #equivalent class
-            resourceEquivalentClassList = []
-            for i in lineParsed['claims']['P1709']:
-                if i['mainsnak']['snaktype'] == 'value':
+        # if key == 'P31':
+        #     resourceInstanceList = []
+    try:
+        for i in lineParsed['claims']['P31']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    instanceOf = i['mainsnak']['datavalue']['value']['id']
+                    instanceOf = "http://www.wikidata.org/entity/" + instanceOf
+                    resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
+                    resourceInstanceList.append(resourceInstanceOf)
+                except:
+                    print(i, "A")
+    except:
+        print('No P31')
+
+        # elif key == 'P279':
+        #     resourceSubClassList = []
+
+    try:
+        for i in lineParsed['claims']['P279']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    subClassOf = i['mainsnak']['datavalue']['value']['id']
+                    subClassOf = "http://www.wikidata.org/entity/" + subClassOf
+                    resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
+                    resourceSubClassList.append(resourceSubClassOf)
+                except:
+                    print(i, 'B')
+    except:
+        print('No P279')
+
+        # elif key == 'P1709': #equivalent class
+        #     resourceEquivalentClassList = []
+    try:
+        for i in lineParsed['claims']['P1709']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    equivalentClass = i['mainsnak']['datavalue']['value']['id']
+                    equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
+                    resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
+                    resourceEquivalentClassList.append(resourceEquivalentClassOf)
+                except:
                     try:
-                        equivalentClass = i['mainsnak']['datavalue']['value']['id']
-                        equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
+                        equivalentClass = i['mainsnak']['datavalue']['value']
                         resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
                         resourceEquivalentClassList.append(resourceEquivalentClassOf)
                     except:
+                        print(i, 'C')
+    except:
+        print('No P1709')
+
+        # elif key == 'P527': #has part
+        #     resourceHasPartList = []
+    try:
+        for i in lineParsed['claims']['P527']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    hasPart = i['mainsnak']['datavalue']['value']['id']
+                    hasPart = "http://www.wikidata.org/entity/" + hasPart
+                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+                    resourceHasPartList.append(resourcehasPart)
+                except:
+                    print(i, 'D')
+    except:
+        print('No P527')
+
+        # elif key == 'P361': #is part of
+        #     resourceIsPartList = []
+    try:
+        for i in lineParsed['claims']['P361']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    isPart = i['mainsnak']['datavalue']['value']['id']
+                    isPart = "http://www.wikidata.org/entity/" + isPart
+                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+                    resourceIsPartList.append(resourceIsPart)
+                except:
+                    print(i, 'E')
+    except:
+        print('No P361')
+
+        # elif key == 'P2737': #UnionOf
+        #     resourceUnionList = ['<owl:unionOf>']
+    try:
+        for j in lineParsed['claims']['P2737']:
+            if 'qualifiers' in j.keys():
+                for x in j['qualifiers']['P642']:
+                    if x['snaktype'] == 'value':
                         try:
-                            equivalentClass = i['mainsnak']['datavalue']['value']
-                            resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
-                            resourceEquivalentClassList.append(resourceEquivalentClassOf)
+                            resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                    ###account for somevalue/no value
                         except:
-                            print(i, 'C')
+                            print(lineParsed['claims'][key], 'F')
+        resourceUnionList.append('</owl:unionOf>')
+    except:
+        print('No P2737')
 
-        elif key == 'P527': #has part
-            resourceHasPartList = []
-            for i in lineParsed['claims']['P527']:
-                if i['mainsnak']['snaktype'] == 'value':
-                    try:
-                        hasPart = i['mainsnak']['datavalue']['value']['id']
-                        hasPart = "http://www.wikidata.org/entity/" + hasPart
-                        resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
-                        resourceHasPartList.append(resourcehasPart)
-                    except:
-                        print(i, 'D')
-
-        elif key == 'P361': #is part of
-            resourceIsPartList = []
-            for i in lineParsed['claims']['P361']:
-                if i['mainsnak']['snaktype'] == 'value':
-                    try:
-                        isPart = i['mainsnak']['datavalue']['value']['id']
-                        isPart = "http://www.wikidata.org/entity/" + isPart
-                        resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
-                        resourceIsPartList.append(resourceIsPart)
-                    except:
-                        print(i, 'E')
-
-        elif key == 'P2737': #UnionOf
-            resourceUnionList = ['<owl:unionOf>']
-            for j in lineParsed['claims']['P2737']:
-                if 'qualifiers' in j.keys():
-                    for x in j['qualifiers']['P642']:
-                        if x['snaktype'] == 'value':
-                            try:
-                                resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-                        ###account for somevalue/no value
-                            except:
-                                print(lineParsed['claims'][key], 'F')
-            resourceUnionList.append('</owl:unionOf>')
-
-        elif key == 'P2738': #disjointUnionOf
-            resourceDisjointUnionList = ['<owl:DisjointUnion>']
-            for j in lineParsed['claims']['P2738']:
-                if 'qualifiers' in j.keys():
-                    for x in j['qualifiers']['P642']:
-                        if x['snaktype'] == 'value':
-                            try:
-                                resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-                        ###account for somevalue/no value
-                            except:
-                                print(x, 'G')
-            resourceDisjointUnionList.append('</owl:DisjointUnion>')
+        # elif key == 'P2738': #disjointUnionOf
+        #     resourceDisjointUnionList = ['<owl:DisjointUnion>']
+    try:
+        for j in lineParsed['claims']['P2738']:
+            if 'qualifiers' in j.keys():
+                for x in j['qualifiers']['P642']:
+                    if x['snaktype'] == 'value':
+                        try:
+                            resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                    ###account for somevalue/no value
+                        except:
+                            print(x, 'G')
+        resourceDisjointUnionList.append('</owl:DisjointUnion>')
+    except:
+        print('No P2738')
 
 
-
-        else:
-            otherKeys.append(key)
+    # else:
+    #     otherKeys.append(key)
 
     classData = [classDeclaration, resourceLabel, resourceDescription]
     if 'resourceInstanceList' in locals():
@@ -704,8 +741,8 @@ def classExtractor(lineParsed, hasKey):
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)
         classData.append(resourceEquivalentClassOf)
-    if type(hasKey) is 'list':
-        hasKeyObject = '<owl:hasKey rdf:parseType:"Collection">'
+    if type(hasKey) is list:
+        hasKeyObject = '<owl:hasKey rdf:parseType="Collection">'
         classData.append(hasKeyObject)
         for propertyId in hasKey:
             propertyKey = '<owl:DatatypeProperty rdf:about="http://www.wikidata.org/entity/' + propertyId + '" />'
@@ -809,14 +846,12 @@ def fileAnalyser(file_name, classFile):
         f.seek(0)
         hasKeyList = [item[1] for item in hasKeyTuples]
         print('start with items')
-        print(propertyData[3])
         print(hasKeyList)
         for line in f:
             matcho = re.search(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
             if matcho:
                 sea = re.search(r'[Qq][0-9]{1,}', matcho.group(0))
                 if sea.group(0) in classesList:
-
                     try:
                         lineParsed = ujson.loads(line[:-2])
                         entityID = lineParsed['id']

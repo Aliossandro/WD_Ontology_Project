@@ -177,15 +177,15 @@ def propertyExtractor(lineParsed):
     # print(lineParsed['claims'].keys())
     if 'P31' in lineParsed['claims'].keys():
         resourceInstanceList = []
-    elif 'P1659' in lineParsed['claims'].keys():
+    if 'P1659' in lineParsed['claims'].keys():
         resourceSeeList = []
-    elif 'P1647' in lineParsed['claims'].keys():
+    if 'P1647' in lineParsed['claims'].keys():
         resourceSubPropertyList = []
-    elif 'P1628' in lineParsed['claims'].keys():
+    if 'P1628' in lineParsed['claims'].keys():
         resourceEquivalentList = []
-    elif 'P1696' in lineParsed['claims'].keys():
+    if 'P1696' in lineParsed['claims'].keys():
         resourceInverseList = []
-    elif 'P2302' in lineParsed['claims'].keys():
+    if 'P2302' in lineParsed['claims'].keys():
         constraintList = []
 
 
@@ -783,7 +783,6 @@ def fileAnalyser(file_name, classFile):
                         line = line.replace('\n', '')
                         lineParsed = ujson.loads(line[:-2])
                         entityID = lineParsed['id']
-
                         if re.match('[P][0-9]{1,}', entityID):
                             # print(entityID)
                             # lineParsed = lineParsed['entities'][propertyId]

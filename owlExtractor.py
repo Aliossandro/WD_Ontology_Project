@@ -144,7 +144,7 @@ def propertyExtractor(lineParsed):
     try:
         resourceName = resourceNamer(lineParsed['id'])
     except:
-        print(lineParsed)
+        print(lineParsed, 'wrong')
 
     if lineParsed['datatype'] == 'wikibase-item':
         propertyType = "ObjectProperty"
@@ -712,7 +712,6 @@ def fileAnalyser(file_name, classFile):
                 try:
                     print(line[0:30])
                     lineParsed = ujson.loads(line[:-2])
-
 
                 # entityID = lineParsed['id']
 

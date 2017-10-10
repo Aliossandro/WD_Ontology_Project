@@ -739,6 +739,7 @@ def fileAnalyser(file_name, classFile):
     # collect other properties
     otherKeys = []
     constraintKeys = []
+    hasKeyTuples = []
 
     # open dumps
     with bz2.BZ2File(file_name, 'r') as f:
@@ -776,6 +777,7 @@ def fileAnalyser(file_name, classFile):
 
                     otherKeys += propertyData[1]
                     constraintKeys += propertyData[2]
+                    hasKeyTuples += propertyData[3]
 
 
                 except ValueError:
@@ -798,13 +800,14 @@ def fileAnalyser(file_name, classFile):
 
                             otherKeys += propertyData[1]
                             constraintKeys += propertyData[2]
+                            hasKeyTuples += propertyData[3]
 
                     except:
                         print(line)
 
 
         f.seek(0)
-        hasKeyList = [item[1] for item in propertyData[3]]
+        hasKeyList = [item[1] for item in hasKeyTuples]
         print('start with items')
         print(propertyData[3])
         print(hasKeyList)

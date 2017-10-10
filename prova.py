@@ -18,8 +18,8 @@ def guardafillo(file_name):
             #     return entitiesAll, otherKeys, constraintKeys
             #     break
 
-            matcho = re.match(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
+            matcho = re.match(r'{"type":"item","id":"[Q][0-9]+', str(line))
             if not matcho:
-                print(line[0:35])
+                print(line[0:35], 'not matched')
             else:
                 print(matcho.group(0))

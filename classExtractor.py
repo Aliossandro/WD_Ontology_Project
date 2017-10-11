@@ -31,10 +31,13 @@ def classExtractor(file_name):
                     print(counter, " items processed")
                     classesList = set(classesList)
                     classesP31 = set(classesP31)
-                    writeClasslist(classesList, 'classesP279.txt')
-                    writeClasslist(classesP31, 'classesP31.txt')
+                    superClasses = set(superClasses)
+                    writeClasslist(classesList, 'classesP279_new.txt')
+                    writeClasslist(classesP31, 'classesP31_new.txt')
+                    writeClasslist(superClasses, 'superclasses_new.txt')
                     classesList = []
                     classesP31 = []
+                    superClasses = []
 
                 # if 'P279' in lineParsed['claims'].keys():
                 try:

@@ -608,9 +608,9 @@ def classExtractor(lineParsed, hasKey):
     if 'P361' in lineParsed['claims'].keys():
         resourceIsPartList = []
     if 'P2737' in lineParsed['claims'].keys():
-        resourceUnionList = []
+        resourceUnionList = ['<owl:unionOf>']
     if 'P2738' in lineParsed['claims'].keys():
-        resourceDisjointUnionList = []
+        resourceDisjointUnionList = ['<owl:DisjointUnion>']
 
     # for key in lineParsed['claims']:
 

@@ -546,7 +546,8 @@ def propertyExtractor(lineParsed):
         #     otherKeys.append(key)
 
     # constraintList += list(domainInfo)
-    propertyDescription = [propertyDeclaration, resourceLabel, resourceDescription, resourceType2]
+    propertyDescription = [propertyDeclaration, resourceLabel, resourceType2]
+    # propertyDescription = [propertyDeclaration, resourceLabel, resourceDescription, resourceType2]
     if 'resourceInstanceList' in locals():
         resourceInstanceOf = '\n'.join(resourceInstanceList)
         propertyDescription.append(resourceInstanceOf)
@@ -604,14 +605,15 @@ def classExtractor(lineParsed, hasKey):
     except KeyError:
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 
-    try:
-        description = lineParsed['descriptions']['en']['value']
-        description = description.replace('&', ' and ')
-        description = description.replace('<', ' ')
-        description = description.replace('>', ' ')
-        resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
-    except KeyError:
-        resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
+    ###description not included at the moment
+    # try:
+    #     description = lineParsed['descriptions']['en']['value']
+    #     description = description.replace('&', ' and ')
+    #     description = description.replace('<', ' ')
+    #     description = description.replace('>', ' ')
+    #     resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
+    # except KeyError:
+    #     resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
 
     # analyse claims
     # print(lineParsed['claims'].keys())
@@ -686,7 +688,7 @@ def classExtractor(lineParsed, hasKey):
         # elif key == 'P527': #has part
         #     resourceHasPartList = []
 
-        
+
     ###not used for the moment
     # try:
     #     for i in lineParsed['claims']['P527']:
@@ -752,7 +754,8 @@ def classExtractor(lineParsed, hasKey):
     # else:
     #     otherKeys.append(key)
 
-    classData = [classDeclaration, resourceLabel, resourceDescription]
+    # classData = [classDeclaration, resourceLabel, resourceDescription]
+    classData = [classDeclaration, resourceLabel]
     if 'resourceInstanceList' in locals():
         resourceInstanceOf = '\n'.join(resourceInstanceList)
         classData.append(resourceInstanceOf)

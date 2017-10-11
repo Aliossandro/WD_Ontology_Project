@@ -81,6 +81,21 @@ def disjointUnionClasses(object):
 
     return resourceDisjointUnionOf
 
+def valueTime(data, timeType):
+    switch = 0
+
+    # value = value.replace('Z', '')
+    if data[6] == '0':
+        if timeType == 0:
+            data = data[1:6] + '01-01' + data[11:]
+        elif timeType == 1:
+            data = data[1:6] + '12-31' + data[11:]
+        switch = 1
+    if str(data).startswith('+'):
+        data = data.replace('+', '')
+
+    return data
+
 
 
 
@@ -164,14 +179,15 @@ def propertyExtractor(lineParsed):
     except KeyError:
         resourceLabel = '<rdfs:label xml:lang="en">no English label available</rdfs:label>'
 
-    try:
-        description = lineParsed['descriptions']['en']['value']
-        description = description.replace('&', ' and ')
-        description = description.replace('<', ' ')
-        description = description.replace('>', ' ')
-        resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
-    except KeyError:
-        resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
+    ###descriptions not included for the moment
+    # try:
+    #     description = lineParsed['descriptions']['en']['value']
+    #     description = description.replace('&', ' and ')
+    #     description = description.replace('<', ' ')
+    #     description = description.replace('>', ' ')
+    #     resourceDescription = '<schema:description xml:lang="en">' + description + '</schema:description>'
+    # except KeyError:
+    #     resourceDescription = '<schema:description xml:lang="en">no English description available</schema:description>'
 
     # analyse claims
     # print(lineParsed['claims'].keys())
@@ -394,13 +410,8 @@ def propertyExtractor(lineParsed):
                         for x in i['qualifiers']['P2310']:
                             if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
                                 try:
-                                    value = x['datavalue']['value']['time']
-                                    if str(value).startswith('+'):
-                                        value = value.replace('+', '')
-                                    value = value.replace('Z', '')
-                                    maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
-                                               x['datavalue']['value'][
-                                                   'time'] + '</xsd:minInclusive>\n</rdf:Description>'
+                                    value = valueTime(x['datavalue']['value']['time'])
+                                    maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:minInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(maxRange)
                                 except:
                                     print(x)
@@ -414,10 +425,7 @@ def propertyExtractor(lineParsed):
                         for x in i['qualifiers']['P2311']:
                             if x['datatype'] == 'time' and x['snaktype'] != 'somevalue':
                                 try:
-                                    value = x['datavalue']['value']['time']
-                                    if str(value).startswith('+'):
-                                        value = value.replace('+', '')
-                                    value = value.replace('Z', '')
+                                    value = valueTime(x['datavalue']['value']['time'], 1)
                                     minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
                                     rangeDatatypeList.append(minRange)
                                 except:
@@ -613,10 +621,10 @@ def classExtractor(lineParsed, hasKey):
         resourceSubClassList = []
     if 'P1709' in lineParsed['claims'].keys():
         resourceEquivalentClassList = []
-    if 'P527' in lineParsed['claims'].keys():
-        resourceHasPartList = []
-    if 'P361' in lineParsed['claims'].keys():
-        resourceIsPartList = []
+    # if 'P527' in lineParsed['claims'].keys():
+    #     resourceHasPartList = []
+    # if 'P361' in lineParsed['claims'].keys():
+    #     resourceIsPartList = []
     if 'P2737' in lineParsed['claims'].keys():
         resourceUnionList = ['<owl:unionOf>']
     if 'P2738' in lineParsed['claims'].keys():
@@ -677,33 +685,36 @@ def classExtractor(lineParsed, hasKey):
 
         # elif key == 'P527': #has part
         #     resourceHasPartList = []
-    try:
-        for i in lineParsed['claims']['P527']:
-            if i['mainsnak']['snaktype'] == 'value':
-                try:
-                    hasPart = i['mainsnak']['datavalue']['value']['id']
-                    hasPart = "http://www.wikidata.org/entity/" + hasPart
-                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
-                    resourceHasPartList.append(resourcehasPart)
-                except:
-                    print(i, 'D')
-    except:
-        print('No P527')
 
-        # elif key == 'P361': #is part of
-        #     resourceIsPartList = []
-    try:
-        for i in lineParsed['claims']['P361']:
-            if i['mainsnak']['snaktype'] == 'value':
-                try:
-                    isPart = i['mainsnak']['datavalue']['value']['id']
-                    isPart = "http://www.wikidata.org/entity/" + isPart
-                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
-                    resourceIsPartList.append(resourceIsPart)
-                except:
-                    print(i, 'E')
-    except:
-        print('No P361')
+        
+    ###not used for the moment
+    # try:
+    #     for i in lineParsed['claims']['P527']:
+    #         if i['mainsnak']['snaktype'] == 'value':
+    #             try:
+    #                 hasPart = i['mainsnak']['datavalue']['value']['id']
+    #                 hasPart = "http://www.wikidata.org/entity/" + hasPart
+    #                 resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+    #                 resourceHasPartList.append(resourcehasPart)
+    #             except:
+    #                 print(i, 'D')
+    # except:
+    #     print('No P527')
+    #
+    #     # elif key == 'P361': #is part of
+    #     #     resourceIsPartList = []
+    # try:
+    #     for i in lineParsed['claims']['P361']:
+    #         if i['mainsnak']['snaktype'] == 'value':
+    #             try:
+    #                 isPart = i['mainsnak']['datavalue']['value']['id']
+    #                 isPart = "http://www.wikidata.org/entity/" + isPart
+    #                 resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+    #                 resourceIsPartList.append(resourceIsPart)
+    #             except:
+    #                 print(i, 'E')
+    # except:
+    #     print('No P361')
 
         # elif key == 'P2737': #UnionOf
         #     resourceUnionList = ['<owl:unionOf>']
@@ -716,7 +727,7 @@ def classExtractor(lineParsed, hasKey):
                             resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
                     ###account for somevalue/no value
                         except:
-                            print(lineParsed['claims'][key], 'F')
+                            print(lineParsed['claims']['P2737'], 'F')
         resourceUnionList.append('</owl:unionOf>')
     except:
         print('No P2737')
@@ -758,12 +769,12 @@ def classExtractor(lineParsed, hasKey):
             propertyKey = '<owl:DatatypeProperty rdf:about="http://www.wikidata.org/entity/' + propertyId + '" />'
             classData.append(propertyKey)
         classData.append('</owl:hasKey>')
-    if 'resourceHasPartList' in locals():
-        resourceHasPartList = '\n'.join(resourceHasPartList)
-        classData.append(resourceHasPartList)
-    if 'resourceIsPartList' in locals():
-        resourceIsPartList = '\n'.join(resourceIsPartList)
-        classData.append(resourceIsPartList)
+    # if 'resourceHasPartList' in locals():
+    #     resourceHasPartList = '\n'.join(resourceHasPartList)
+    #     classData.append(resourceHasPartList)
+    # if 'resourceIsPartList' in locals():
+    #     resourceIsPartList = '\n'.join(resourceIsPartList)
+    #     classData.append(resourceIsPartList)
     if 'resourceUnionList' in locals():
         resourceUnionList = '\n'.join(resourceUnionList)
         classData.append(resourceUnionList)

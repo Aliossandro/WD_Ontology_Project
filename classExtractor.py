@@ -13,6 +13,11 @@ def writeClasslist(classList, file_name):
 
         f.close()
 
+def classJoiner(setList1, setList2):
+    unionSet = set(setList1).union(setList2)
+    interSet = set(setList1).intersection(setList2)
+
+    return [unionSet, interSet]
 
 def classExtractor(file_name):
     classesList = []
@@ -77,11 +82,14 @@ def main():
     classP279 = set(classesAll[1])
     classP31 = set(classesAll[2])
     superclasses = set(classesAll[0])
+    minClasses = classJoiner(superclasses, classP31)
 
     #write files
     writeClasslist(classP279, 'classesP279_new.txt')
     writeClasslist(classP31, 'classesP31_new.txt')
     writeClasslist(superclasses, 'superclasses_new.txt')
+    writeClasslist(minClasses[0], 'minClassesUnion.txt')
+    writeClasslist(minClasses[1], 'minClassesInter.txt')
 
 
 if __name__ == "__main__":

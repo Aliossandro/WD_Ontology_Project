@@ -205,7 +205,6 @@ def propertyExtractor(lineParsed):
         constraintList = []
 
 
-
     # for key in lineParsed['claims']:
         # if key == 'P31':
         #     resourceInstanceList = []
@@ -272,7 +271,7 @@ def propertyExtractor(lineParsed):
         for i in lineParsed['claims']['P1696']:
             try:
                 inverseProperty = i['mainsnak']['datavalue']['value']['id']
-                inverseProperty = "#" + inverseProperty
+                inverseProperty = "http://www.wikidata.org/entity/" + inverseProperty
             except TypeError:
                 inverseProperty = i['mainsnak']['datavalue']['value']
 
@@ -476,25 +475,31 @@ def propertyExtractor(lineParsed):
             #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
             #         conflictsWith.append(obj)
             #
-            # # Q21510859 "one-of" constraint ###owl:oneOf: subject must be class, object must be list
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
-            #     classOneOf = []
-            #     for y in i['qualifiers']['P2305']:
-            #         if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
-            #             try:
-            #                 classOneOf.append(y['datavalue']['value']['id'])
-            #                 ###it can be 'no value' in snaktype
-            #             except:
-            #                 print(y, 'O')#some issue here!!!
-            #     classOneOf = map(collectionItems, classOneOf)
-            #     # try:
-            #     #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
-            #     #     classOneOf = map(collectionItems, classOneOf)
-            #     # except:
-            #     #     print(i['qualifiers']['P2305'])
-            #
+
 
                # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?
+
+            # Q21510859 "one-of" constraint ###owl:oneOf: subject must be class, object must be list
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
+                classOneOf = []
+                for y in i['qualifiers']['P2305']:
+                    if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
+                        try:
+                            classOneOf.append(y['datavalue']['value']['id'])
+                            ###it can be 'no value' in snaktype
+                        except:
+                            print(y, 'O')  # some issue here!!!
+                classOneOf = map(collectionItems, classOneOf)
+                # try:
+                #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
+                #     classOneOf = map(collectionItems, classOneOf)
+                # except:
+                #     print(i['qualifiers']['P2305'])
+
+            #Q21510857 multi value constraint; this refers to properties, whereas OWL cardinality restrictions apply to classes
+            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
+
+
     except KeyError:
         print('no constraints')
 
@@ -519,12 +524,12 @@ def propertyExtractor(lineParsed):
         if len(list(classDomain)) > 1:
             classDomain = map(rangeMultiple, classDomain)
             domainClasses = '\n'.join(list(classDomain))
-            # if classOneOf:
-            #     oneOfCollection = '\n'.join(list(classOneOf))
-            #     oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
-            #     rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
-            # else:
-            domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
+            if classOneOf:
+                oneOfCollection = '\n'.join(list(classOneOf))
+                oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
+                rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
+            else:
+                domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
             if conflictsWith:
                 conflictList = '\n'.join(list(conflictsWith))
                 domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n'+ conflictList +'\n</owl:intersectionOf>\n</owl:Class>\n</rdfs:domain>'
@@ -572,6 +577,9 @@ def propertyExtractor(lineParsed):
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty" />')
     if symmetric:
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty" />')
+    if 'resourceInverseList' in locals():
+        resourceInverseOf = '\n'.join(resourceInverseList)
+        propertyDescription.append(resourceInverseOf)
     if 'domainInfo' in locals():
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():
@@ -722,14 +730,15 @@ def classExtractor(lineParsed, hasKey):
         #     resourceUnionList = ['<owl:unionOf>']
     try:
         for j in lineParsed['claims']['P2737']:
-            if 'qualifiers' in j.keys():
-                for x in j['qualifiers']['P642']:
-                    if x['snaktype'] == 'value':
-                        try:
-                            resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-                    ###account for somevalue/no value
-                        except:
-                            print(lineParsed['claims']['P2737'], 'F')
+            if j['mainsnak']['datavalue']['value']['id'] == 'Q23766486':
+                if 'qualifiers' in j.keys():
+                    for x in j['qualifiers']['P642']:
+                        if x['snaktype'] == 'value':
+                            try:
+                                resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                        ###account for somevalue/no value
+                            except:
+                                print(lineParsed['claims']['P2737'], 'F')
         resourceUnionList.append('</owl:unionOf>')
     except:
         print('No P2737')
@@ -779,8 +788,9 @@ def classExtractor(lineParsed, hasKey):
     #     resourceIsPartList = '\n'.join(resourceIsPartList)
     #     classData.append(resourceIsPartList)
     if 'resourceUnionList' in locals():
-        resourceUnionList = '\n'.join(resourceUnionList)
-        classData.append(resourceUnionList)
+        if resourceUnionList[1] != '</owl:unionOf>':
+            resourceUnionList = '\n'.join(resourceUnionList)
+            classData.append(resourceUnionList)
     if 'resourceDisjointUnionList' in locals():
         resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
         classData.append(resourceDisjointUnionList)

@@ -527,7 +527,7 @@ def propertyExtractor(lineParsed):
             if classOneOf:
                 oneOfCollection = '\n'.join(list(classOneOf))
                 oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
-                rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + rangeClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
+                rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
             else:
                 domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
             if conflictsWith:

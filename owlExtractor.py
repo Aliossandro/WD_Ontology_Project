@@ -153,8 +153,10 @@ def propertyExtractor(lineParsed):
     functional = False
     inverseFunctional = False
     symmetric = False
+    multiValue = False
     conflictsWith = []
     hasKeyList = []
+    multiList = []
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -360,6 +362,10 @@ def propertyExtractor(lineParsed):
             # Q21510862 symmetric constraint
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510862':
                 symmetric = True
+
+            # Q21510857 multi value constraint; this refers to properties, whereas OWL cardinality restrictions apply to classes
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
+                multiValue = True
 
             # Q21510860; range constraint
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
@@ -573,6 +579,11 @@ def propertyExtractor(lineParsed):
                     print((lineParsed['id'], item))
         else:
             propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
+    if multiValue:
+        if 'classDomain' in locals():
+            for item in classDomain:
+                multiList.append((lineParsed['id'], item))
+                print((lineParsed['id'], item), 'multi Value')
     if functional:
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty" />')
     if symmetric:
@@ -590,9 +601,9 @@ def propertyExtractor(lineParsed):
 
     propertyDescription.append(propertyDeclarationClosure)
 
-    return propertyDescription, otherKeys, constraintKeys, hasKeyList
+    return propertyDescription, otherKeys, constraintKeys, hasKeyList, multiList
 
-def classExtractor(lineParsed, hasKey):
+def classExtractor(lineParsed, hasKey, multiValue):
     otherKeys = []
 
     try:
@@ -771,6 +782,10 @@ def classExtractor(lineParsed, hasKey):
     if 'resourceSubClassList' in locals():
         resourceSubClassOf = '\n'.join(resourceSubClassList)
         classData.append(resourceSubClassOf)
+    if type(multiValue) is list:
+        for val in multiValue:
+            multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
+            classData.append(multiObject)
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)
         classData.append(resourceEquivalentClassOf)
@@ -811,6 +826,7 @@ def fileAnalyser(file_name, classFile):
     otherKeys = []
     constraintKeys = []
     hasKeyTuples = []
+    multiTuples = []
 
     # open dumps
     with bz2.BZ2File(file_name, 'r') as f:
@@ -849,7 +865,7 @@ def fileAnalyser(file_name, classFile):
                     otherKeys += propertyData[1]
                     constraintKeys += propertyData[2]
                     hasKeyTuples += propertyData[3]
-
+                    multiTuples += propertyData[4]
 
                 except ValueError:
                     try:
@@ -872,15 +888,18 @@ def fileAnalyser(file_name, classFile):
                             otherKeys += propertyData[1]
                             constraintKeys += propertyData[2]
                             hasKeyTuples += propertyData[3]
-
+                            multiTuples += propertyData[4]
                     except:
                         print(line)
 
 
         f.seek(0)
         hasKeyList = [item[1] for item in hasKeyTuples]
+        multiList = [item[1] for item in multiTuples]
+
         print('start with items')
         print(hasKeyList)
+        print(multiList)
         for line in f:
             matcho = re.search(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
             if matcho:
@@ -898,9 +917,16 @@ def fileAnalyser(file_name, classFile):
                             # lineParsed = lineParsed['entities']['Q5'] ###temporary
                             if entityID in hasKeyList:
                                 propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
-                                classData = classExtractor(lineParsed, propertyKeyList)
                             else:
-                                classData = classExtractor(lineParsed, 0)
+                                propertyKeyList = 0
+
+                            if entityID in multiList:
+                                propertyMultiList = [item[0] for item in multiTuples if item[1] == entityID]
+                            else:
+                                propertyMultiList = 0
+
+                            classData = classExtractor(lineParsed, propertyKeyList, propertyMultiList)
+
                             try:
                                 classDescriptionLine = '\n'.join(classData[0])
                                 entitiesAll.append(classDescriptionLine)

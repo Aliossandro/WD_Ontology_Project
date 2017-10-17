@@ -817,9 +817,9 @@ def classExtractor(lineParsed, hasKey, multiValue):
     # print(classDeclaration, classDeclarationClosure)
 
 
-def fileAnalyser(file_name):
+def fileAnalyser(file_name, classFile):
     #load classes list
-    # classesList = classesReader(classFile)
+    classesList = classesReader(classFile)
     # classesList = classesGenerator()
     entitiesAll = []
     # collect other properties
@@ -829,7 +829,7 @@ def fileAnalyser(file_name):
     multiTuples = []
 
     # open dumps
-    with open(file_name, 'r') as f:
+    with bz2.BZ2File(file_name, 'r') as f:
         # counterI = 0
         # counterP = 0
 
@@ -903,62 +903,62 @@ def fileAnalyser(file_name):
         for line in f:
             matcho = re.search(r'\{\"type\"\:\"item\"\,\"id\"\:\"[Qq][0-9]{1,}', str(line))
             if matcho:
-                # sea = re.search(r'[Qq][0-9]{1,}', matcho.group(0))
-                # if sea.group(0) in classesList:
-                try:
-                    lineParsed = ujson.loads(line[2:-3])
-                    entityID = lineParsed['id']
-
-                    # if entityID in classesList:
-                        # print(entityID)
-                        # if counterI == 3000:
-                        #     pass
-                        # else:
-                        # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                    if entityID in hasKeyList:
-                        propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
-                    else:
-                        propertyKeyList = 0
-
-                    if entityID in multiList:
-                        propertyMultiList = [item[0] for item in multiTuples if item[1] == entityID]
-                    else:
-                        propertyMultiList = 0
-
-                    classData = classExtractor(lineParsed, propertyKeyList, propertyMultiList)
-
+                sea = re.search(r'[Qq][0-9]{1,}', matcho.group(0))
+                if sea.group(0) in classesList:
                     try:
-                        classDescriptionLine = '\n'.join(classData[0])
-                        entitiesAll.append(classDescriptionLine)
-                        # counterI += 1
-                    except TypeError:
-                        print(classData[0])
-
-                    otherKeys += classData[1]
-
-                except ValueError:
-                    try:
-                        line = line.replace('\n', '')
-                        lineParsed = ujson.loads(line[2:-3])
+                        lineParsed = ujson.loads(line[:-2])
                         entityID = lineParsed['id']
 
-                        # if entityID in classesList:
+                        if entityID in classesList:
                             # print(entityID)
                             # if counterI == 3000:
                             #     pass
                             # else:
                             # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                        classData = classExtractor(lineParsed)
-                        try:
-                            classDescriptionLine = '\n'.join(classData[0])
-                            entitiesAll.append(classDescriptionLine)
-                            # counterI += 1
-                        except TypeError:
-                            print(classData[0])
+                            if entityID in hasKeyList:
+                                propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
+                            else:
+                                propertyKeyList = 0
 
-                        otherKeys += classData[1]
-                    except:
-                        print(line)
+                            if entityID in multiList:
+                                propertyMultiList = [item[0] for item in multiTuples if item[1] == entityID]
+                            else:
+                                propertyMultiList = 0
+
+                            classData = classExtractor(lineParsed, propertyKeyList, propertyMultiList)
+
+                            try:
+                                classDescriptionLine = '\n'.join(classData[0])
+                                entitiesAll.append(classDescriptionLine)
+                                # counterI += 1
+                            except TypeError:
+                                print(classData[0])
+
+                            otherKeys += classData[1]
+
+                    except ValueError:
+                        try:
+                            line = line.replace('\n', '')
+                            lineParsed = ujson.loads(line[:-2])
+                            entityID = lineParsed['id']
+
+                            if entityID in classesList:
+                                # print(entityID)
+                                # if counterI == 3000:
+                                #     pass
+                                # else:
+                                # lineParsed = lineParsed['entities']['Q5'] ###temporary
+                                classData = classExtractor(lineParsed)
+                                try:
+                                    classDescriptionLine = '\n'.join(classData[0])
+                                    entitiesAll.append(classDescriptionLine)
+                                    # counterI += 1
+                                except TypeError:
+                                    print(classData[0])
+
+                                otherKeys += classData[1]
+                        except:
+                            print(line)
 
         otherKeys = set(otherKeys)
         constraintKeys = set(constraintKeys)

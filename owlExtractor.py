@@ -258,7 +258,7 @@ def propertyExtractor(lineParsed):
         for i in lineParsed['claims']['P1628']:
             try:
                 equivalentProperty = i['mainsnak']['datavalue']['value']['id']
-                equivalentProperty = "#" + equivalentProperty
+                equivalentProperty = "http://www.wikidata.org/entity/" + equivalentProperty
             except TypeError:
                 equivalentProperty = i['mainsnak']['datavalue']['value']
 

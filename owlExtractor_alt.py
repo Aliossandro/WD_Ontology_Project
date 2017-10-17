@@ -216,9 +216,9 @@ def propertyExtractor(lineParsed):
             if i['mainsnak']['datavalue']['value']['id'] == 'Q18647515': #Transitive property
                 resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>'
                 resourceInstanceList.append(resourceInstanceOf)
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647519': #asymmetric property
-                resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>'
-                resourceInstanceList.append(resourceInstanceOf)
+            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647519': #asymmetric property
+            #     resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AsymmetricProperty"/>'
+            #     resourceInstanceList.append(resourceInstanceOf)
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647521': #reflexive property
                 resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ReflexiveProperty"/>'
                 resourceInstanceList.append(resourceInstanceOf)
@@ -258,7 +258,7 @@ def propertyExtractor(lineParsed):
         for i in lineParsed['claims']['P1628']:
             try:
                 equivalentProperty = i['mainsnak']['datavalue']['value']['id']
-                equivalentProperty = "#" + equivalentProperty
+                equivalentProperty = "http://www.wikidata.org/entity/" + equivalentProperty
             except TypeError:
                 equivalentProperty = i['mainsnak']['datavalue']['value']
 
@@ -352,8 +352,8 @@ def propertyExtractor(lineParsed):
                 # constraintList += list(classDomain)
                     # Q21502410; inverse functional property
 
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
-                inverseFunctional = True
+            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+            #     inverseFunctional = True
 
                 # Q19474404; functional property
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
@@ -571,14 +571,14 @@ def propertyExtractor(lineParsed):
     if 'resourceEquivalentList' in locals():
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
-    if inverseFunctional:
-        if propertyType == "DatatypeProperty":
-            if 'classDomain' in locals():
-                for item in classDomain:
-                    hasKeyList.append((lineParsed['id'], item))
-                    print((lineParsed['id'], item))
-        else:
-            propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
+    # if inverseFunctional:
+    #     if propertyType == "DatatypeProperty":
+    #         if 'classDomain' in locals():
+    #             for item in classDomain:
+    #                 hasKeyList.append((lineParsed['id'], item))
+    #                 print((lineParsed['id'], item))
+    #     else:
+    #         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
     if multiValue:
         if 'classDomain' in locals():
             for item in classDomain:

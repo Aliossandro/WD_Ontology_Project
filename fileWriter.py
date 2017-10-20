@@ -43,6 +43,7 @@ class OntologyFile:
         self.output.write('xmlns:dc="http://purl.org/dc/elements/1.1/"\n')
         self.output.write('xmlns:dcterms="http://purl.org/dc/terms/"\n')
         self.output.write('xmlns:d0="http://www.ontologydesignpatterns.org/ont/d0.owl#"\n')
+        self.output.write('xmlns:dul="http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#""\n')
         self.output.write('xmlns:schema="http://schema.org/"\n')
         self.output.write('xmlns:wikibase="http://wikiba.se/ontology#"\n')
         self.output.write('xmlns:xsd="http://www.w3.org/2001/XMLSchema#"\n')

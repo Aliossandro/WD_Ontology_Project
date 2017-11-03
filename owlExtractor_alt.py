@@ -195,14 +195,14 @@ def propertyExtractor(lineParsed):
     # print(lineParsed['claims'].keys())
     if 'P31' in lineParsed['claims'].keys():
         resourceInstanceList = []
-    # if 'P1659' in lineParsed['claims'].keys():
-    #     resourceSeeList = []
+    if 'P1659' in lineParsed['claims'].keys():
+        resourceSeeList = []
     if 'P1647' in lineParsed['claims'].keys():
         resourceSubPropertyList = []
     if 'P1628' in lineParsed['claims'].keys():
         resourceEquivalentList = []
-    # if 'P1696' in lineParsed['claims'].keys():
-    #     resourceInverseList = []
+    if 'P1696' in lineParsed['claims'].keys():
+        resourceInverseList = []
     if 'P2302' in lineParsed['claims'].keys():
         constraintList = []
 
@@ -232,14 +232,14 @@ def propertyExtractor(lineParsed):
 
         # elif key == 'P1659':
         #     resourceSeeList = []
-    # try:
-    #     for i in lineParsed['claims']['P1659']:
-    #         seeAlso = i['mainsnak']['datavalue']['value']['id']
-    #         seeAlso = "http://www.wikidata.org/entity/" + seeAlso
-    #         resourceSeeAlso = '<rdfs:seeAlso rdf:resource="' + seeAlso + '"/>'
-    #         resourceSeeList.append(resourceSeeAlso)
-    # except KeyError:
-    #     print('No P1659')
+    try:
+        for i in lineParsed['claims']['P1659']:
+            seeAlso = i['mainsnak']['datavalue']['value']['id']
+            seeAlso = "http://www.wikidata.org/entity/" + seeAlso
+            resourceSeeAlso = '<rdfs:seeAlso rdf:resource="' + seeAlso + '"/>'
+            resourceSeeList.append(resourceSeeAlso)
+    except KeyError:
+        print('No P1659')
 
         # elif key == 'P1647':
         #     resourceSubPropertyList = []
@@ -269,18 +269,18 @@ def propertyExtractor(lineParsed):
 
         # elif key == 'P1696':
         #     resourceInverseList = []
-    # try:
-    #     for i in lineParsed['claims']['P1696']:
-    #         try:
-    #             inverseProperty = i['mainsnak']['datavalue']['value']['id']
-    #             inverseProperty = "http://www.wikidata.org/entity/" + inverseProperty
-    #         except TypeError:
-    #             inverseProperty = i['mainsnak']['datavalue']['value']
-    #
-    #         resourceInverseProperty = '<owl:inverseOf rdf:resource="' + inverseProperty + '"/>'
-    #         resourceInverseList.append(resourceInverseProperty)
-    # except KeyError:
-    #     print('No P1696')
+    try:
+        for i in lineParsed['claims']['P1696']:
+            try:
+                inverseProperty = i['mainsnak']['datavalue']['value']['id']
+                inverseProperty = "http://www.wikidata.org/entity/" + inverseProperty
+            except TypeError:
+                inverseProperty = i['mainsnak']['datavalue']['value']
+
+            resourceInverseProperty = '<owl:inverseOf rdf:resource="' + inverseProperty + '"/>'
+            resourceInverseList.append(resourceInverseProperty)
+    except KeyError:
+        print('No P1696')
 
         # elif key == 'P3254':
         #
@@ -352,8 +352,8 @@ def propertyExtractor(lineParsed):
                 # constraintList += list(classDomain)
                     # Q21502410; inverse functional property
 
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
-            #     inverseFunctional = True
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+                inverseFunctional = True
 
                 # Q19474404; functional property
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
@@ -364,143 +364,143 @@ def propertyExtractor(lineParsed):
                 symmetric = True
 
             # Q21510857 multi value constraint; this refers to properties, whereas OWL cardinality restrictions apply to classes
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
-            #     multiValue = True
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
+                multiValue = True
 
             # Q21510860; range constraint
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
-            #     rangeDatatypeList = ['<rdfs:range>\n<rdfs:Datatype>']
-            #
-            #     if ('P2313' in i['qualifiers'].keys()) or ('P2312' in i['qualifiers'].keys()):
-            #         rangeDatatypeList.append(
-            #             '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal" />\n<owl:withRestrictions rdf:parseType="Collection">')
-            #         # min value
-            #         try:
-            #             for x in i['qualifiers']['P2313']:
-            #                 if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
-            #                     value = x['datavalue']['value']['amount']
-            #                     if '.' not in str(value):
-            #                         minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + value + '</xsd:minInclusive>\n</rdf:Description>'
-            #                     else:
-            #                         minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">' + value + '</xsd:minInclusive>\n</rdf:Description>'
-            #                     rangeDatatypeList.append(minRange)
-            #                 else:
-            #                     print(x['datatype'], 'N')
-            #         except:
-            #             print('no P2313')
-            #
-            #         # max value
-            #         try:
-            #             for x in i['qualifiers']['P2312']:
-            #                 if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
-            #                     value = x['datavalue']['value']['amount']
-            #                     if '.' not in str(value):
-            #                         maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
-            #                     else:
-            #                         maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
-            #                     rangeDatatypeList.append(maxRange)
-            #                 else:
-            #                     print(x['datatype'], 'M')
-            #         except:
-            #             print('no P2312')
-            #
-            #         closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
-            #         rangeDatatypeList.append(closure)
-            #
-            #     elif ('P2311' in i['qualifiers'].keys()) or ('P2310' in i['qualifiers'].keys()):
-            #         rangeDatatypeList.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime" />\n<owl:withRestrictions rdf:parseType="Collection">')
-            #         # min date
-            #         # if 'P2310' in i['qualifiers'].keys():
-            #         try:
-            #             for x in i['qualifiers']['P2310']:
-            #                 if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
-            #                     try:
-            #                         value = valueTime(x['datavalue']['value']['time'])
-            #                         maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:minInclusive>\n</rdf:Description>'
-            #                         rangeDatatypeList.append(maxRange)
-            #                     except:
-            #                         print(x)
-            #                 else:
-            #                     print(x['datatype'], 'L')
-            #         except:
-            #             print('no P2310')
-            #         # max date
-            #         # elif 'P2311' in i['qualifiers'].keys():
-            #         try:
-            #             for x in i['qualifiers']['P2311']:
-            #                 if x['datatype'] == 'time' and x['snaktype'] != 'somevalue':
-            #                     try:
-            #                         value = valueTime(x['datavalue']['value']['time'], 1)
-            #                         minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
-            #                         rangeDatatypeList.append(minRange)
-            #                     except:
-            #                         print(x)
-            #                 else:
-            #                     print(x['datatype'], 'J')
-            #         except:
-            #             print('no P2311')
-            #
-            #
-            #         closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
-            #         rangeDatatypeList.append(closure)
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
+                rangeDatatypeList = ['<rdfs:range>\n<rdfs:Datatype>']
+
+                if ('P2313' in i['qualifiers'].keys()) or ('P2312' in i['qualifiers'].keys()):
+                    rangeDatatypeList.append(
+                        '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal" />\n<owl:withRestrictions rdf:parseType="Collection">')
+                    # min value
+                    try:
+                        for x in i['qualifiers']['P2313']:
+                            if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
+                                value = x['datavalue']['value']['amount']
+                                if '.' not in str(value):
+                                    minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + value + '</xsd:minInclusive>\n</rdf:Description>'
+                                else:
+                                    minRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">' + value + '</xsd:minInclusive>\n</rdf:Description>'
+                                rangeDatatypeList.append(minRange)
+                            else:
+                                print(x['datatype'], 'N')
+                    except:
+                        print('no P2313')
+
+                    # max value
+                    try:
+                        for x in i['qualifiers']['P2312']:
+                            if x['datatype'] == 'quantity' and x['snaktype'] is not 'somevalue':
+                                value = x['datavalue']['value']['amount']
+                                if '.' not in str(value):
+                                    maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
+                                else:
+                                    maxRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
+                                rangeDatatypeList.append(maxRange)
+                            else:
+                                print(x['datatype'], 'M')
+                    except:
+                        print('no P2312')
+
+                    closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
+                    rangeDatatypeList.append(closure)
+
+                elif ('P2311' in i['qualifiers'].keys()) or ('P2310' in i['qualifiers'].keys()):
+                    rangeDatatypeList.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime" />\n<owl:withRestrictions rdf:parseType="Collection">')
+                    # min date
+                    # if 'P2310' in i['qualifiers'].keys():
+                    try:
+                        for x in i['qualifiers']['P2310']:
+                            if x['datatype'] == 'time' and x['snaktype'] is not 'somevalue':
+                                try:
+                                    value = valueTime(x['datavalue']['value']['time'])
+                                    maxRange = '<rdf:Description>\n<xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:minInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(maxRange)
+                                except:
+                                    print(x)
+                            else:
+                                print(x['datatype'], 'L')
+                    except:
+                        print('no P2310')
+                    # max date
+                    # elif 'P2311' in i['qualifiers'].keys():
+                    try:
+                        for x in i['qualifiers']['P2311']:
+                            if x['datatype'] == 'time' and x['snaktype'] != 'somevalue':
+                                try:
+                                    value = valueTime(x['datavalue']['value']['time'], 1)
+                                    minRange = '<rdf:Description>\n<xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + value + '</xsd:maxInclusive>\n</rdf:Description>'
+                                    rangeDatatypeList.append(minRange)
+                                except:
+                                    print(x)
+                            else:
+                                print(x['datatype'], 'J')
+                    except:
+                        print('no P2311')
+
+
+                    closure = '</owl:withRestrictions>\n</rdfs:Datatype>\n</rdfs:range>'
+                    rangeDatatypeList.append(closure)
 
 
                     # Q21510851 "allowed qualifiers" constraint ### what to do with it?
 
             # Q21502838 "conflicts-with" constraint
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
-            #     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
-            #     if 'P2305' in i['qualifiers'].keys():
-            #         conflictingObjects = []
-            #         for x in i['qualifiers']['P2305']:
-            #             if x['snaktype'] == 'value':
-            #                 try:
-            #                     conflictingObjects.append(x['datavalue']['value']['id'])
-            #                 except:
-            #                     print(i['qualifiers']['P2305'], 'H')
-            #             elif x['snaktype'] == 'somevalue':
-            #                 conflictingObjects.append('somevalue')
-            #             elif x['snaktype'] == 'novalue':
-            #                 conflictingObjects.append('novalue')
-            #
-            #         # try:
-            #         #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
-            #
-            #         if propertyConflicts[0] == 'P31':
-            #             for obj in conflictingObjects:
-            #                 obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
-            #                 conflictsWith.append(obj)
-            #         else:
-            #             for obj in conflictingObjects:
-            #                 obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-            #                 conflictsWith.append(obj)
-            #         # except:
-            #         #     print(i['qualifiers']['P2305'])
-            #
-            #     else:
-            #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-            #         conflictsWith.append(obj)
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+                propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
+                if 'P2305' in i['qualifiers'].keys():
+                    conflictingObjects = []
+                    for x in i['qualifiers']['P2305']:
+                        if x['snaktype'] == 'value':
+                            try:
+                                conflictingObjects.append(x['datavalue']['value']['id'])
+                            except:
+                                print(i['qualifiers']['P2305'], 'H')
+                        elif x['snaktype'] == 'somevalue':
+                            conflictingObjects.append('somevalue')
+                        elif x['snaktype'] == 'novalue':
+                            conflictingObjects.append('novalue')
+
+                    # try:
+                    #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+
+                    if propertyConflicts[0] == 'P31':
+                        for obj in conflictingObjects:
+                            obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
+                            conflictsWith.append(obj)
+                    else:
+                        for obj in conflictingObjects:
+                            obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                            conflictsWith.append(obj)
+                    # except:
+                    #     print(i['qualifiers']['P2305'])
+
+                else:
+                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                    conflictsWith.append(obj)
             #
 
 
                # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?
 
             # Q21510859 "one-of" constraint ###owl:oneOf: subject must be class, object must be list
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
-            #     classOneOf = []
-            #     for y in i['qualifiers']['P2305']:
-            #         if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
-            #             try:
-            #                 classOneOf.append(y['datavalue']['value']['id'])
-            #                 ###it can be 'no value' in snaktype
-            #             except:
-            #                 print(y, 'O')  # some issue here!!!
-            #     classOneOf = map(collectionItems, classOneOf)
-                # try:
-                #     classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
-                #     classOneOf = map(collectionItems, classOneOf)
-                # except:
-                #     print(i['qualifiers']['P2305'])
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
+                classOneOf = []
+                for y in i['qualifiers']['P2305']:
+                    if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
+                        try:
+                            classOneOf.append(y['datavalue']['value']['id'])
+                            ###it can be 'no value' in snaktype
+                        except:
+                            print(y, 'O')  # some issue here!!!
+                classOneOf = map(collectionItems, classOneOf)
+                try:
+                    classOneOf = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2305']]
+                    classOneOf = map(collectionItems, classOneOf)
+                except:
+                    print(i['qualifiers']['P2305'])
 
             #Q21510857 multi value constraint; this refers to properties, whereas OWL cardinality restrictions apply to classes
             # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
@@ -563,22 +563,22 @@ def propertyExtractor(lineParsed):
         resourceInstanceOf = '\n'.join(resourceInstanceList)
         propertyDescription.append(resourceInstanceOf)
     # if 'resourceSeeList' in locals():
-    #     resourceSeeAlso = '\n'.join(resourceSeeList)
-    #     propertyDescription.append(resourceSeeAlso)
+        resourceSeeAlso = '\n'.join(resourceSeeList)
+        propertyDescription.append(resourceSeeAlso)
     if 'resourceSubPropertyList' in locals():
         resourceSubPropertyOf = '\n'.join(resourceSubPropertyList)
         propertyDescription.append(resourceSubPropertyOf)
     if 'resourceEquivalentList' in locals():
         resourceEquivalentProperty = '\n'.join(resourceEquivalentList)
         propertyDescription.append(resourceEquivalentProperty)
-    # if inverseFunctional:
-    #     if propertyType == "DatatypeProperty":
-    #         if 'classDomain' in locals():
-    #             for item in classDomain:
-    #                 hasKeyList.append((lineParsed['id'], item))
-    #                 print((lineParsed['id'], item))
-    #     else:
-    #         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
+    if inverseFunctional:
+        if propertyType == "DatatypeProperty":
+            if 'classDomain' in locals():
+                for item in classDomain:
+                    hasKeyList.append((lineParsed['id'], item))
+                    print((lineParsed['id'], item))
+        else:
+            propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty" />')
     if multiValue:
         if 'classDomain' in locals():
             for item in classDomain:
@@ -588,16 +588,16 @@ def propertyExtractor(lineParsed):
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty" />')
     if symmetric:
         propertyDescription.append('<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty" />')
-    # if 'resourceInverseList' in locals():
-    #     resourceInverseOf = '\n'.join(resourceInverseList)
-    #     propertyDescription.append(resourceInverseOf)
+    if 'resourceInverseList' in locals():
+        resourceInverseOf = '\n'.join(resourceInverseList)
+        propertyDescription.append(resourceInverseOf)
     if 'domainInfo' in locals():
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():
         propertyDescription.append(rangeInfo)
-    # if 'rangeDatatypeList' in locals():
-    #     rangeDatatype = '\n'.join(rangeDatatypeList)
-    #     propertyDescription.append(rangeDatatype)
+    if 'rangeDatatypeList' in locals():
+        rangeDatatype = '\n'.join(rangeDatatypeList)
+        propertyDescription.append(rangeDatatype)
 
     propertyDescription.append(propertyDeclarationClosure)
 
@@ -646,10 +646,10 @@ def classExtractor(lineParsed, hasKey, multiValue):
     #     resourceHasPartList = []
     # if 'P361' in lineParsed['claims'].keys():
     #     resourceIsPartList = []
-    # if 'P2737' in lineParsed['claims'].keys():
-    #     resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
-    # if 'P2738' in lineParsed['claims'].keys():
-    #     resourceDisjointUnionList = ['<owl:DisjointUnion>']
+    if 'P2737' in lineParsed['claims'].keys():
+        resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
+    if 'P2738' in lineParsed['claims'].keys():
+        resourceDisjointUnionList = ['<owl:DisjointUnion>']
 
     # for key in lineParsed['claims']:
 
@@ -739,36 +739,36 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
         # elif key == 'P2737': #UnionOf
         #     resourceUnionList = ['<owl:unionOf>']
-    # try:
-    #     for j in lineParsed['claims']['P2737']:
-    #         if j['mainsnak']['datavalue']['value']['id'] == 'Q23766486':
-    #             if 'qualifiers' in j.keys():
-    #                 for x in j['qualifiers']['P642']:
-    #                     if x['snaktype'] == 'value':
-    #                         try:
-    #                             resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-    #                     ###account for somevalue/no value
-    #                         except:
-    #                             print(lineParsed['claims']['P2737'], 'F')
-    #     resourceUnionList.append('</owl:unionOf>')
-    # except:
-    #     print('No P2737')
-    #
+    try:
+        for j in lineParsed['claims']['P2737']:
+            if j['mainsnak']['datavalue']['value']['id'] == 'Q23766486':
+                if 'qualifiers' in j.keys():
+                    for x in j['qualifiers']['P642']:
+                        if x['snaktype'] == 'value':
+                            try:
+                                resourceUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                        ###account for somevalue/no value
+                            except:
+                                print(lineParsed['claims']['P2737'], 'F')
+        resourceUnionList.append('</owl:unionOf>')
+    except:
+        print('No P2737')
+
     #     # elif key == 'P2738': #disjointUnionOf
     #     #     resourceDisjointUnionList = ['<owl:DisjointUnion rdf:parseType="Collection">']
-    # try:
-    #     for j in lineParsed['claims']['P2738']:
-    #         if 'qualifiers' in j.keys():
-    #             for x in j['qualifiers']['P642']:
-    #                 if x['snaktype'] == 'value':
-    #                     try:
-    #                         resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
-    #                 ###account for somevalue/no value
-    #                     except:
-    #                         print(x, 'G')
-    #     resourceDisjointUnionList.append('</owl:DisjointUnion>')
-    # except:
-    #     print('No P2738')
+    try:
+        for j in lineParsed['claims']['P2738']:
+            if 'qualifiers' in j.keys():
+                for x in j['qualifiers']['P642']:
+                    if x['snaktype'] == 'value':
+                        try:
+                            resourceDisjointUnionList.append(disjointUnionClasses(x['datavalue']['value']['id']))
+                    ###account for somevalue/no value
+                        except:
+                            print(x, 'G')
+        resourceDisjointUnionList.append('</owl:DisjointUnion>')
+    except:
+        print('No P2738')
 
 
     # else:
@@ -802,13 +802,13 @@ def classExtractor(lineParsed, hasKey, multiValue):
     # if 'resourceIsPartList' in locals():
     #     resourceIsPartList = '\n'.join(resourceIsPartList)
     #     classData.append(resourceIsPartList)
-    # if 'resourceUnionList' in locals():
-    #     if resourceUnionList[1] != '</owl:unionOf>':
-    #         resourceUnionList = '\n'.join(resourceUnionList)
-    #         classData.append(resourceUnionList)
-    # if 'resourceDisjointUnionList' in locals():
-    #     resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
-    #     classData.append(resourceDisjointUnionList)
+    if 'resourceUnionList' in locals():
+        if resourceUnionList[1] != '</owl:unionOf>':
+            resourceUnionList = '\n'.join(resourceUnionList)
+            classData.append(resourceUnionList)
+    if 'resourceDisjointUnionList' in locals():
+        resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
+        classData.append(resourceDisjointUnionList)
 
     classData.append(classDeclarationClosure)
 

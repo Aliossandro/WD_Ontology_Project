@@ -49,13 +49,13 @@ def classExtractor(file_name):
                         entityID = lineParsed['id']
                         classesList.append(entityID)
                         for i in lineParsed['claims']['P279']:
-                            if 'qualifiers' not in i.keys():
-                                try:
-                                    superClass = i['mainsnak']['datavalue']['value']['id']
-                                    superClasses.append(superClass)
-                                    counter += 1
-                                except:
-                                    print(i)
+                            # if 'qualifiers' not in i.keys():
+                            try:
+                                superClass = i['mainsnak']['datavalue']['value']['id']
+                                superClasses.append(superClass)
+                                counter += 1
+                            except:
+                                print(i)
                     except:
                         print('no class')
 

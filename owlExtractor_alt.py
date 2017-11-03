@@ -647,7 +647,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
     # if 'P361' in lineParsed['claims'].keys():
     #     resourceIsPartList = []
     # if 'P2737' in lineParsed['claims'].keys():
-    #     resourceUnionList = ['<owl:unionOf>']
+    #     resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
     # if 'P2738' in lineParsed['claims'].keys():
     #     resourceDisjointUnionList = ['<owl:DisjointUnion>']
 
@@ -755,7 +755,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
     #     print('No P2737')
     #
     #     # elif key == 'P2738': #disjointUnionOf
-    #     #     resourceDisjointUnionList = ['<owl:DisjointUnion>']
+    #     #     resourceDisjointUnionList = ['<owl:DisjointUnion rdf:parseType="Collection">']
     # try:
     #     for j in lineParsed['claims']['P2738']:
     #         if 'qualifiers' in j.keys():

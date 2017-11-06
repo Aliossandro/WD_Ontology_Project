@@ -9,6 +9,7 @@ import re
 import bz2
 import os
 import fileWriter
+import sys
 
 ###classes list generator
 def classesGenerator(**args):
@@ -96,7 +97,46 @@ def valueTime(data, timeType):
 
     return data
 
+def qualifierProcessor(subject, propertyMain, objectMain, **qualifiers):
 
+    if propertyMain == 'P279':
+        propertyMain = 'http://www.w3.org/2000/01/rdf-schema#subClassOf" />\n'
+    elif propertyMain == 'P31':
+        propertyMain = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type" />\n'
+    elif propertyMain == 'P1709':
+        propertyMain = 'http://www.w3.org/2002/07/owl#equivalentClass" />\n'
+    elif propertyMain == 'P2737':
+        propertyMain = 'http://www.w3.org/2002/07/owl#unionOf" />\n'
+    elif propertyMain == 'P2738':
+        propertyMain = 'http://www.w3.org/2002/07/owl#disjointUnion" />\n'
+    else:
+        propertyMain = 'http://www.wikidata.org/entity/' + propertyMain + '" />\n'
+
+    if re.match('[Qq][0-9]{1,}', objectMain):
+        objectMain = '<owl:annotatedTarget rdf:resource="http://www.wikidata.org/entity/' + objectMain + '"/>\n'
+    else:
+        objectMain = '<owl:annotatedTarget>' + objectMain + '<owl:annotatedTarget/>\n'
+
+    qualifierProperty = qualifiers.get('qualifierP1')
+    qualifier = qualifiers.get('qualifierO1')
+    quali1 = '<wd:' + qualifierProperty + ' rdf:resource="http://www.wikidata.org/entity/' + qualifier + '" />\n'
+
+    if qualifiers.get('qualifierP4'):
+        quali2 = '<wd:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wd:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        quali4 = '<wd:' + qualifiers.get('qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + quali4 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP3'):
+        quali2 = '<wd:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wd:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP2'):
+        quali2 = '<wd:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + '</owl:Axiom>'
+    else:
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain  + quali1 + '</owl:Axiom>'
+
+    return annotation
 
 
 ###property extractor
@@ -679,8 +719,48 @@ def classExtractor(lineParsed, hasKey, multiValue):
                     subClassOf = "http://www.wikidata.org/entity/" + subClassOf
                     resourceSubClassOf = '<rdfs:subClassOf rdf:resource="' + subClassOf + '"/>'
                     resourceSubClassList.append(resourceSubClassOf)
+
+                    if 'qualifiers' in i.keys():
+                        d = {}
+                        for q in i['qualifiers']:
+
+                            for j in i['qualifiers'][q]:
+                                if j['datatype'] == 'wikibase-item':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
+                                elif j['datatype'] == 'string':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                elif j['datatype'] == 'time':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
+                                else:
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+
+                                d["qualifierP{0}".format(j)] = j['property']
+
+                            if 'qualifierP4' in d.keys():
+                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'],
+                                                           qualifierO2=d['qualifierO2'], qualifierP2=d['qualifierP2'],
+                                                           qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'], qualifierO4=d['qualifierO4'],
+                                                           qualifierP4=d['qualifierP4'])
+                            elif 'qualifierP3' in d.keys():
+                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'], qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'])
+                            elif 'qualifierP2' in d.keys():
+                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'])
+                            else:
+                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'])
+
                 except:
                     print(i, 'B')
+
+
+
     except:
         print('No P279')
 
@@ -810,7 +890,11 @@ def classExtractor(lineParsed, hasKey, multiValue):
         resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
         classData.append(resourceDisjointUnionList)
 
+
     classData.append(classDeclarationClosure)
+
+    if 'quale' in locals():
+        classData.append(quale)
 
     return classData, otherKeys
 

@@ -645,6 +645,7 @@ def propertyExtractor(lineParsed):
 
 def classExtractor(lineParsed, hasKey, multiValue):
     otherKeys = []
+    quale = []
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -699,10 +700,47 @@ def classExtractor(lineParsed, hasKey, multiValue):
         for i in lineParsed['claims']['P31']:
             if i['mainsnak']['snaktype'] == 'value':
                 try:
-                    instanceOf = i['mainsnak']['datavalue']['value']['id']
-                    instanceOf = "http://www.wikidata.org/entity/" + instanceOf
+                    instanceOf_Qid = i['mainsnak']['datavalue']['value']['id']
+                    instanceOf = "http://www.wikidata.org/entity/" + instanceOf_Qid
                     resourceInstanceOf = '<rdf:type rdf:resource="' + instanceOf + '"/>'
                     resourceInstanceList.append(resourceInstanceOf)
+                    if 'qualifiers' in i.keys():
+                        d = {}
+                        for q in i['qualifiers']:
+
+                            for j in i['qualifiers'][q]:
+                                if j['datatype'] == 'wikibase-item':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
+                                elif j['datatype'] == 'string':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                elif j['datatype'] == 'time':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
+                                else:
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+
+                                d["qualifierP{0}".format(j)] = j['property']
+
+                            if 'qualifierP4' in d.keys():
+                                qualeP31 = qualifierProcessor(resourceName, 'P31', instanceOf_Qid, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'],
+                                                           qualifierO2=d['qualifierO2'], qualifierP2=d['qualifierP2'],
+                                                           qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'], qualifierO4=d['qualifierO4'],
+                                                           qualifierP4=d['qualifierP4'])
+                            elif 'qualifierP3' in d.keys():
+                                qualeP31 = qualifierProcessor(resourceName, 'P31', instanceOf_Qid, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'], qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'])
+                            elif 'qualifierP2' in d.keys():
+                                qualeP31 = qualifierProcessor(resourceName, 'P31', instanceOf_Qid, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'])
+                            else:
+                                qualeP31 = qualifierProcessor(resourceName, 'P31', instanceOf_Qid, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'])
+                        quale.append(qualeP31)
+
                 except:
                     print(i, "A")
     except:
@@ -737,24 +775,26 @@ def classExtractor(lineParsed, hasKey, multiValue):
                                 d["qualifierP{0}".format(j)] = j['property']
 
                             if 'qualifierP4' in d.keys():
-                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                qualeP279 = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
                                                            qualifierP1=d['qualifierP1'],
                                                            qualifierO2=d['qualifierO2'], qualifierP2=d['qualifierP2'],
                                                            qualifierO3=d['qualifierO3'],
                                                            qualifierP3=d['qualifierP3'], qualifierO4=d['qualifierO4'],
                                                            qualifierP4=d['qualifierP4'])
                             elif 'qualifierP3' in d.keys():
-                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                qualeP279 = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
                                                            qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
                                                            qualifierP2=d['qualifierP2'], qualifierO3=d['qualifierO3'],
                                                            qualifierP3=d['qualifierP3'])
                             elif 'qualifierP2' in d.keys():
-                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                qualeP279 = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
                                                            qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
                                                            qualifierP2=d['qualifierP2'])
                             else:
-                                quale = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
+                                qualeP279 = qualifierProcessor(resourceName, 'P279', subClassOf, qualifierO1=d['qualifierO1'],
                                                            qualifierP1=d['qualifierP1'])
+
+                        quale.append(qualeP279)
 
                 except:
                     print(i, 'B')
@@ -774,6 +814,45 @@ def classExtractor(lineParsed, hasKey, multiValue):
                     equivalentClass = "http://www.wikidata.org/entity/" + equivalentClass
                     resourceEquivalentClassOf = '<owl:equivalentClass rdf:resource="' + equivalentClass + '"/>'
                     resourceEquivalentClassList.append(resourceEquivalentClassOf)
+
+                    if 'qualifiers' in i.keys():
+                        d = {}
+                        for q in i['qualifiers']:
+
+                            for j in i['qualifiers'][q]:
+                                if j['datatype'] == 'wikibase-item':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
+                                elif j['datatype'] == 'string':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                elif j['datatype'] == 'time':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
+                                else:
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+
+                                d["qualifierP{0}".format(j)] = j['property']
+
+                            if 'qualifierP4' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1709', equivalentClass, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'],
+                                                           qualifierO2=d['qualifierO2'], qualifierP2=d['qualifierP2'],
+                                                           qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'], qualifierO4=d['qualifierO4'],
+                                                           qualifierP4=d['qualifierP4'])
+                            elif 'qualifierP3' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1709', equivalentClass, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'], qualifierO3=d['qualifierO3'],
+                                                           qualifierP3=d['qualifierP3'])
+                            elif 'qualifierP2' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1709', equivalentClass, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                           qualifierP2=d['qualifierP2'])
+                            else:
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1709', equivalentClass, qualifierO1=d['qualifierO1'],
+                                                           qualifierP1=d['qualifierP1'])
+
+                        quale.append(qualeP1709)
+
                 except:
                     try:
                         equivalentClass = i['mainsnak']['datavalue']['value']

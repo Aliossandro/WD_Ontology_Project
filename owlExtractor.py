@@ -78,7 +78,7 @@ def collectionItems(resource):
 
 def disjointUnionClasses(object):
     disjointUnionOf = "http://www.wikidata.org/entity/" + object
-    resourceDisjointUnionOf = '<owl:Class rdf:resource="' + disjointUnionOf + '"/>'
+    resourceDisjointUnionOf = '<owl:Class rdf:about="' + disjointUnionOf + '"/>'
 
     return resourceDisjointUnionOf
 
@@ -688,9 +688,9 @@ def classExtractor(lineParsed, hasKey, multiValue):
     # if 'P361' in lineParsed['claims'].keys():
     #     resourceIsPartList = []
     if 'P2737' in lineParsed['claims'].keys():
-        resourceUnionList = ['<owl:unionOf>']
+        resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
     if 'P2738' in lineParsed['claims'].keys():
-        resourceDisjointUnionList = ['<owl:DisjointUnion>']
+        resourceDisjointUnionList = ['<owl:DisjointUnion rdf:parseType="Collection">']
 
     # for key in lineParsed['claims']:
 

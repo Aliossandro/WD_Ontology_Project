@@ -109,6 +109,8 @@ def qualifierProcessor(subject, propertyMain, objectMain, **qualifiers):
         propertyMain = 'http://www.w3.org/2002/07/owl#unionOf" />\n'
     elif propertyMain == 'P2738':
         propertyMain = 'http://www.w3.org/2002/07/owl#disjointUnion" />\n'
+    elif propertyMain == 'P1889':
+        propertyMain = 'http://www.w3.org/2002/07/owl#differentFrom" />\n'
     else:
         propertyMain = 'http://www.wikidata.org/entity/' + propertyMain + '" />\n'
 
@@ -237,7 +239,7 @@ def propertyExtractor(lineParsed):
         resourceInstanceList = []
     if 'P1659' in lineParsed['claims'].keys():
         resourceSeeList = []
-    if 'P1647' in lineParsed['claims'].keys():
+    if 'P1647' in lineParsed['claims'].keys() or 'P2235' in lineParsed['claims'].keys():
         resourceSubPropertyList = []
     if 'P1628' in lineParsed['claims'].keys():
         resourceEquivalentList = []
@@ -291,6 +293,14 @@ def propertyExtractor(lineParsed):
             resourceSubPropertyList.append(resourceSubPropertyOf)
     except KeyError:
         print('No P1647')
+
+    try:
+        for i in lineParsed['claims']['P2235']:
+            subPropertyOf = i['mainsnak']['datavalue']['value']
+            resourceSubPropertyOf = '<rdfs:subPropertyOf rdf:resource="' + subPropertyOf + '"/>'
+            resourceSubPropertyList.append(resourceSubPropertyOf)
+    except KeyError:
+        print('No P2235')
 
         # elif key == 'P1628':
         #     resourceEquivalentList = []
@@ -356,6 +366,58 @@ def propertyExtractor(lineParsed):
                 # classRange = map(rangeLine, classRange)
                 # constraintList += list(classRange)
 
+            #Q21502404, 'format constraint
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502404':
+                formatAxiom = ['<rdfs:Datatype>']
+                formatQual = [x['datavalue']['value']['id'] for x in i['qualifiers']['P1793']]
+                if len(formatQual) == 0:
+                    formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0] + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
+                    formatAxiom.append(formatRange)
+                else:
+                    formatAxiom.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions rdf:parseType="Collection">')
+                    for f in formatQual:
+                        formatRange = '<rdf:Description>\n<xsd:pattern>' + f + '</xsd:pattern>\n</rdf:Description>'
+                        formatAxiom.append(formatRange)
+                    formatAxiom.append('</owl:withRestrictions>\n</rdfs:Datatype>')
+
+#             # Q21510864 'Value requires statement constraint', range restriction
+#             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510864':
+#                 differentAxiom = '<rdfs:subClassOf>\n<owl:Restriction>'
+#
+#                 for prop in i['qualifiers']['P2306']:
+#
+#
+#
+#
+#
+#                 relation = [k['datavalue']['value']['id'] for k in i['qualifiers']['P2306']]
+#             # Q21503252 instance of for constraints
+#                 if len(relation) == 1:
+#                     relation = relation[0]
+#                     if relation == 'Q21503252':
+#                         rangeTemp = '<rdfs:range rdf:resource="'
+#                     else:
+#                         print(relation, 'relation type')
+#                         # check if other qualifiers are used; what to do with them?
+#                         # break
+#                 else:
+#                     print(relation, 'relation type')
+#                     # check if there are other qualifiers; what to do with them?
+#                     # break
+#
+#                 classRange = [y['datavalue']['value']['id'] for y in i['qualifiers']['P2308']]
+#                 # classRange = map(rangeLine, classRange)
+#                 # constraintList += list(classRange)
+#
+#             '''<rdfs:range>
+# <owl:Class rdf:resource=”[add entity]”>
+# <rdfs:subClassOf>
+#     <owl:Restriction>
+#       <owl:onProperty rdf:resource="[add property]" />
+#       <owl:allValuesFrom rdf:resource="[add entity]" />
+#     </owl:Restriction>
+#   </rdfs:subClassOf> '''
+
             # Q21503250 'type', domain
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21503250':
                 relation = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2309']]
@@ -392,10 +454,11 @@ def propertyExtractor(lineParsed):
                 # constraintList += list(classDomain)
                     # Q21502410; inverse functional property
 
+            #inverse functional
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
                 inverseFunctional = True
 
-                # Q19474404; functional property
+            # Q19474404; functional property
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
                 functional = True
 
@@ -407,7 +470,7 @@ def propertyExtractor(lineParsed):
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
                 multiValue = True
 
-            # Q21510860; range constraint
+            # Q21510860; datarange constraint
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
                 rangeDatatypeList = ['<rdfs:range>\n<rdfs:Datatype>']
 
@@ -488,39 +551,39 @@ def propertyExtractor(lineParsed):
                     # Q21510851 "allowed qualifiers" constraint ### what to do with it?
 
             # Q21502838 "conflicts-with" constraint
-            # elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
-            #     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
-            #     if 'P2305' in i['qualifiers'].keys():
-            #         conflictingObjects = []
-            #         for x in i['qualifiers']['P2305']:
-            #             if x['snaktype'] == 'value':
-            #                 try:
-            #                     conflictingObjects.append(x['datavalue']['value']['id'])
-            #                 except:
-            #                     print(i['qualifiers']['P2305'], 'H')
-            #             elif x['snaktype'] == 'somevalue':
-            #                 conflictingObjects.append('somevalue')
-            #             elif x['snaktype'] == 'novalue':
-            #                 conflictingObjects.append('novalue')
-            #
-            #         # try:
-            #         #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
-            #
-            #         if propertyConflicts[0] == 'P31':
-            #             for obj in conflictingObjects:
-            #                 obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
-            #                 conflictsWith.append(obj)
-            #         else:
-            #             for obj in conflictingObjects:
-            #                 obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-            #                 conflictsWith.append(obj)
-            #         # except:
-            #         #     print(i['qualifiers']['P2305'])
-            #
-            #     else:
-            #         obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-            #         conflictsWith.append(obj)
-            #
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+                propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
+                if 'P2305' in i['qualifiers'].keys():
+                    conflictingObjects = []
+                    for x in i['qualifiers']['P2305']:
+                        if x['snaktype'] == 'value':
+                            try:
+                                conflictingObjects.append(x['datavalue']['value']['id'])
+                            except:
+                                print(i['qualifiers']['P2305'], 'H')
+                        elif x['snaktype'] == 'somevalue':
+                            conflictingObjects.append('somevalue')
+                        elif x['snaktype'] == 'novalue':
+                            conflictingObjects.append('novalue')
+
+                    # try:
+                    #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+
+                    if propertyConflicts[0] == 'P31':
+                        for obj in conflictingObjects:
+                            obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
+                            conflictsWith.append(obj)
+                    else:
+                        for obj in conflictingObjects:
+                            obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                            conflictsWith.append(obj)
+                    # except:
+                    #     print(i['qualifiers']['P2305'])
+
+                else:
+                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                    conflictsWith.append(obj)
+
 
 
                # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?
@@ -635,6 +698,11 @@ def propertyExtractor(lineParsed):
         propertyDescription.append(domainInfo)
     if 'rangeInfo' in locals():
         propertyDescription.append(rangeInfo)
+    if 'formatAxiom' in locals() and propertyType == 'DatatypeProperty':
+        rangeFormat = ['<rdfs:range>']
+        rangeFormat += formatAxiom
+        rangeFormat.append('</rdfs:range>')
+        propertyDescription.append(rangeFormat)
     if 'rangeDatatypeList' in locals():
         rangeDatatype = '\n'.join(rangeDatatypeList)
         propertyDescription.append(rangeDatatype)
@@ -691,6 +759,8 @@ def classExtractor(lineParsed, hasKey, multiValue):
         resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
     if 'P2738' in lineParsed['claims'].keys():
         resourceDisjointUnionList = ['<owl:DisjointUnion rdf:parseType="Collection">']
+    if 'P1889' in lineParsed['claims'].keys():
+        resourceDifferentList = []
 
     # for key in lineParsed['claims']:
 
@@ -863,6 +933,72 @@ def classExtractor(lineParsed, hasKey, multiValue):
     except:
         print('No P1709')
 
+    try:
+        for i in lineParsed['claims']['P1889']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    differentFrom = i['mainsnak']['datavalue']['value']['id']
+                    differentFrom = "http://www.wikidata.org/entity/" + differentFrom
+                    resourceDifferentFrom = '<owl:differentFrom rdf:resource="' + differentFrom + '"/>'
+                    resourceDifferentList.append(resourceDifferentFrom)
+
+                    if 'qualifiers' in i.keys():
+                        d = {}
+                        for q in i['qualifiers']:
+
+                            for j in i['qualifiers'][q]:
+                                if j['datatype'] == 'wikibase-item':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
+                                elif j['datatype'] == 'string':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                elif j['datatype'] == 'time':
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
+                                else:
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+
+                                d["qualifierP{0}".format(j)] = j['property']
+
+                            if 'qualifierP4' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1889', differentFrom,
+                                                                qualifierO1=d['qualifierO1'],
+                                                                qualifierP1=d['qualifierP1'],
+                                                                qualifierO2=d['qualifierO2'],
+                                                                qualifierP2=d['qualifierP2'],
+                                                                qualifierO3=d['qualifierO3'],
+                                                                qualifierP3=d['qualifierP3'],
+                                                                qualifierO4=d['qualifierO4'],
+                                                                qualifierP4=d['qualifierP4'])
+                            elif 'qualifierP3' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1889', differentFrom,
+                                                                qualifierO1=d['qualifierO1'],
+                                                                qualifierP1=d['qualifierP1'],
+                                                                qualifierO2=d['qualifierO2'],
+                                                                qualifierP2=d['qualifierP2'],
+                                                                qualifierO3=d['qualifierO3'],
+                                                                qualifierP3=d['qualifierP3'])
+                            elif 'qualifierP2' in d.keys():
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1889', differentFrom,
+                                                                qualifierO1=d['qualifierO1'],
+                                                                qualifierP1=d['qualifierP1'],
+                                                                qualifierO2=d['qualifierO2'],
+                                                                qualifierP2=d['qualifierP2'])
+                            else:
+                                qualeP1709 = qualifierProcessor(resourceName, 'P1889', differentFrom,
+                                                                qualifierO1=d['qualifierO1'],
+                                                                qualifierP1=d['qualifierP1'])
+
+                        quale.append(qualeP1709)
+
+                except:
+                    try:
+                        differentFrom = i['mainsnak']['datavalue']['value']
+                        resourceDifferentFrom = '<owl:differentFrom rdf:resource="' + differentFrom + '"/>'
+                        resourceDifferentList.append(resourceDifferentFrom)
+                    except:
+                        print(i, 'Diff')
+    except:
+        print('No P1709')
+
         # elif key == 'P527': #has part
         #     resourceHasPartList = []
 
@@ -973,7 +1109,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
     classData.append(classDeclarationClosure)
 
-    if 'quale' in locals():
+    if quale:
         classData.append(quale)
 
     return classData, otherKeys

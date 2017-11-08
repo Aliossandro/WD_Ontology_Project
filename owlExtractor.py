@@ -709,7 +709,7 @@ def propertyExtractor(lineParsed):
         rangeFormat = ['<rdfs:range>']
         rangeFormat += formatAxiom
         rangeFormat.append('</rdfs:range>')
-        propertyDescription.append(rangeFormat)
+        propertyDescription += rangeFormat
     if 'rangeDatatypeList' in locals():
         rangeDatatype = '\n'.join(rangeDatatypeList)
         propertyDescription.append(rangeDatatype)

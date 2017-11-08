@@ -366,8 +366,8 @@ def propertyExtractor(lineParsed):
                 # classRange = map(rangeLine, classRange)
                 # constraintList += list(classRange)
 
-            #Q21502404, 'format constraint
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502404':
+            #Q21502404, 'format constraint'
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21502404':
                 formatAxiom = ['<rdfs:Datatype>']
                 formatQual = [x['datavalue']['value']['id'] for x in i['qualifiers']['P1793']]
                 if len(formatQual) == 0:
@@ -419,7 +419,7 @@ def propertyExtractor(lineParsed):
 #   </rdfs:subClassOf> '''
 
             # Q21503250 'type', domain
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21503250':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21503250':
                 relation = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2309']]
                 # Q21503252 instance of for constraints
                 if len(relation) == 1:
@@ -455,23 +455,23 @@ def propertyExtractor(lineParsed):
                     # Q21502410; inverse functional property
 
             #inverse functional
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21502410':
                 inverseFunctional = True
 
             # Q19474404; functional property
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q19474404':
                 functional = True
 
             # Q21510862 symmetric constraint
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510862':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21510862':
                 symmetric = True
 
             # Q21510857 multi value constraint; this refers to properties, whereas OWL cardinality restrictions apply to classes
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21510857':
                 multiValue = True
 
             # Q21510860; datarange constraint
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
                 rangeDatatypeList = ['<rdfs:range>\n<rdfs:Datatype>']
 
                 if ('P2313' in i['qualifiers'].keys()) or ('P2312' in i['qualifiers'].keys()):
@@ -551,7 +551,7 @@ def propertyExtractor(lineParsed):
                     # Q21510851 "allowed qualifiers" constraint ### what to do with it?
 
             # Q21502838 "conflicts-with" constraint
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
                 propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
                 if 'P2305' in i['qualifiers'].keys():
                     conflictingObjects = []
@@ -571,25 +571,24 @@ def propertyExtractor(lineParsed):
 
                     if propertyConflicts[0] == 'P31':
                         for obj in conflictingObjects:
-                            obj = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
-                            conflictsWith.append(obj)
+                            objMod = '''<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Class>'''
+                            conflictsWith.append(objMod)
                     else:
                         for obj in conflictingObjects:
-                            obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
-                            conflictsWith.append(obj)
+                            objMod = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
+                            conflictsWith.append(objMod)
                     # except:
                     #     print(i['qualifiers']['P2305'])
 
                 else:
-                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
+                    obj = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
                     conflictsWith.append(obj)
-
 
 
                # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?
 
             # Q21510859 "one-of" constraint ###owl:oneOf: subject must be class, object must be list
-            elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
+            if i['mainsnak']['datavalue']['value']['id'] == 'Q21510859':
                 classOneOf = []
                 for y in i['qualifiers']['P2305']:
                     if y['snaktype'] != 'somevalue' or y['snaktype'] != 'novalue':
@@ -626,6 +625,11 @@ def propertyExtractor(lineParsed):
         else:
             rangeInfo = list(map(rangeLine, classRange))
             rangeInfo = '\n'.join(list(rangeInfo))
+    elif 'classOneOf' in locals():
+        oneOfCollection = '\n'.join(list(classOneOf))
+        oneOfCollection = '<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>'
+        rangeInfo = '<rdfs:range>\n<owl:Class>\n' + oneOfCollection + '\n</owl:Class>\n</rdfs:range>'
+
 
     # constraintList += list(rangeInfo)
 
@@ -633,12 +637,7 @@ def propertyExtractor(lineParsed):
         if len(list(classDomain)) > 1:
             classDomain = map(rangeMultiple, classDomain)
             domainClasses = '\n'.join(list(classDomain))
-            if 'classOneOf' in locals():
-                oneOfCollection = '\n'.join(list(classOneOf))
-                oneOfCollection = '<owl:Class>\n<owl:oneOf rdf:parseType="Collection">\n' + oneOfCollection + '\n</owl:oneOf>\n</owl:Class>'
-                rangeInfo = '<rdfs:range>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n' + oneOfCollection + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:range>'
-            else:
-                domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
+            domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n</rdfs:domain>'
             if conflictsWith:
                 conflictList = '\n'.join(list(conflictsWith))
                 domainInfo = '<rdfs:domain>\n<owl:Class>\n<owl:intersectionOf rdf:parseType="Collection">\n<owl:Class>\n<owl:unionOf rdf:parseType="Collection">\n' + domainClasses + '\n</owl:unionOf>\n</owl:Class>\n'+ conflictList +'\n</owl:intersectionOf>\n</owl:Class>\n</rdfs:domain>'

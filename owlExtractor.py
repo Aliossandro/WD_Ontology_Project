@@ -369,16 +369,24 @@ def propertyExtractor(lineParsed):
             #Q21502404, 'format constraint'
             if i['mainsnak']['datavalue']['value']['id'] == 'Q21502404':
                 formatAxiom = ['<rdfs:Datatype>']
-                formatQual = [x['datavalue']['value']['id'] for x in i['qualifiers']['P1793']]
-                if len(formatQual) == 0:
-                    formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0] + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
-                    formatAxiom.append(formatRange)
-                else:
-                    formatAxiom.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions rdf:parseType="Collection">')
-                    for f in formatQual:
-                        formatRange = '<rdf:Description>\n<xsd:pattern>' + f + '</xsd:pattern>\n</rdf:Description>'
+                if 'P1793' in i['qualifiers'].keys():
+                    formatQual = []
+                    for x in i['qualifiers']['P1793']:
+                        try:
+                            formatQual.append(x['datavalue']['value']['id'])
+
+                        except TypeError:
+                            print(x)
+
+                    if len(formatQual) == 0:
+                        formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0] + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
                         formatAxiom.append(formatRange)
-                    formatAxiom.append('</owl:withRestrictions>\n</rdfs:Datatype>')
+                    else:
+                        formatAxiom.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions rdf:parseType="Collection">')
+                        for f in formatQual:
+                            formatRange = '<rdf:Description>\n<xsd:pattern>' + f + '</xsd:pattern>\n</rdf:Description>'
+                            formatAxiom.append(formatRange)
+                        formatAxiom.append('</owl:withRestrictions>\n</rdfs:Datatype>')
 
 #             # Q21510864 'Value requires statement constraint', range restriction
 #             elif i['mainsnak']['datavalue']['value']['id'] == 'Q21510864':

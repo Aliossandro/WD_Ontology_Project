@@ -373,12 +373,12 @@ def propertyExtractor(lineParsed):
                     formatQual = []
                     for x in i['qualifiers']['P1793']:
                         try:
-                            formatQual.append(x['datavalue']['value']['id'])
+                            formatQual.append(x['datavalue']['value'])
 
                         except TypeError:
                             print(x)
 
-                    if len(formatQual) == 0:
+                    if len(formatQual) == 1:
                         formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0] + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
                         formatAxiom.append(formatRange)
                     else:

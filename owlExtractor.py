@@ -943,7 +943,8 @@ def classExtractor(lineParsed, hasKey, multiValue):
         classData.append(resourceSubClassOf)
     if type(multiValue) is list:
         for val in multiValue:
-            multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
+            #multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
+            multiObject = '<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>'
             classData.append(multiObject)
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)

@@ -264,6 +264,8 @@ def propertyExtractor(lineParsed):
             elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647521': #reflexive property
                 resourceInstanceOf = '<rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ReflexiveProperty"/>'
                 resourceInstanceList.append(resourceInstanceOf)
+            elif i['mainsnak']['datavalue']['value']['id'] == 'Q18647518': #symmetric property
+                symmetric = True
             else:
                 instanceOf = i['mainsnak']['datavalue']['value']['id']
                 instanceOf = "http://www.wikidata.org/entity/" + instanceOf
@@ -758,10 +760,10 @@ def classExtractor(lineParsed, hasKey, multiValue):
         resourceSubClassList = []
     if 'P1709' in lineParsed['claims'].keys():
         resourceEquivalentClassList = []
-    # if 'P527' in lineParsed['claims'].keys():
-    #     resourceHasPartList = []
-    # if 'P361' in lineParsed['claims'].keys():
-    #     resourceIsPartList = []
+    if 'P527' in lineParsed['claims'].keys():
+        resourceHasPartList = []
+    if 'P361' in lineParsed['claims'].keys():
+        resourceIsPartList = []
     if 'P2737' in lineParsed['claims'].keys():
         resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
     if 'P2738' in lineParsed['claims'].keys():
@@ -1011,33 +1013,33 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
 
     ###not used for the moment
-    # try:
-    #     for i in lineParsed['claims']['P527']:
-    #         if i['mainsnak']['snaktype'] == 'value':
-    #             try:
-    #                 hasPart = i['mainsnak']['datavalue']['value']['id']
-    #                 hasPart = "http://www.wikidata.org/entity/" + hasPart
-    #                 resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
-    #                 resourceHasPartList.append(resourcehasPart)
-    #             except:
-    #                 print(i, 'D')
-    # except:
-    #     print('No P527')
+    try:
+        for i in lineParsed['claims']['P527']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    hasPart = i['mainsnak']['datavalue']['value']['id']
+                    hasPart = "http://www.wikidata.org/entity/" + hasPart
+                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+                    resourceHasPartList.append(resourcehasPart)
+                except:
+                    print(i, 'D')
+    except:
+        print('No P527')
     #
     #     # elif key == 'P361': #is part of
     #     #     resourceIsPartList = []
-    # try:
-    #     for i in lineParsed['claims']['P361']:
-    #         if i['mainsnak']['snaktype'] == 'value':
-    #             try:
-    #                 isPart = i['mainsnak']['datavalue']['value']['id']
-    #                 isPart = "http://www.wikidata.org/entity/" + isPart
-    #                 resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
-    #                 resourceIsPartList.append(resourceIsPart)
-    #             except:
-    #                 print(i, 'E')
-    # except:
-    #     print('No P361')
+    try:
+        for i in lineParsed['claims']['P361']:
+            if i['mainsnak']['snaktype'] == 'value':
+                try:
+                    isPart = i['mainsnak']['datavalue']['value']['id']
+                    isPart = "http://www.wikidata.org/entity/" + isPart
+                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+                    resourceIsPartList.append(resourceIsPart)
+                except:
+                    print(i, 'E')
+    except:
+        print('No P361')
 
         # elif key == 'P2737': #UnionOf
         #     resourceUnionList = ['<owl:unionOf>']
@@ -1086,8 +1088,8 @@ def classExtractor(lineParsed, hasKey, multiValue):
         classData.append(resourceSubClassOf)
     if type(multiValue) is list:
         for val in multiValue:
-            #multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
-            multiObject = '<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>'
+            multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
+            # multiObject = '<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>'
             classData.append(multiObject)
     if 'resourceEquivalentClassList' in locals():
         resourceEquivalentClassOf = '\n'.join(resourceEquivalentClassList)
@@ -1099,12 +1101,12 @@ def classExtractor(lineParsed, hasKey, multiValue):
             propertyKey = '<owl:DatatypeProperty rdf:about="http://www.wikidata.org/entity/' + propertyId + '" />'
             classData.append(propertyKey)
         classData.append('</owl:hasKey>')
-    # if 'resourceHasPartList' in locals():
-    #     resourceHasPartList = '\n'.join(resourceHasPartList)
-    #     classData.append(resourceHasPartList)
-    # if 'resourceIsPartList' in locals():
-    #     resourceIsPartList = '\n'.join(resourceIsPartList)
-    #     classData.append(resourceIsPartList)
+    if 'resourceHasPartList' in locals():
+        resourceHasPartList = '\n'.join(resourceHasPartList)
+        classData.append(resourceHasPartList)
+    if 'resourceIsPartList' in locals():
+        resourceIsPartList = '\n'.join(resourceIsPartList)
+        classData.append(resourceIsPartList)
     if 'resourceUnionList' in locals():
         if resourceUnionList[1] != '</owl:unionOf>':
             resourceUnionList = '\n'.join(resourceUnionList)

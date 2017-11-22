@@ -483,7 +483,7 @@ def propertyExtractor(lineParsed):
             # Q21528959 used as a reference constraint, Q21510863 used as a qualifier constraint
             if i['mainsnak']['datavalue']['value']['id'] == 'Q21528959' or i['mainsnak']['datavalue']['value']['id'] == 'Q21510863':
                 propertyDeclaration = '<owl:AnnotationProperty rdf:about="' + resourceName + '">'
-                propertyDeclarationClosure = '</owl:AnnotationProperty>'
+                propertyDeclarationClosure = '</owl:AnnotationProperty>'q
 
             # Q21510860; datarange constraint
             if i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':
@@ -765,10 +765,10 @@ def classExtractor(lineParsed, hasKey, multiValue):
         resourceSubClassList = []
     if 'P1709' in lineParsed['claims'].keys():
         resourceEquivalentClassList = []
-    if 'P527' in lineParsed['claims'].keys():
-        resourceHasPartList = []
-    if 'P361' in lineParsed['claims'].keys():
-        resourceIsPartList = []
+    # if 'P527' in lineParsed['claims'].keys():
+    #     resourceHasPartList = []
+    # if 'P361' in lineParsed['claims'].keys():
+    #     resourceIsPartList = []
     if 'P2737' in lineParsed['claims'].keys():
         resourceUnionList = ['<owl:unionOf rdf:parseType="Collection">']
     if 'P2738' in lineParsed['claims'].keys():
@@ -1018,33 +1018,33 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
 
     ###not used for the moment
-    try:
-        for i in lineParsed['claims']['P527']:
-            if i['mainsnak']['snaktype'] == 'value':
-                try:
-                    hasPart = i['mainsnak']['datavalue']['value']['id']
-                    hasPart = "http://www.wikidata.org/entity/" + hasPart
-                    resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
-                    resourceHasPartList.append(resourcehasPart)
-                except:
-                    print(i, 'D')
-    except:
-        print('No P527')
-    #
-    #     # elif key == 'P361': #is part of
-    #     #     resourceIsPartList = []
-    try:
-        for i in lineParsed['claims']['P361']:
-            if i['mainsnak']['snaktype'] == 'value':
-                try:
-                    isPart = i['mainsnak']['datavalue']['value']['id']
-                    isPart = "http://www.wikidata.org/entity/" + isPart
-                    resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
-                    resourceIsPartList.append(resourceIsPart)
-                except:
-                    print(i, 'E')
-    except:
-        print('No P361')
+    # try:
+    #     for i in lineParsed['claims']['P527']:
+    #         if i['mainsnak']['snaktype'] == 'value':
+    #             try:
+    #                 hasPart = i['mainsnak']['datavalue']['value']['id']
+    #                 hasPart = "http://www.wikidata.org/entity/" + hasPart
+    #                 resourcehasPart = '<dcterms:hasPart rdf:resource="' + hasPart + '"/>'
+    #                 resourceHasPartList.append(resourcehasPart)
+    #             except:
+    #                 print(i, 'D')
+    # except:
+    #     print('No P527')
+    # #
+    # #     # elif key == 'P361': #is part of
+    # #     #     resourceIsPartList = []
+    # try:
+    #     for i in lineParsed['claims']['P361']:
+    #         if i['mainsnak']['snaktype'] == 'value':
+    #             try:
+    #                 isPart = i['mainsnak']['datavalue']['value']['id']
+    #                 isPart = "http://www.wikidata.org/entity/" + isPart
+    #                 resourceIsPart = '<dcterms:isPartOf rdf:resource="' + isPart + '"/>'
+    #                 resourceIsPartList.append(resourceIsPart)
+    #             except:
+    #                 print(i, 'E')
+    # except:
+    #     print('No P361')
 
         # elif key == 'P2737': #UnionOf
         #     resourceUnionList = ['<owl:unionOf>']

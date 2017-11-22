@@ -564,40 +564,40 @@ def propertyExtractor(lineParsed):
 
 
                     # Q21510851 "allowed qualifiers" constraint ### what to do with it?
-
-            # Q21502838 "conflicts-with" constraint
-            if i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
-                propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
-                if 'P2305' in i['qualifiers'].keys():
-                    conflictingObjects = []
-                    for x in i['qualifiers']['P2305']:
-                        if x['snaktype'] == 'value':
-                            try:
-                                conflictingObjects.append(x['datavalue']['value']['id'])
-                            except:
-                                print(i['qualifiers']['P2305'], 'H')
-                        elif x['snaktype'] == 'somevalue':
-                            conflictingObjects.append('somevalue')
-                        elif x['snaktype'] == 'novalue':
-                            conflictingObjects.append('novalue')
-
-                    # try:
-                    #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
-
-                    if propertyConflicts[0] == 'P31':
-                        for obj in conflictingObjects:
-                            objMod = '''<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Class>'''
-                            conflictsWith.append(objMod)
-                    else:
-                        for obj in conflictingObjects:
-                            objMod = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
-                            conflictsWith.append(objMod)
-                    # except:
-                    #     print(i['qualifiers']['P2305'])
-
-                else:
-                    obj = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
-                    conflictsWith.append(obj)
+            ### not extracted as for now
+            # # Q21502838 "conflicts-with" constraint
+            # if i['mainsnak']['datavalue']['value']['id'] == 'Q21502838':
+            #     propertyConflicts = [x['datavalue']['value']['id'] for x in i['qualifiers']['P2306']]
+            #     if 'P2305' in i['qualifiers'].keys():
+            #         conflictingObjects = []
+            #         for x in i['qualifiers']['P2305']:
+            #             if x['snaktype'] == 'value':
+            #                 try:
+            #                     conflictingObjects.append(x['datavalue']['value']['id'])
+            #                 except:
+            #                     print(i['qualifiers']['P2305'], 'H')
+            #             elif x['snaktype'] == 'somevalue':
+            #                 conflictingObjects.append('somevalue')
+            #             elif x['snaktype'] == 'novalue':
+            #                 conflictingObjects.append('novalue')
+            #
+            #         # try:
+            #         #     conflictingObjects = [x['datavalue']['value']['id'] if x['snaktype'] == 'value' else 'somevalue' for x in i['qualifiers']['P2305']]
+            #
+            #         if propertyConflicts[0] == 'P31':
+            #             for obj in conflictingObjects:
+            #                 objMod = '''<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Class>'''
+            #                 conflictsWith.append(objMod)
+            #         else:
+            #             for obj in conflictingObjects:
+            #                 objMod = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
+            #                 conflictsWith.append(objMod)
+            #         # except:
+            #         #     print(i['qualifiers']['P2305'])
+            #
+            #     else:
+            #         obj = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
+            #         conflictsWith.append(obj)
 
 
                # Q25796498 "contemporary constraint: subject and object must exist at the same point in time; How do we specify that?

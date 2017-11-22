@@ -483,7 +483,7 @@ def propertyExtractor(lineParsed):
             # Q21528959 used as a reference constraint, Q21510863 used as a qualifier constraint
             if i['mainsnak']['datavalue']['value']['id'] == 'Q21528959' or i['mainsnak']['datavalue']['value']['id'] == 'Q21510863':
                 propertyDeclaration = '<owl:AnnotationProperty rdf:about="' + resourceName + '">'
-                propertyDeclarationClosure = '</owl:AnnotationProperty>'q
+                propertyDeclarationClosure = '</owl:AnnotationProperty>'
 
             # Q21510860; datarange constraint
             if i['mainsnak']['datavalue']['value']['id'] == 'Q21510860':

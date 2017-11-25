@@ -199,6 +199,7 @@ def propertyExtractor(lineParsed):
     conflictsWith = []
     hasKeyList = []
     multiList = []
+    otherProperties = []
 
 
     try:
@@ -248,6 +249,35 @@ def propertyExtractor(lineParsed):
         resourceInverseList = []
     if 'P2302' in lineParsed['claims'].keys():
         constraintList = []
+
+    nonOwlProperties = ['P279', 'P31', 'P1709', 'P2737', 'P2738', 'P1889', 'P1659', 'P2302', 'P1696', 'P1628',
+                            'P1647']
+
+    for prop in [x for x in lineParsed['claims'].keys() if x not in nonOwlProperties]:
+        for i in lineParsed['claims'][prop]:
+            try:
+                propertyStat = '<wd:' + prop + ' rdf:resource="http://www.wikidata.org/entity/' + i['mainsnak']['datavalue']['value']['id'] + '/>'
+                otherProperties.append(propertyStat)
+            except KeyError:
+                if i['mainsnak']['snaktype'] == 'novalue':
+                    propertyStat = '<wd:'+ prop +'>\n<owl:complementOf owl:Thing/>\n</wd:'+ prop + '>'
+                    otherProperties.append(propertyStat)
+                elif i['mainsnak']['snaktype'] == 'somevalue':
+                    propertyStat = '<wd:' + prop + '>\n<owl:someValuesFrom owl:Thing/>\n</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+            except TypeError:
+                if i['mainsnak']['datavalue']['type'] == 'string':
+                    propertyStat = '<wd:'+ prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">'+ i['mainsnak']['datavalue']['value'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+                elif i['mainsnak']['datavalue']['type'] == 'time':
+                    propertyStat = '<wd:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + i['mainsnak']['datavalue']['value']['time'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+                else:
+                    propertyStat = '<wd:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + i['mainsnak']['datavalue']['value'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
 
 
     # for key in lineParsed['claims']:
@@ -721,6 +751,9 @@ def propertyExtractor(lineParsed):
     if 'rangeDatatypeList' in locals():
         rangeDatatype = '\n'.join(rangeDatatypeList)
         propertyDescription.append(rangeDatatype)
+    if 'otherProperties' in locals():
+        otherProperties = '\n'.join(otherProperties)
+        propertyDescription.append(otherProperties)
 
     propertyDescription.append(propertyDeclarationClosure)
 
@@ -729,6 +762,7 @@ def propertyExtractor(lineParsed):
 def classExtractor(lineParsed, hasKey, multiValue):
     otherKeys = []
     quale = []
+    otherProperties = []
 
     try:
         resourceName = resourceNamer(lineParsed['id'])
@@ -776,6 +810,80 @@ def classExtractor(lineParsed, hasKey, multiValue):
         resourceDisjointUnionList = ['<owl:DisjointUnion rdf:parseType="Collection">']
     if 'P1889' in lineParsed['claims'].keys():
         resourceDifferentList = []
+
+    nonOwlProperties = ['P279', 'P31', 'P1709', 'P2737', 'P2738', 'P1889', 'P1659', 'P2302', 'P1696', 'P1628',
+                        'P1647']
+
+    for prop in [x for x in lineParsed['claims'].keys() if x not in nonOwlProperties]:
+        for i in lineParsed['claims'][prop]:
+            try:
+                propertyStat = '<wd:' + prop + ' rdf:resource="http://www.wikidata.org/entity/' + \
+                               i['mainsnak']['datavalue']['value']['id'] + '/>'
+                otherProperties.append(propertyStat)
+                if 'qualifiers' in i.keys():
+                    d = {}
+                    for q in i['qualifiers']:
+
+                        for j in i['qualifiers'][q]:
+                            if j['datatype'] == 'wikibase-item':
+                                d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
+                            elif j['datatype'] == 'string':
+                                d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                            elif j['datatype'] == 'time':
+                                d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
+                            else:
+                                d["qualifierO{0}".format(j)] = j['datavalue']['value']
+
+                            d["qualifierP{0}".format(j)] = j['property']
+
+                        if 'qualifierP4' in d.keys():
+                            qualePx = qualifierProcessor(resourceName, prop, i['mainsnak']['datavalue']['value']['id'],
+                                                          qualifierO1=d['qualifierO1'],
+                                                          qualifierP1=d['qualifierP1'],
+                                                          qualifierO2=d['qualifierO2'], qualifierP2=d['qualifierP2'],
+                                                          qualifierO3=d['qualifierO3'],
+                                                          qualifierP3=d['qualifierP3'], qualifierO4=d['qualifierO4'],
+                                                          qualifierP4=d['qualifierP4'])
+                        elif 'qualifierP3' in d.keys():
+                            qualePx = qualifierProcessor(resourceName, prop, i['mainsnak']['datavalue']['value']['id'],
+                                                          qualifierO1=d['qualifierO1'],
+                                                          qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                          qualifierP2=d['qualifierP2'], qualifierO3=d['qualifierO3'],
+                                                          qualifierP3=d['qualifierP3'])
+                        elif 'qualifierP2' in d.keys():
+                            qualePx = qualifierProcessor(resourceName, prop, i['mainsnak']['datavalue']['value']['id'],
+                                                          qualifierO1=d['qualifierO1'],
+                                                          qualifierP1=d['qualifierP1'], qualifierO2=d['qualifierO2'],
+                                                          qualifierP2=d['qualifierP2'])
+                        else:
+                            qualePx = qualifierProcessor(resourceName, prop, i['mainsnak']['datavalue']['value']['id'],
+                                                          qualifierO1=d['qualifierO1'],
+                                                          qualifierP1=d['qualifierP1'])
+                    quale.append(qualePx)
+
+            except KeyError:
+                if i['mainsnak']['snaktype'] == 'novalue':
+                    propertyStat = '<wd:' + prop + '>\n<owl:complementOf owl:Thing/>\n</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+                elif i['mainsnak']['snaktype'] == 'somevalue':
+                    propertyStat = '<wd:' + prop + '>\n<owl:someValuesFrom owl:Thing/>\n</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+            except TypeError:
+                if i['mainsnak']['datavalue']['type'] == 'string':
+                    propertyStat = '<wd:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + \
+                                   i['mainsnak']['datavalue']['value'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+                elif i['mainsnak']['datavalue']['type'] == 'time':
+                    propertyStat = '<wd:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">' + \
+                                   i['mainsnak']['datavalue']['value']['time'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
+
+                else:
+                    propertyStat = '<wd:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + \
+                                   i['mainsnak']['datavalue']['value'] + '</wd:' + prop + '>'
+                    otherProperties.append(propertyStat)
 
     # for key in lineParsed['claims']:
 
@@ -1120,6 +1228,9 @@ def classExtractor(lineParsed, hasKey, multiValue):
     if 'resourceDisjointUnionList' in locals():
         resourceDisjointUnionList = '\n'.join(resourceDisjointUnionList)
         classData.append(resourceDisjointUnionList)
+    if 'otherProperties' in locals():
+        otherProperties = '\n'.join(otherProperties)
+        classData.append(otherProperties)
 
 
     classData.append(classDeclarationClosure)

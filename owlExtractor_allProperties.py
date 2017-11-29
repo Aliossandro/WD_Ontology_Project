@@ -256,7 +256,7 @@ def propertyExtractor(lineParsed):
     for prop in [x for x in lineParsed['claims'].keys() if x not in nonOwlProperties]:
         for i in lineParsed['claims'][prop]:
             try:
-                propertyStat = '<wd:' + prop + ' rdf:resource="http://www.wikidata.org/entity/' + i['mainsnak']['datavalue']['value']['id'] + '/>'
+                propertyStat = '<wd:' + prop + ' rdf:resource="http://www.wikidata.org/entity/' + i['mainsnak']['datavalue']['value']['id'] + '"/>'
                 otherProperties.append(propertyStat)
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
@@ -818,7 +818,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
         for i in lineParsed['claims'][prop]:
             try:
                 propertyStat = '<wd:' + prop + ' rdf:resource="http://www.wikidata.org/entity/' + \
-                               i['mainsnak']['datavalue']['value']['id'] + '/>'
+                               i['mainsnak']['datavalue']['value']['id'] + '"/>'
                 otherProperties.append(propertyStat)
                 if 'qualifiers' in i.keys():
                     d = {}

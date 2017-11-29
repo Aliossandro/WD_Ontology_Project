@@ -47,12 +47,16 @@ class OntologyFile:
         self.output.write('xmlns:schema="http://schema.org/"\n')
         self.output.write('xmlns:wikibase="http://wikiba.se/ontology#"\n')
         self.output.write('xmlns:xsd="http://www.w3.org/2001/XMLSchema#"\n')
-        self.output.write('xmlns:wd="http://www.wikidata.org/entity/">\n')
+        self.output.write('xmlns:wd="http://www.wikidata.org/entity/"\n')
+        self.output.write('xmlns:wdt="http://www.wikidata.org/prop/direct/"\n')
+        self.output.write('xmlns:wikibase="http://wikiba.se/ontology#">\n')
+
         self.output.write('<!-- OWL Header -->\n')
         self.output.write('<owl:Ontology rdf:about="http://myWikidataOntology">\n')
         self.output.write('<dc:title>Wikidata ontology</dc:title>\n')
         self.output.write('<rdfs:comment rdf:datatype = "http://www.w3.org/2001/XMLSchema#string">OWL ontology extracted from Wikidata dumps</rdfs:comment>\n')
         self.output.write('<owl:versionInfo> v.' + str(datetime.datetime.now()) + '</owl:versionInfo>\n')
+        self.output.write('<owl:imports rdf:resource="http://wikiba.se/ontology-1.0.owl"/>\n')
         self.output.write('</owl:Ontology>\n')
 
     def finalWriter(self, propertyAll):

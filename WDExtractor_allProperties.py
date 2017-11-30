@@ -265,10 +265,10 @@ def propertyExtractor(lineParsed):
                 otherProperties.append(propertyStat)
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
                     otherProperties.append(propertyStat)
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
                     otherProperties.append(propertyStat)
 
             except TypeError:
@@ -315,7 +315,10 @@ def propertyExtractor(lineParsed):
     try:
         for i in lineParsed['claims']['P1659']:
             seeAlso = i['mainsnak']['datavalue']['value']['id']
-            seeAlso = "http://www.wikidata.org/entity/" + seeAlso
+            if str(seeAlso).startswith('P'):
+                seeAlso = "http://www.wikidata.org/prop/direct/" + seeAlso
+            else:
+                seeAlso = "http://www.wikidata.org/entity/" + seeAlso
             resourceSeeAlso = '<rdfs:seeAlso rdf:resource="' + seeAlso + '"/>'
             resourceSeeList.append(resourceSeeAlso)
     except KeyError:
@@ -326,7 +329,7 @@ def propertyExtractor(lineParsed):
     try:
         for i in lineParsed['claims']['P1647']:
             subPropertyOf = i['mainsnak']['datavalue']['value']['id']
-            subPropertyOf = "http://www.wikidata.org/entity/" + subPropertyOf
+            subPropertyOf = "http://www.wikidata.org/prop/direct/" + subPropertyOf
             resourceSubPropertyOf = '<rdfs:subPropertyOf rdf:resource="' + subPropertyOf + '"/>'
             resourceSubPropertyList.append(resourceSubPropertyOf)
     except KeyError:
@@ -346,7 +349,7 @@ def propertyExtractor(lineParsed):
         for i in lineParsed['claims']['P1628']:
             try:
                 equivalentProperty = i['mainsnak']['datavalue']['value']['id']
-                equivalentProperty = "http://www.wikidata.org/entity/" + equivalentProperty
+                equivalentProperty = "http://www.wikidata.org/prop/direct/" + equivalentProperty
             except TypeError:
                 equivalentProperty = i['mainsnak']['datavalue']['value']
 
@@ -361,7 +364,7 @@ def propertyExtractor(lineParsed):
         for i in lineParsed['claims']['P1696']:
             try:
                 inverseProperty = i['mainsnak']['datavalue']['value']['id']
-                inverseProperty = "http://www.wikidata.org/entity/" + inverseProperty
+                inverseProperty = "http://www.wikidata.org/prop/direct/" + inverseProperty
             except TypeError:
                 inverseProperty = i['mainsnak']['datavalue']['value']
 
@@ -622,17 +625,17 @@ def propertyExtractor(lineParsed):
 
                     if propertyConflicts[0] == 'P31':
                         for obj in conflictingObjects:
-                            objMod = '''<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Class>'''
+                            objMod = '<owl:Class> \n<owl:complementOf rdf:resource="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Class>'
                             conflictsWith.append(objMod)
                     else:
                         for obj in conflictingObjects:
-                            objMod = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/''' + obj + '''" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
+                            objMod = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + propertyConflicts[0] + '" />\n<owl:hasValue rdf:resource ="http://www.wikidata.org/entity/' + obj + '" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
                             conflictsWith.append(objMod)
                     # except:
                     #     print(i['qualifiers']['P2305'])
 
                 else:
-                    obj = '''<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/''' + propertyConflicts[0] + '''" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'''
+                    obj = '<owl:Class> \n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + propertyConflicts[0] + '" />\n<owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing" /> \n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>'
                     conflictsWith.append(obj)
 
 
@@ -887,11 +890,11 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
                     otherProperties.append(propertyStat)
 
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
                     otherProperties.append(propertyStat)
 
             except TypeError:
@@ -1309,7 +1312,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
         classData.append(resourceSubClassOf)
     if type(multiValue) is list:
         for val in multiValue:
-            multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
+            multiObject = '<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>'
             # multiObject = '<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/entity/' + val + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">2</owl:minCardinality>\n</owl:Restriction>'
             classData.append(multiObject)
     if 'resourceEquivalentClassList' in locals():
@@ -1442,32 +1445,32 @@ def fileAnalyser(file_name, classFile):
                         lineParsed = ujson.loads(line[:-2])
                         entityID = lineParsed['id']
 
-                        if entityID in classesList:
+                        # if entityID not in classesList:
                             # print(entityID)
                             # if counterI == 3000:
                             #     pass
                             # else:
                             # lineParsed = lineParsed['entities']['Q5'] ###temporary
-                            if entityID in hasKeyList:
-                                propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
-                            else:
-                                propertyKeyList = 0
+                        if entityID in hasKeyList:
+                            propertyKeyList = [item[0] for item in hasKeyTuples if item[1] == entityID]
+                        else:
+                            propertyKeyList = 0
 
-                            if entityID in multiList:
-                                propertyMultiList = [item[0] for item in multiTuples if item[1] == entityID]
-                            else:
-                                propertyMultiList = 0
+                        if entityID in multiList:
+                            propertyMultiList = [item[0] for item in multiTuples if item[1] == entityID]
+                        else:
+                            propertyMultiList = 0
 
-                            classData = classExtractor(lineParsed, propertyKeyList, propertyMultiList)
+                        classData = classExtractor(lineParsed, propertyKeyList, propertyMultiList)
 
-                            try:
-                                classDescriptionLine = '\n'.join(classData[0])
-                                entitiesAll.append(classDescriptionLine)
-                                # counterI += 1
-                            except TypeError:
-                                print(classData[0])
+                        try:
+                            classDescriptionLine = '\n'.join(classData[0])
+                            entitiesAll.append(classDescriptionLine)
+                            # counterI += 1
+                        except TypeError:
+                            print(classData[0])
 
-                            otherKeys += classData[1]
+                        otherKeys += classData[1]
 
                     except ValueError:
                         try:
@@ -1501,7 +1504,7 @@ def fileAnalyser(file_name, classFile):
 
 def writeOntology(propertyAll):
     ###write properties
-    with open('WDOntology.owl', 'w') as f:
+    with open('WD_RDF_export.owl', 'w') as f:
         x = fileWriter.OntologyFile(f)
         x.finalWriter(propertyAll)
 

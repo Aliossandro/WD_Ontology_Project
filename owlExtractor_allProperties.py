@@ -25,15 +25,6 @@ def classesGenerator(**args):
     print(len(classesList))
     return classesList
 
-def classesReader(fileName):
-    classesList = []
-    with open(fileName, 'r') as f:
-        for line in f:
-            classesList.append(line.replace('\n', ''))
-
-    classesList = set(classesList)
-    print(len(classesList))
-    return classesList
 
 def resourceNamer(resource):
     resourceUri = "http://www.wikidata.org/entity/" + resource
@@ -128,7 +119,28 @@ def qualifierProcessor(subject, propertyMain, objectMain, **qualifiers):
     qualifier = qualifiers.get('qualifierO1')
     quali1 = '<wdt:' + qualifierProperty + ' rdf:resource="http://www.wikidata.org/entity/' + qualifier + '" />\n'
 
-    if qualifiers.get('qualifierP4'):
+    if qualifiers.get('qualifierP6'):
+        quali2 = '<wdt:' + qualifiers.get(
+            'qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wdt:' + qualifiers.get(
+            'qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        quali4 = '<wdt:' + qualifiers.get(
+            'qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
+        quali5 = '<wdt:' + qualifiers.get(
+            'qualifierP5') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+            'qualifierO5') + '" />\n'
+        quali6 = '<wdt:' + qualifiers.get(
+            'qualifierP6') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+            'qualifierO6') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + quali4 + +quali5 + quali6 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP6'):
+        quali2 = '<wdt:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wdt:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        quali4 = '<wdt:' + qualifiers.get('qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
+        quali5 = '<wdt:' + qualifiers.get('qualifierP5') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+    'qualifierO5') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + quali4 + +quali5 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP4'):
         quali2 = '<wdt:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
         quali3 = '<wdt:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
         quali4 = '<wdt:' + qualifiers.get('qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
@@ -265,10 +277,10 @@ def propertyExtractor(lineParsed):
                 otherProperties.append(propertyStat)
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop + '>\n<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>\n</wdt'+prop+'><!--no value-->'
                     otherProperties.append(propertyStat)
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop +'<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt'+prop+'><!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:
@@ -890,11 +902,11 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop +'<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--no value-->'
                     otherProperties.append(propertyStat)
 
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop +'<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:
@@ -1355,7 +1367,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
 def fileAnalyser(file_name, classFile):
     #load classes list
-    classesList = classesReader(classFile)
+    classesList = fileWriter.classesReader(classFile)
     # classesList = classesGenerator()
     entitiesAll = []
     # collect other properties
@@ -1505,6 +1517,6 @@ def fileAnalyser(file_name, classFile):
 def writeOntology(propertyAll):
     ###write properties
     with open('WDOntology.owl', 'w') as f:
-        x = fileWriter.OntologyFile(f)
+        x = fileWriter.OntologyFile(f, 'rdf/owl')
         x.finalWriter(propertyAll)
 

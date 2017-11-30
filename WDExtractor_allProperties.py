@@ -128,7 +128,28 @@ def qualifierProcessor(subject, propertyMain, objectMain, **qualifiers):
     qualifier = qualifiers.get('qualifierO1')
     quali1 = '<wdt:' + qualifierProperty + ' rdf:resource="http://www.wikidata.org/entity/' + qualifier + '" />\n'
 
-    if qualifiers.get('qualifierP4'):
+    if qualifiers.get('qualifierP6'):
+        quali2 = '<wdt:' + qualifiers.get(
+            'qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wdt:' + qualifiers.get(
+            'qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        quali4 = '<wdt:' + qualifiers.get(
+            'qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
+        quali5 = '<wdt:' + qualifiers.get(
+            'qualifierP5') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+            'qualifierO5') + '" />\n'
+        quali6 = '<wdt:' + qualifiers.get(
+            'qualifierP6') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+            'qualifierO6') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + quali4 + +quali5 + quali6 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP6'):
+        quali2 = '<wdt:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
+        quali3 = '<wdt:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
+        quali4 = '<wdt:' + qualifiers.get('qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
+        quali5 = '<wdt:' + qualifiers.get('qualifierP5') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get(
+    'qualifierO5') + '" />\n'
+        annotation = '<owl:Axiom>\n<owl:annotatedSource rdf:resource="http://www.wikidata.org/entity/' + subject + '"/>\n<owl:annotatedProperty rdf:resource="' + propertyMain + objectMain + quali1 + quali2 + quali3 + quali4 + +quali5 + '</owl:Axiom>'
+    elif qualifiers.get('qualifierP4'):
         quali2 = '<wdt:' + qualifiers.get('qualifierP2') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO2') + '" />\n'
         quali3 = '<wdt:' + qualifiers.get('qualifierP3') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO3') + '" />\n'
         quali4 = '<wdt:' + qualifiers.get('qualifierP4') + ' rdf:resource="http://www.wikidata.org/entity/' + qualifiers.get('qualifierO4') + '" />\n'
@@ -265,15 +286,15 @@ def propertyExtractor(lineParsed):
                 otherProperties.append(propertyStat)
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop + '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--no value-->'
                     otherProperties.append(propertyStat)
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop + '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:
                 if i['mainsnak']['datavalue']['type'] == 'string':
-                    propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">'+ i['mainsnak']['datavalue']['value'] + '</wdt:' + prop + '>'
+                    propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">'+ i['mainsnak']['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</wdt:' + prop + '>'
                     otherProperties.append(propertyStat)
 
                 elif i['mainsnak']['datavalue']['type'] == 'time':
@@ -281,7 +302,7 @@ def propertyExtractor(lineParsed):
                     otherProperties.append(propertyStat)
 
                 else:
-                    propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + i['mainsnak']['datavalue']['value'] + '</wdt:' + prop + '>'
+                    propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + i['mainsnak']['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</wdt:' + prop + '>'
                     otherProperties.append(propertyStat)
 
 
@@ -420,12 +441,12 @@ def propertyExtractor(lineParsed):
                             print(x)
 
                     if len(formatQual) == 1:
-                        formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0] + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
+                        formatRange = '<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions>\n<rdf:Description>\n<xsd:pattern>' + formatQual[0].replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</xsd:pattern>\n</rdf:Description>\n</owl:withRestrictions>\n</rdfs:Datatype>'
                         formatAxiom.append(formatRange)
                     else:
                         formatAxiom.append('<owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>\n<owl:withRestrictions rdf:parseType="Collection">')
                         for f in formatQual:
-                            formatRange = '<rdf:Description>\n<xsd:pattern>' + f + '</xsd:pattern>\n</rdf:Description>'
+                            formatRange = '<rdf:Description>\n<xsd:pattern>' + f.replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</xsd:pattern>\n</rdf:Description>'
                             formatAxiom.append(formatRange)
                         formatAxiom.append('</owl:withRestrictions>\n</rdfs:Datatype>')
 
@@ -836,7 +857,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
                             if j['datatype'] == 'wikibase-item':
                                 d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
                             elif j['datatype'] == 'string':
-                                d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                d["qualifierO{0}".format(j)] = j['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26')
                             elif j['datatype'] == 'time':
                                 d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
                             else:
@@ -890,17 +911,17 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
             except KeyError:
                 if i['mainsnak']['snaktype'] == 'novalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop + '<rdf:type>\n<owl:Class>\n<owl:complementOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:complementOf>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--no value-->'
                     otherProperties.append(propertyStat)
 
                 elif i['mainsnak']['snaktype'] == 'somevalue':
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>'
+                    propertyStat = '<wdt:'+ prop + '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:
                 if i['mainsnak']['datavalue']['type'] == 'string':
                     propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + \
-                                   i['mainsnak']['datavalue']['value'] + '</wdt:' + prop + '>'
+                                   i['mainsnak']['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</wdt:' + prop + '>'
                     otherProperties.append(propertyStat)
 
                 elif i['mainsnak']['datavalue']['type'] == 'time':
@@ -910,7 +931,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
                 else:
                     propertyStat = '<wdt:' + prop + ' rdf:datatype="http://www.w3.org/2001/XMLSchema#string">' + \
-                                   i['mainsnak']['datavalue']['value'] + '</wdt:' + prop + '>'
+                                   i['mainsnak']['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26') + '</wdt:' + prop + '>'
                     otherProperties.append(propertyStat)
 
     # for key in lineParsed['claims']:
@@ -933,7 +954,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
                                 if j['datatype'] == 'wikibase-item':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
                                 elif j['datatype'] == 'string':
-                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26')
                                 elif j['datatype'] == 'time':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
                                 else:
@@ -1006,7 +1027,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
                                 if j['datatype'] == 'wikibase-item':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
                                 elif j['datatype'] == 'string':
-                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26')
                                 elif j['datatype'] == 'time':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
                                 else:
@@ -1082,7 +1103,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
                                 if j['datatype'] == 'wikibase-item':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
                                 elif j['datatype'] == 'string':
-                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26')
                                 elif j['datatype'] == 'time':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
                                 else:
@@ -1158,7 +1179,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
                                 if j['datatype'] == 'wikibase-item':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['id']
                                 elif j['datatype'] == 'string':
-                                    d["qualifierO{0}".format(j)] = j['datavalue']['value']
+                                    d["qualifierO{0}".format(j)] = j['datavalue']['value'].replace('<', '%3C').replace('>', '%3E').replace('&', '%26')
                                 elif j['datatype'] == 'time':
                                     d["qualifierO{0}".format(j)] = j['datavalue']['value']['time']
                                 else:
@@ -1505,6 +1526,6 @@ def fileAnalyser(file_name, classFile):
 def writeOntology(propertyAll):
     ###write properties
     with open('WD_RDF_export.owl', 'w') as f:
-        x = fileWriter.OntologyFile(f)
+        x = fileWriter.OntologyFile(f, 'rdf/owl')
         x.finalWriter(propertyAll)
 

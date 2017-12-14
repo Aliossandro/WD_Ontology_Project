@@ -34,6 +34,7 @@
 <http://www.wikidata.org/entity/Q26828324> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3564636> <http://www.w3.org/2000/01/rdf-schema#label> "Iberian art"@en .
 <http://www.wikidata.org/entity/Q3564636> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q3564636> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://wwww.wikidata.org/entity/Q2277510> .
 <http://www.wikidata.org/entity/Q3564636> <http://www.wikidata.org/prop/direct/P373> "Pre-Roman Iberia art" .
 <http://www.wikidata.org/entity/Q3564636> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q8530576> .
 <http://www.wikidata.org/entity/Q3427340> <http://www.w3.org/2000/01/rdf-schema#label> "viral reproduction"@en .
@@ -102,6 +103,7 @@
 <http://www.wikidata.org/entity/Q4376588> <http://www.wikidata.org/prop/direct/P1269> <http://www.wikidata.org/entity/Q8162> .
 <http://www.wikidata.org/entity/Q4376588> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q27056631> <http://www.w3.org/2000/01/rdf-schema#label> "Luxembourgish National Under-23 Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27056631> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27056631> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27055754> .
 <http://www.wikidata.org/entity/Q27056631> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129589> .
 <http://www.wikidata.org/entity/Q27056631> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -114,6 +116,7 @@
 <http://www.wikidata.org/entity/Q2515887> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2515887> <http://www.wikidata.org/prop/direct/P227> "4121849-8" .
 <http://www.wikidata.org/entity/Q3356153> <http://www.w3.org/2000/01/rdf-schema#label> "French governmental organization"@en .
+<http://www.wikidata.org/entity/Q3356153> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q43229> .
 <http://www.wikidata.org/entity/Q3356153> <http://www.wikidata.org/prop/direct/P518> <http://www.wikidata.org/entity/Q142> .
 <http://www.wikidata.org/entity/Q3356153> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3356153> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q13337342> .
@@ -123,6 +126,7 @@
 <http://www.wikidata.org/entity/Q2937981> <http://www.wikidata.org/prop/direct/P18> "MIN Rungis viandes de boucherie veau.jpg" .
 <http://www.wikidata.org/entity/Q2954100> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2954100> <http://www.w3.org/2000/01/rdf-schema#label> "UCI Road World Championships – Men's team time trial (trade teams)"@en .
+<http://www.wikidata.org/entity/Q27056631> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q2954100> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29456648> .
 <http://www.wikidata.org/entity/Q2954100> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q14934133> .
 <http://www.wikidata.org/entity/Q2954100> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q17625182> .
@@ -133,6 +137,7 @@
 <http://www.wikidata.org/entity/Q2954100> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27150066> .
 <http://www.wikidata.org/entity/Q18648757> <http://www.w3.org/2000/01/rdf-schema#label> "decommissioned ship"@en .
 <http://www.wikidata.org/entity/Q18648757> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q18648757> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q11446> .
 <http://www.wikidata.org/entity/Q3391375> <http://www.w3.org/2000/01/rdf-schema#label> "plan directeur"@en .
 <http://www.wikidata.org/entity/Q3391375> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q24241569> <http://www.w3.org/2000/01/rdf-schema#label> "mineral series"@en .
@@ -222,6 +227,7 @@
 <http://www.wikidata.org/entity/Q35003902> <http://www.w3.org/2000/01/rdf-schema#label> "glassworks"@en .
 <http://www.wikidata.org/entity/Q35003902> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q16329795> <http://www.w3.org/2000/01/rdf-schema#label> "CFA Integration Championship"@en .
+<http://www.wikidata.org/entity/Q16329795> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q16329795> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q2736> .
 <http://www.wikidata.org/entity/Q16329795> <http://www.wikidata.org/prop/direct/P17> <http://www.wikidata.org/entity/Q229> .
 <http://www.wikidata.org/entity/Q16329795> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -267,6 +273,7 @@
 <http://www.wikidata.org/entity/Q22975500> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2171942> <http://www.w3.org/2000/01/rdf-schema#label> "rowing ship"@en .
 <http://www.wikidata.org/entity/Q2171942> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q2171942> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q11446> .
 <http://www.wikidata.org/entity/Q2171942> <http://www.wikidata.org/prop/direct/P227> "4178612-9" .
 <http://www.wikidata.org/entity/Q2171942> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9106523> .
 <http://www.wikidata.org/entity/Q2868277> <http://www.w3.org/2000/01/rdf-schema#label> "associate"@en .
@@ -436,6 +443,7 @@
 <http://www.wikidata.org/entity/Q28419136> <http://www.wikidata.org/prop/direct/P3986> "SO:0001025" .
 <http://www.wikidata.org/entity/Q28419136> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2564408> <http://www.w3.org/2000/01/rdf-schema#label> "West of Scotland Championships"@en .
+<http://www.wikidata.org/entity/Q2564408> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q2564408> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2564408> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9184843> .
 <http://www.wikidata.org/entity/Q28861955> <http://www.w3.org/2000/01/rdf-schema#label> "motorized private transport"@en .
@@ -482,6 +490,7 @@
 <http://www.wikidata.org/entity/Q15975407> <http://www.w3.org/2000/01/rdf-schema#label> "maintainability index"@en .
 <http://www.wikidata.org/entity/Q15975407> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30325538> <http://www.w3.org/2000/01/rdf-schema#label> "Asian Rowing Championships"@en .
+<http://www.wikidata.org/entity/Q30325538> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q30325538> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q1115162> <http://www.w3.org/2000/01/rdf-schema#label> "Venue"@en .
 <http://www.wikidata.org/entity/Q1115162> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -501,6 +510,7 @@
 <http://www.wikidata.org/entity/Q11505291> <http://www.wikidata.org/prop/direct/P373> "1-day onsen facilities" .
 <http://www.wikidata.org/entity/Q11505291> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q18725477> .
 <http://www.wikidata.org/entity/Q29043254> <http://www.w3.org/2000/01/rdf-schema#label> "Australian National Time Trial Championships (women)"@en .
+<http://www.wikidata.org/entity/Q29043254> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q29043254> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29043252> .
 <http://www.wikidata.org/entity/Q29043254> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
 <http://www.wikidata.org/entity/Q29043254> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -528,6 +538,7 @@
 <http://www.wikidata.org/entity/Q24290094> <http://www.w3.org/2000/01/rdf-schema#label> "passive articulator"@en .
 <http://www.wikidata.org/entity/Q24290094> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q29050118> <http://www.w3.org/2000/01/rdf-schema#label> "Australian National Criterium Championships (women)"@en .
+<http://www.wikidata.org/entity/Q29050118> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q29050118> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29050117> .
 <http://www.wikidata.org/entity/Q29050118> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
 <http://www.wikidata.org/entity/Q29050118> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -553,6 +564,7 @@
 <http://www.wikidata.org/entity/Q21263223> <http://www.w3.org/2000/01/rdf-schema#label> "doorway"@en .
 <http://www.wikidata.org/entity/Q21263223> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q20008620> <http://www.w3.org/2000/01/rdf-schema#label> "Nottingham Open (men)"@en .
+<http://www.wikidata.org/entity/Q20008620> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q20008620> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q299634> .
 <http://www.wikidata.org/entity/Q20008620> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q20008620> <http://www.wikidata.org/prop/direct/P664> <http://www.wikidata.org/entity/Q744089> .
@@ -565,10 +577,12 @@
 <http://www.wikidata.org/entity/Q4342473> <http://www.w3.org/2000/01/rdf-schema#label> "Palace"@en .
 <http://www.wikidata.org/entity/Q4342473> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q27134043> <http://www.w3.org/2000/01/rdf-schema#label> "Lithuanian National Under-23 Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27134043> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27134043> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27134042> .
 <http://www.wikidata.org/entity/Q27134043> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129523> .
 <http://www.wikidata.org/entity/Q27134043> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30217264> <http://www.w3.org/2000/01/rdf-schema#label> "2017 Gerry Weber Open"@en .
+<http://www.wikidata.org/entity/Q30217264> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q30217264> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q847> .
 <http://www.wikidata.org/entity/Q30217264> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30217264> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q30339231> .
@@ -578,6 +592,7 @@
 <http://www.wikidata.org/entity/Q40853306> <http://www.w3.org/2000/01/rdf-schema#label> "full breakfast"@en .
 <http://www.wikidata.org/entity/Q40853306> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q29051258> <http://www.w3.org/2000/01/rdf-schema#label> "Australian National Road Race Championships (women)"@en .
+<http://www.wikidata.org/entity/Q29051258> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q29051258> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29051257> .
 <http://www.wikidata.org/entity/Q29051258> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
 <http://www.wikidata.org/entity/Q29051258> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -602,6 +617,7 @@
 <http://www.wikidata.org/entity/Q28419131> <http://www.wikidata.org/prop/direct/P3986> "SO:0001589" .
 <http://www.wikidata.org/entity/Q28419131> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22303252> <http://www.w3.org/2000/01/rdf-schema#label> "New Zealand National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q22303252> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22303252> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q28132278> .
 <http://www.wikidata.org/entity/Q22303252> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22303150> .
 <http://www.wikidata.org/entity/Q22303252> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2057790> .
@@ -632,6 +648,7 @@
 <http://www.wikidata.org/entity/Q10906117> <http://www.w3.org/2000/01/rdf-schema#label> "Distinguished Service Medals"@en .
 <http://www.wikidata.org/entity/Q10906117> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q26834055> <http://www.w3.org/2000/01/rdf-schema#label> "Hong Kong National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q26834055> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q26834055> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27230453> .
 <http://www.wikidata.org/entity/Q26834055> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q16538163> .
 <http://www.wikidata.org/entity/Q26834055> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -641,6 +658,7 @@
 <http://www.wikidata.org/entity/Q2150504> <http://www.wikidata.org/prop/direct/P227> "4054936-7" .
 <http://www.wikidata.org/entity/Q2150504> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9118282> .
 <http://www.wikidata.org/entity/Q27048421> <http://www.w3.org/2000/01/rdf-schema#label> "French National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27048421> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27048421> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27048422> .
 <http://www.wikidata.org/entity/Q27048421> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q32435> .
 <http://www.wikidata.org/entity/Q27048421> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -666,6 +684,7 @@
 <http://www.wikidata.org/entity/Q2355696> <http://www.w3.org/2000/01/rdf-schema#label> "experimental art"@en .
 <http://www.wikidata.org/entity/Q2355696> <http://www.wikidata.org/prop/direct/P3417> "Experimental-Art" .
 <http://www.wikidata.org/entity/Q2355696> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q2355696> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1792379> .
 <http://www.wikidata.org/entity/Q2355696> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9471807> .
 <http://www.wikidata.org/entity/Q283771> <http://www.w3.org/2000/01/rdf-schema#label> "quantity and traffic of transportation"@en .
 <http://www.wikidata.org/entity/Q283771> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -708,6 +727,7 @@
 <http://www.wikidata.org/entity/Q1920785> <http://www.wikidata.org/prop/direct/P3417> "Human-Resources" .
 <http://www.wikidata.org/entity/Q1920785> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q27056457> <http://www.w3.org/2000/01/rdf-schema#label> "Luxembourgish National Under-23 Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q27056457> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27056457> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27055748> .
 <http://www.wikidata.org/entity/Q27056457> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129589> .
 <http://www.wikidata.org/entity/Q27056457> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -752,6 +772,7 @@
 <http://www.wikidata.org/entity/Q13876576> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q13876576> <http://www.wikidata.org/prop/direct/P460> <http://www.wikidata.org/entity/Q21660376> .
 <http://www.wikidata.org/entity/Q1976585> <http://www.w3.org/2000/01/rdf-schema#label> "Norwegian Allround Speed Skating Championships for Women"@en .
+<http://www.wikidata.org/entity/Q1976585> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q1976585> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q17165362> .
 <http://www.wikidata.org/entity/Q1976585> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q20921447> <http://www.w3.org/2000/01/rdf-schema#label> "immigration station"@en .
@@ -761,6 +782,7 @@
 <http://www.wikidata.org/entity/Q5327704> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q5327704> <http://www.wikidata.org/prop/direct/P373> "Wards in Tokyo" .
 <http://www.wikidata.org/entity/Q27056305> <http://www.w3.org/2000/01/rdf-schema#label> "Luxembourgish National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q27056305> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27056305> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27055734> .
 <http://www.wikidata.org/entity/Q27056305> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129589> .
 <http://www.wikidata.org/entity/Q27056305> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -815,6 +837,7 @@
 <http://www.wikidata.org/entity/Q28104579> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q1173065> .
 <http://www.wikidata.org/entity/Q28104579> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q33110492> <http://www.w3.org/2000/01/rdf-schema#label> "2017 Swiss Open Gstaad"@en .
+<http://www.wikidata.org/entity/Q33110492> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q33110492> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q847> .
 <http://www.wikidata.org/entity/Q33110492> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q33110492> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q33294549> .
@@ -878,6 +901,7 @@
 <http://www.wikidata.org/entity/Q830840> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q830840> <http://www.wikidata.org/prop/direct/P373> "Audio data compression" .
 <http://www.wikidata.org/entity/Q22954543> <http://www.w3.org/2000/01/rdf-schema#label> "World University Speed Skating Championships"@en .
+<http://www.wikidata.org/entity/Q22954543> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22954543> <http://www.wikidata.org/prop/direct/P1424> <http://www.wikidata.org/entity/Q16957274> .
 <http://www.wikidata.org/entity/Q22954543> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q17165362> .
 <http://www.wikidata.org/entity/Q22954543> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -930,6 +954,7 @@
 <http://www.wikidata.org/entity/Q16331327> <http://www.wikidata.org/prop/direct/P17> <http://www.wikidata.org/entity/Q41> .
 <http://www.wikidata.org/entity/Q16331327> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22680842> <http://www.w3.org/2000/01/rdf-schema#label> "South African National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q22680842> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22680842> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22680833> .
 <http://www.wikidata.org/entity/Q22680842> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129547> .
 <http://www.wikidata.org/entity/Q22680842> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -956,6 +981,7 @@
 <http://www.wikidata.org/entity/Q1343316> <http://www.w3.org/2000/01/rdf-schema#label> "Military command"@en .
 <http://www.wikidata.org/entity/Q1343316> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q913063> <http://www.w3.org/2000/01/rdf-schema#label> "European Ski Orienteering Championships"@en .
+<http://www.wikidata.org/entity/Q913063> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q913063> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q913063> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9118921> .
 <http://www.wikidata.org/entity/Q27062015> <http://www.w3.org/2000/01/rdf-schema#label> "Løiten Brænderi"@en .
@@ -968,6 +994,7 @@
 <http://www.wikidata.org/entity/Q5327509> <http://www.wikidata.org/prop/direct/P17> <http://www.wikidata.org/entity/Q17> .
 <http://www.wikidata.org/entity/Q5327509> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2930969> <http://www.w3.org/2000/01/rdf-schema#label> "Dutch Indoor Athletics Championships"@en .
+<http://www.wikidata.org/entity/Q2930969> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q2930969> <http://www.wikidata.org/prop/direct/P17> <http://www.wikidata.org/entity/Q55> .
 <http://www.wikidata.org/entity/Q2930969> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q17272400> <http://www.w3.org/2000/01/rdf-schema#label> "Şarkı"@en .
@@ -1043,6 +1070,7 @@
 <http://www.wikidata.org/entity/Q3054782> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3054782> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q10028777> .
 <http://www.wikidata.org/entity/Q18346602> <http://www.w3.org/2000/01/rdf-schema#label> "World Freestyle Skating Championships"@en .
+<http://www.wikidata.org/entity/Q18346602> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q18346602> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q18975529> <http://www.w3.org/2000/01/rdf-schema#label> "commensal Clostridium infectious disease"@en .
 <http://www.wikidata.org/entity/Q18975529> <http://www.wikidata.org/prop/direct/P486> "D003015" .
@@ -1057,6 +1085,7 @@
 <http://www.wikidata.org/entity/Q15139812> <http://www.wikidata.org/prop/direct/P508> "7038" .
 <http://www.wikidata.org/entity/Q15139812> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30524623> <http://www.w3.org/2000/01/rdf-schema#label> "Danish National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q30524623> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q30524623> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q30524613> .
 <http://www.wikidata.org/entity/Q30524623> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129483> .
 <http://www.wikidata.org/entity/Q30524623> <http://www.wikidata.org/prop/direct/P17> <http://www.wikidata.org/entity/Q35> .
@@ -1069,6 +1098,7 @@
 <http://www.wikidata.org/entity/Q2470796> <http://www.wikidata.org/prop/direct/P646> "/m/03nws6n" .
 <http://www.wikidata.org/entity/Q2470796> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30647231> <http://www.w3.org/2000/01/rdf-schema#label> "2017 Hall of Fame Tennis Championships"@en .
+<http://www.wikidata.org/entity/Q30647231> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q30647231> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q847> .
 <http://www.wikidata.org/entity/Q30647231> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30647231> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q33105376> .
@@ -1184,6 +1214,7 @@
 <http://www.wikidata.org/entity/Q760392> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q760392> <http://www.wikidata.org/prop/direct/P1001> <http://www.wikidata.org/entity/Q183> .
 <http://www.wikidata.org/entity/Q13400856> <http://www.w3.org/2000/01/rdf-schema#label> "Drachma"@en .
+<http://www.wikidata.org/entity/Q13400856> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/Q8142> .
 <http://www.wikidata.org/entity/Q13400856> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q13400856> <http://www.wikidata.org/prop/direct/P373> "Drachma" .
 <http://www.wikidata.org/entity/Q513896> <http://www.w3.org/2000/01/rdf-schema#label> "androphilia"@en .
@@ -1220,6 +1251,7 @@
 <http://www.wikidata.org/entity/Q22793406> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q40218> .
 <http://www.wikidata.org/entity/Q22793406> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q15311343> <http://www.w3.org/2000/01/rdf-schema#label> "Double Fifth Festival"@en .
+<http://www.wikidata.org/entity/Q15311343> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q132241> .
 <http://www.wikidata.org/entity/Q15311343> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q2590540> .
 <http://www.wikidata.org/entity/Q15311343> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q1254268> .
 <http://www.wikidata.org/entity/Q15311343> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q681402> .
@@ -1298,10 +1330,12 @@
 <http://www.wikidata.org/entity/Q18966672> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q18966672> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q18123741> .
 <http://www.wikidata.org/entity/Q29034408> <http://www.w3.org/2000/01/rdf-schema#label> "South African National Time Trial Championships (women)"@en .
+<http://www.wikidata.org/entity/Q29034408> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q29034408> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29034385> .
 <http://www.wikidata.org/entity/Q29034408> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129547> .
 <http://www.wikidata.org/entity/Q29034408> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22680863> <http://www.w3.org/2000/01/rdf-schema#label> "South African National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q22680863> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22680863> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22680834> .
 <http://www.wikidata.org/entity/Q22680863> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129547> .
 <http://www.wikidata.org/entity/Q22680863> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1373,12 +1407,14 @@
 <http://www.wikidata.org/entity/Q12325954> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q12325954> <http://www.wikidata.org/prop/direct/P373> "Marginal tax rates" .
 <http://www.wikidata.org/entity/Q27133954> <http://www.w3.org/2000/01/rdf-schema#label> "Lithuanian National Under-23 Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q27133954> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27133954> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27133912> .
 <http://www.wikidata.org/entity/Q27133954> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129523> .
 <http://www.wikidata.org/entity/Q27133954> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q28382709> <http://www.w3.org/2000/01/rdf-schema#label> "Village of Afghanistan"@en .
 <http://www.wikidata.org/entity/Q28382709> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q33090862> <http://www.w3.org/2000/01/rdf-schema#label> "2017 German Open"@en .
+<http://www.wikidata.org/entity/Q33090862> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q33090862> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q847> .
 <http://www.wikidata.org/entity/Q33090862> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q33090862> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q33294339> .
@@ -1533,6 +1569,7 @@
 <http://www.wikidata.org/entity/Q3739391> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3739391> <http://www.wikidata.org/prop/direct/P373> "Roman legions" .
 <http://www.wikidata.org/entity/Q27133451> <http://www.w3.org/2000/01/rdf-schema#label> "Lithuanian National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q27133451> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27133451> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27133407> .
 <http://www.wikidata.org/entity/Q27133451> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129523> .
 <http://www.wikidata.org/entity/Q27133451> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1588,6 +1625,7 @@
 <http://www.wikidata.org/entity/Q3224188> <http://www.w3.org/2000/01/rdf-schema#label> "Le Maitron"@en .
 <http://www.wikidata.org/entity/Q3224188> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q24731406> <http://www.w3.org/2000/01/rdf-schema#label> "United States National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q24731406> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q24731406> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q24731404> .
 <http://www.wikidata.org/entity/Q24731406> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2955199> .
 <http://www.wikidata.org/entity/Q24731406> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1637,6 +1675,7 @@
 <http://www.wikidata.org/entity/Q864866> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q864866> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q8909000> .
 <http://www.wikidata.org/entity/Q27055700> <http://www.w3.org/2000/01/rdf-schema#label> "German National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27055700> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27055700> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27055558> .
 <http://www.wikidata.org/entity/Q27055700> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q80798> .
 <http://www.wikidata.org/entity/Q27055700> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1731,6 +1770,7 @@
 <http://www.wikidata.org/entity/Q2993544> <http://www.wikidata.org/prop/direct/P1014> "300204880" .
 <http://www.wikidata.org/entity/Q2993544> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q26971074> <http://www.w3.org/2000/01/rdf-schema#label> "United States National Under-23 Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q26971074> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q26971074> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q26971076> .
 <http://www.wikidata.org/entity/Q26971074> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2955199> .
 <http://www.wikidata.org/entity/Q26971074> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1764,6 +1804,7 @@
 <http://www.wikidata.org/entity/Q8011116> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9926934> .
 <http://www.wikidata.org/entity/Q1713577> <http://www.w3.org/2000/01/rdf-schema#label> "Junior World Championship"@en .
 <http://www.wikidata.org/entity/Q1713577> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q1713577> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q6566978> <http://www.w3.org/2000/01/rdf-schema#label> "central enterprise"@en .
 <http://www.wikidata.org/entity/Q6566978> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q6566978> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9471981> .
@@ -1809,6 +1850,7 @@
 <http://www.wikidata.org/entity/Q12410969> <http://www.w3.org/2000/01/rdf-schema#label> "Cooperative"@en .
 <http://www.wikidata.org/entity/Q12410969> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q26971143> <http://www.w3.org/2000/01/rdf-schema#label> "United States National Under-23 Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q26971143> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q26971143> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q26971145> .
 <http://www.wikidata.org/entity/Q26971143> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2955199> .
 <http://www.wikidata.org/entity/Q26971143> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1887,6 +1929,7 @@
 <http://www.wikidata.org/entity/Q21094868> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q21094868> <http://www.wikidata.org/prop/direct/P18> "Leuven station serie 49.jpg" .
 <http://www.wikidata.org/entity/Q22680897> <http://www.w3.org/2000/01/rdf-schema#label> "South African National Under-23 Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q22680897> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22680897> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22680836> .
 <http://www.wikidata.org/entity/Q22680897> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129547> .
 <http://www.wikidata.org/entity/Q22680897> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1955,6 +1998,7 @@
 <http://www.wikidata.org/entity/Q28121404> <http://www.w3.org/2000/01/rdf-schema#label> "optic method"@en .
 <http://www.wikidata.org/entity/Q28121404> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q27048419> <http://www.w3.org/2000/01/rdf-schema#label> "French National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q27048419> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27048419> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27048420> .
 <http://www.wikidata.org/entity/Q27048419> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q32435> .
 <http://www.wikidata.org/entity/Q27048419> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -1988,6 +2032,7 @@
 <http://www.wikidata.org/entity/Q2375497> <http://www.w3.org/2000/01/rdf-schema#label> "exponential function of base a"@en .
 <http://www.wikidata.org/entity/Q2375497> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q29061811> <http://www.w3.org/2000/01/rdf-schema#label> "New Zealand National Road Race Championships (women)"@en .
+<http://www.wikidata.org/entity/Q29061811> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q29061811> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q29061754> .
 <http://www.wikidata.org/entity/Q29061811> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2057790> .
 <http://www.wikidata.org/entity/Q29061811> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2019,6 +2064,7 @@
 <http://www.wikidata.org/entity/Q20460164> <http://www.w3.org/2000/01/rdf-schema#label> "bahasa tamil"@en .
 <http://www.wikidata.org/entity/Q20460164> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q2954777> <http://www.w3.org/2000/01/rdf-schema#label> "Oceania Cycling Championships"@en .
+<http://www.wikidata.org/entity/Q2954777> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q2954777> <http://www.wikidata.org/prop/direct/P1424> <http://www.wikidata.org/entity/Q22796057> .
 <http://www.wikidata.org/entity/Q2954777> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q3609> .
 <http://www.wikidata.org/entity/Q2954777> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2030,6 +2076,7 @@
 <http://www.wikidata.org/entity/Q29854000> <http://www.w3.org/2000/01/rdf-schema#label> "cloud genera"@en .
 <http://www.wikidata.org/entity/Q29854000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22284173> <http://www.w3.org/2000/01/rdf-schema#label> "Australian Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q22284173> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22284173> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22203114> .
 <http://www.wikidata.org/entity/Q22284173> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q28125542> .
 <http://www.wikidata.org/entity/Q22284173> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
@@ -2039,6 +2086,7 @@
 <http://www.wikidata.org/entity/Q18116579> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q18116579> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q10132127> .
 <http://www.wikidata.org/entity/Q27133615> <http://www.w3.org/2000/01/rdf-schema#label> "Lithuanian National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27133615> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27133615> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27133583> .
 <http://www.wikidata.org/entity/Q27133615> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129523> .
 <http://www.wikidata.org/entity/Q27133615> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2091,6 +2139,7 @@
 <http://www.wikidata.org/entity/Q1530361> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q1530361> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q17679092> .
 <http://www.wikidata.org/entity/Q2425693> <http://www.w3.org/2000/01/rdf-schema#label> "South American Women's Club Volleyball Championship"@en .
+<http://www.wikidata.org/entity/Q2425693> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q2425693> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q1734> .
 <http://www.wikidata.org/entity/Q2425693> <http://www.wikidata.org/prop/direct/P646> "/m/0lqflqh" .
 <http://www.wikidata.org/entity/Q2425693> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2123,6 +2172,7 @@
 <http://www.wikidata.org/entity/Q19969128> <http://www.w3.org/2000/01/rdf-schema#label> "Group"@en .
 <http://www.wikidata.org/entity/Q19969128> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3885688> <http://www.w3.org/2000/01/rdf-schema#label> "non-profit public benefit organization"@en .
+<http://www.wikidata.org/entity/Q3885688> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q43229> .
 <http://www.wikidata.org/entity/Q3885688> <http://www.wikidata.org/prop/direct/P508> "22299" .
 <http://www.wikidata.org/entity/Q3885688> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q10907836> <http://www.w3.org/2000/01/rdf-schema#label> "Nankang Ansha"@en .
@@ -2229,6 +2279,7 @@
 <http://www.wikidata.org/entity/Q348884> <http://www.w3.org/2000/01/rdf-schema#label> "Municipalsamhälle"@en .
 <http://www.wikidata.org/entity/Q348884> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q1994590> <http://www.w3.org/2000/01/rdf-schema#label> "South American Men's Club Volleyball Championship"@en .
+<http://www.wikidata.org/entity/Q1994590> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q1994590> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q1734> .
 <http://www.wikidata.org/entity/Q1994590> <http://www.wikidata.org/prop/direct/P646> "/m/0gxz34d" .
 <http://www.wikidata.org/entity/Q1994590> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2265,6 +2316,7 @@
 <http://www.wikidata.org/entity/Q21077765> <http://www.w3.org/2000/01/rdf-schema#label> "previous or current registration of an aircraft"@en .
 <http://www.wikidata.org/entity/Q21077765> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3962962> <http://www.w3.org/2000/01/rdf-schema#label> "Smart Card Open Monet+ 2012"@en .
+<http://www.wikidata.org/entity/Q3962962> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q3962962> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q3962962> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9270186> .
 <http://www.wikidata.org/entity/Q11502871> <http://www.w3.org/2000/01/rdf-schema#label> "Great Fire of Niigata"@en .
@@ -2304,6 +2356,7 @@
 <http://www.wikidata.org/entity/Q16586550> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q16586550> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q9234739> .
 <http://www.wikidata.org/entity/Q22680886> <http://www.w3.org/2000/01/rdf-schema#label> "South African National Under-23 Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q22680886> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22680886> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22680835> .
 <http://www.wikidata.org/entity/Q22680886> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129547> .
 <http://www.wikidata.org/entity/Q22680886> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2394,6 +2447,7 @@
 <http://www.wikidata.org/entity/Q23893804> <http://www.w3.org/2000/01/rdf-schema#label> "European Games event"@en .
 <http://www.wikidata.org/entity/Q23893804> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q26834056> <http://www.w3.org/2000/01/rdf-schema#label> "Hong Kong National Road Race Championships"@en .
+<http://www.wikidata.org/entity/Q26834056> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q26834056> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27230442> .
 <http://www.wikidata.org/entity/Q26834056> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q16538163> .
 <http://www.wikidata.org/entity/Q26834056> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2414,6 +2468,7 @@
 <http://www.wikidata.org/entity/Q40769365> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q2995940> .
 <http://www.wikidata.org/entity/Q40769365> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q20993640> .
 <http://www.wikidata.org/entity/Q40769365> <http://www.w3.org/2000/01/rdf-schema#label> "UCI Road World Championships – Junior men's time trial"@en .
+<http://www.wikidata.org/entity/Q40769365> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q40769365> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q40341655> .
 <http://www.wikidata.org/entity/Q40769365> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q3609> .
 <http://www.wikidata.org/entity/Q40769365> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q17625176> .
@@ -2472,6 +2527,7 @@
 <http://www.wikidata.org/entity/Q1408683> <http://www.wikidata.org/prop/direct/P856> "http://www.fig.saint-die-des-vosges.fr" .
 <http://www.wikidata.org/entity/Q1408683> <http://www.wikidata.org/prop/direct/P373> "Festival international de géographie" .
 <http://www.wikidata.org/entity/Q1408683> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.wikidata.org/entity/Q1408683> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q132241> .
 <http://www.wikidata.org/entity/Q1408683> <http://www.wikidata.org/prop/direct/P227> "1091651817" .
 <http://www.wikidata.org/entity/Q1408683> <http://www.w3.org/2000/01/rdf-schema#label> "International Festival of Geography"@en .
 <http://www.wikidata.org/entity/Q2944539> <http://www.w3.org/2000/01/rdf-schema#label> "Hydraulic power pack"@en .
@@ -2574,6 +2630,7 @@
 <http://www.wikidata.org/entity/Q1614239> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q1614239> <http://www.wikidata.org/prop/direct/P1343> <http://www.wikidata.org/entity/Q2657718> .
 <http://www.wikidata.org/entity/Q27056384> <http://www.w3.org/2000/01/rdf-schema#label> "Luxembourgish National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27056384> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27056384> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27055741> .
 <http://www.wikidata.org/entity/Q27056384> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129589> .
 <http://www.wikidata.org/entity/Q27056384> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2646,6 +2703,7 @@
 <http://www.wikidata.org/entity/Q2817174> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q542> .
 <http://www.wikidata.org/entity/Q2817174> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q27043341> <http://www.w3.org/2000/01/rdf-schema#label> "Swiss Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q27043341> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q27043341> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q27043339> .
 <http://www.wikidata.org/entity/Q27043341> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q129576> .
 <http://www.wikidata.org/entity/Q27043341> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
@@ -2731,6 +2789,7 @@
 <http://www.wikidata.org/entity/Q18653601> <http://www.w3.org/2000/01/rdf-schema#label> "Time-division duplex"@en .
 <http://www.wikidata.org/entity/Q18653601> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22284188> <http://www.w3.org/2000/01/rdf-schema#label> "Australian National Under-23 Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q22284188> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22284188> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22203133> .
 <http://www.wikidata.org/entity/Q22284188> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q28125550> .
 <http://www.wikidata.org/entity/Q22284188> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
@@ -2879,6 +2938,7 @@
 <http://www.wikidata.org/entity/Q21675917> <http://www.w3.org/2000/01/rdf-schema#label> "Minjungchonggwolgi"@en .
 <http://www.wikidata.org/entity/Q21675917> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q11613020> <http://www.w3.org/2000/01/rdf-schema#label> "Japan Defense Ship"@en .
+<http://www.wikidata.org/entity/Q11613020> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q11446> .
 <http://www.wikidata.org/entity/Q11613020> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q11613020> <http://www.wikidata.org/prop/direct/P373> "Ships of the Japan Maritime Self-Defense Force" .
 <http://www.wikidata.org/entity/Q11613020> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q8811322> .
@@ -2967,6 +3027,7 @@
 <http://www.wikidata.org/entity/Q28381728> <http://www.wikidata.org/prop/direct/P3986> "SO:0002052" .
 <http://www.wikidata.org/entity/Q28381728> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q22284183> <http://www.w3.org/2000/01/rdf-schema#label> "Australian National Time Trial Championships"@en .
+<http://www.wikidata.org/entity/Q22284183> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q1079023> .
 <http://www.wikidata.org/entity/Q22284183> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q22203119> .
 <http://www.wikidata.org/entity/Q22284183> <http://www.wikidata.org/prop/direct/P527> <http://www.wikidata.org/entity/Q28125545> .
 <http://www.wikidata.org/entity/Q22284183> <http://www.wikidata.org/prop/direct/P361> <http://www.wikidata.org/entity/Q2564187> .
@@ -3008,6 +3069,7 @@
 <http://www.wikidata.org/entity/Q28371782> <http://www.wikidata.org/prop/direct/P2699> "http://www.sequenceontology.org/browser/current_svn/term/SO:0001576" .
 <http://www.wikidata.org/entity/Q28371782> <http://www.wikidata.org/prop/direct/P2888> "http://purl.obolibrary.org/obo/SO_0001576" .
 <http://www.wikidata.org/entity/Q30647232> <http://www.w3.org/2000/01/rdf-schema#label> "2017 Croatia Open Umag"@en .
+<http://www.wikidata.org/entity/Q30647232> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.wikidata.org/entity/Q13219666> .
 <http://www.wikidata.org/entity/Q30647232> <http://www.wikidata.org/prop/direct/P641> <http://www.wikidata.org/entity/Q847> .
 <http://www.wikidata.org/entity/Q30647232> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <http://www.wikidata.org/entity/Q30647232> <http://www.wikidata.org/prop/direct/P910> <http://www.wikidata.org/entity/Q33105427> .

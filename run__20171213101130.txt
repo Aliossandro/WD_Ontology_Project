@@ -1,0 +1,9 @@
+PARIS running at 2017-12-13 T 10:11:30.0093
+@TIME startup 1513159890
+Config:
+  Ids: not treated as relation
+  Theta: 0.1
+  Iota: 0.1
+  Super- and subrelations: true
+Loading fact stores (could take a long time...)... 
+  Loading facts...... 

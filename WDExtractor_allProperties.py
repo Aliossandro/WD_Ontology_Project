@@ -798,9 +798,12 @@ def classExtractor(lineParsed, hasKey, multiValue):
     except:
         print(lineParsed)
 
+    #this was used for classes
+    #classDeclaration = '<owl:Class rdf:about="' + resourceName + '">'
+    #classDeclarationClosure = '</owl:Class>'
 
-    classDeclaration = '<owl:Class rdf:about="' + resourceName + '">'
-    classDeclarationClosure = '</owl:Class>'
+    classDeclaration = '<rdf:Description rdf:about="' + resourceName + '">'
+    classDeclarationClosure = '</rdf:Description>'
 
     try:
         label = lineParsed['labels']['en']['value']

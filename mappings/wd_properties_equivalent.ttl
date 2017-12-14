@@ -1,0 +1,523 @@
+@prefix :      <http://server/unset-base/undefined> .
+@prefix schema: <http://schema.org/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix wdt:   <http://www.wikidata.org/prop/direct/> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix freebase: <http://freebase.com/ns/> .
+@prefix yago:  <http://yago-knowledge.org/resource/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix d0:    <http://www.ontologydesignpatterns.org/ont/d0.owl#> .
+@prefix wd:    <http://www.wikidata.org/entity/> .
+@prefix dbo:   <http://dbpedia.org/ontology/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dul:   <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#> .
+@prefix wddb:  <http://wikidata.dbpedia.org/resource/> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+wdt:P2975  a                    owl:ObjectProperty , wd:Q18609040 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q16521 ;
+        rdfs:label              "host"@en ;
+        rdfs:range              wd:Q16521 ;
+        rdfs:seeAlso            wdt:P2974 , wdt:P183 , wdt:P1605 , wdt:P276 , wdt:P1060 , wdt:P1606 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002454> ;
+        wdt:P1629               wd:Q221673 ;
+        wdt:P1855               wd:Q21102984 , wd:Q21065231 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Host" .
+
+wdt:P3189  a                    <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q19887775 ;
+        rdfs:domain             []  ;
+        rdfs:label              "innervated by"@en ;
+        rdfs:range              wd:Q9620 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002005> ;
+        owl:inverseOf           wdt:P3190 ;
+        wdt:P1629               wd:Q3234465 ;
+        wdt:P1855               wd:Q201363 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/innervated_by" ;
+        wdt:P3590               "RO:0002005" .
+
+wdt:P2176  a                    wd:Q19887775 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q12136 ;
+        rdfs:label              "drug used for treatment"@en ;
+        rdfs:range              wd:Q12140 ;
+        rdfs:seeAlso            wdt:P924 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002302> ;
+        owl:inverseOf           wdt:P2175 ;
+        wdt:P1855               wd:Q18558032 ;
+        wdt:P1896               "https://rxnav.nlm.nih.gov" ;
+        wdt:P2875               wd:Q26678450 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/35#P2176" ;
+        wdt:P3590               "RO:0002302" .
+
+wdt:P3190  a                    <http://wikiba.se/ontology-beta#Property> , wd:Q19887775 , owl:ObjectProperty ;
+        rdfs:domain             wd:Q9620 ;
+        rdfs:label              "innervates"@en ;
+        rdfs:range              wd:Q4936952 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002134> ;
+        owl:inverseOf           wdt:P3189 ;
+        wdt:P1629               wd:Q3234465 ;
+        wdt:P1855               wd:Q1758126 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/innervates" ;
+        wdt:P3590               "RO:0002134" .
+
+wdt:P460  a                     owl:SymmetricProperty , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , owl:TransitiveProperty , wd:Q21510862 , wd:Q28100549 ;
+        rdfs:label              "said to be the same as"@en ;
+        rdfs:seeAlso            wdt:P1382 , wdt:P1889 , wdt:P2888 , wdt:P2959 , wdt:P1310 ;
+        owl:equivalentProperty  schema:sameAs ;
+        wdt:P1629               wd:Q17362920 , wd:Q42106 ;
+        wdt:P1855               wd:Q7158737 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/6#P460" .
+
+wdt:P279  a                     owl:ObjectProperty , owl:TransitiveProperty , wd:Q28326461 , <http://wikiba.se/ontology-beta#Property> , owl:ReflexiveProperty , owl:AsymmetricProperty ;
+        a                       []  ;
+        rdfs:domain             []  ;
+        rdfs:label              "subclass of"@en ;
+        rdfs:seeAlso            wdt:P31 , wdt:P171 , wdt:P361 ;
+        owl:equivalentProperty  rdfs:subClassOf ;
+        wdt:P1629               wd:Q21514624 ;
+        wdt:P1855               wd:Q3314483 , wd:Q840660 , wd:Q2294 , wd:Q89 , wd:Q146 ;
+        wdt:P1896               "http://www.w3.org/TR/2012/REC-owl2-primer-20121211/#Classes_and_Instances" , "https://en.wikipedia.org/wiki/CycL" , "http://www.w3.org/TR/rdf-schema/#ch_subclassof" ;
+        wdt:P2875               wd:Q23909012 .
+
+wdt:P166  a                     wd:Q18608993 , owl:ObjectProperty , wd:Q18608871 , wd:Q18618644 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:label              "award received"@en ;
+        rdfs:range              wd:Q618779 ;
+        rdfs:seeAlso            wdt:P1706 , wdt:P1411 , wdt:P1346 , wdt:P1686 ;
+        owl:equivalentProperty  schema:award ;
+        wdt:P1629               wd:Q618779 ;
+        wdt:P1646               wd:P585 ;
+        wdt:P1855               wd:Q7131158 , wd:Q22676744 , wd:Q212190 , wd:Q302817 ;
+        wdt:P2875               wd:Q22911624 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P166" .
+
+wdt:P1647  a                    wd:Q19820110 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q18616576 ;
+        rdfs:label              "subproperty of"@en ;
+        rdfs:range              wd:Q18616576 ;
+        owl:equivalentProperty  rdfs:subPropertyOf ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/27#P1647" .
+
+wdt:P2894  a                    <http://wikiba.se/ontology-beta#Property> , wd:Q18616576 , owl:ObjectProperty ;
+        rdfs:label              "day of week"@en ;
+        rdfs:range              []  ;
+        rdfs:seeAlso            wdt:P837 ;
+        owl:equivalentProperty  schema:dayOfWeek ;
+        wdt:P1629               wd:Q41825 ;
+        wdt:P1855               wd:Q924037 , wd:Q47566 , wd:Q16324523 , wd:Q11317814 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/day_of_week" .
+
+wdt:P710  a                     wd:Q22964785 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        rdfs:domain             []  ;
+        rdfs:label              "participant"@en ;
+        rdfs:seeAlso            wdt:P726 , wdt:P2868 , wdt:P1923 ;
+        owl:equivalentProperty  schema:agent , schema:participant ;
+        owl:inverseOf           wdt:P1344 ;
+        wdt:P1855               wd:Q252612 , wd:Q176883 , wd:Q551416 , wd:Q476638 , wd:Q19682450 ;
+        wdt:P2875               wd:Q26678449 ;
+        wdt:P2888               "http://schema.org/participant" ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/10#P710" .
+
+wdt:P31  a                      wd:Q28326730 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q18616576 ;
+        a                       []  ;
+        rdfs:domain             []  ;
+        rdfs:label              "instance of"@en ;
+        rdfs:seeAlso            wdt:P361 , wdt:P279 ;
+        owl:equivalentProperty  rdf:type ;
+        wdt:P1629               wd:Q21503252 ;
+        wdt:P1855               wd:Q2225 , wd:Q177866 , wd:Q212180 , wd:Q772466 , wd:Q8023 ;
+        wdt:P1896               "http://www.w3.org/TR/rdf-schema/#ch_type" ;
+        wdt:P2875               wd:Q20117426 ;
+        wdt:P487                "∈" , "∊" .
+
+wdt:P2860  a                    wd:Q18618644 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:label              "cites"@en ;
+        owl:equivalentProperty  <http://purl.org/spar/cito/cites> , <http://swrc.ontoware.org/ontology#cite> , schema:citation , dcterms:references ;
+        wdt:P1629               wd:Q1713 ;
+        wdt:P1855               wd:Q7310435 , wd:Q24245131 , wd:Q21172284 , wd:Q2107009 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/cites" .
+
+wdt:P1382  a                    wd:Q28100549 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , owl:SymmetricProperty ;
+        rdfs:label              "partially coincident with"@en ;
+        rdfs:seeAlso            wdt:P460 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002008> ;
+        wdt:P1855               wd:Q933614 ;
+        wdt:P2875               wd:Q38537595 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/23#P1382" ;
+        wdt:P3590               "RO:0002008" .
+
+wdt:P98  a                      <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18618644 ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "editor"@en ;
+        rdfs:range              wd:Q5 ;
+        rdfs:seeAlso            wdt:P123 ;
+        owl:equivalentProperty  schema:editor ;
+        wdt:P1629               wd:Q1607826 ;
+        wdt:P1855               wd:Q79762 ;
+        wdt:P2875               wd:Q23909077 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/1#P98" .
+
+wdt:P702  a                     <http://wikiba.se/ontology-beta#Property> , wd:Q19887775 , owl:ObjectProperty ;
+        rdfs:label              "encoded by"@en ;
+        rdfs:range              wd:Q7187 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002204> ;
+        owl:inverseOf           wdt:P688 ;
+        wdt:P1855               wd:Q13561329 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/10#P702" ;
+        wdt:P3590               "RO:0002204" .
+
+wdt:P4032  a                    wd:Q18618644 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:label              "reviewed by"@en ;
+        rdfs:seeAlso            wdt:P184 ;
+        owl:equivalentProperty  schema:reviewedBy ;
+        wdt:P1855               wd:Q26820755 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/reviewed_by" .
+
+wdt:P144  a                     owl:ObjectProperty , wd:Q18618644 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             []  ;
+        rdfs:label              "based on"@en ;
+        rdfs:seeAlso            wdt:P828 , wdt:P186 ;
+        owl:equivalentProperty  <http://comicmeta.org/cbo/adaptation> ;
+        wdt:P1629               wd:Q30171963 ;
+        wdt:P1855               wd:Q46239 , wd:Q381 , wd:Q45432 , wd:Q1225991 , wd:Q9659 ;
+        wdt:P2875               wd:Q21037784 ;
+        wdt:P2888               "http://schema.org/isBasedOn" ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/1#P144" .
+
+wdt:P3094  a                    wd:Q28326461 , <http://wikiba.se/ontology-beta#Property> , wd:Q19887775 , owl:ObjectProperty ;
+        rdfs:label              "develops from"@en ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002202> ;
+        wdt:P1855               wd:Q111140 ;
+        wdt:P1896               "http://uberon.github.io" ;
+        wdt:P2668               wd:Q23611288 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/develops_from" ;
+        wdt:P3590               "RO:0002202" .
+
+wdt:P110  a                     wd:Q29546563 , owl:ObjectProperty , wd:Q29546443 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "illustrator"@en ;
+        rdfs:range              wd:Q5 ;
+        owl:equivalentProperty  schema:illustrator ;
+        wdt:P1629               wd:Q644687 ;
+        wdt:P1855               wd:Q74287 , wd:Q50948 , wd:Q11221 , wd:Q25338 ;
+        wdt:P2875               wd:Q23909083 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/1#P110" .
+
+wdt:P2360  a                    <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 , owl:ObjectProperty ;
+        rdfs:domain             []  ;
+        rdfs:label              "intended public"@en ;
+        rdfs:range              wd:Q5 ;
+        rdfs:seeAlso            wdt:P931 , wdt:P2650 ;
+        owl:equivalentProperty  schema:audience ;
+        wdt:P1629               wd:Q2604680 ;
+        wdt:P1855               wd:Q6959839 ;
+        wdt:P2875               wd:Q23909086 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/41#P2360" .
+
+wdt:P123  a                     wd:Q29546443 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q21126229 ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "publisher"@en ;
+        rdfs:range              []  ;
+        owl:equivalentProperty  <http://swrc.ontoware.org/ontology#publisher> , dc:publisher , schema:publisher ;
+        wdt:P1629               wd:Q2516866 ;
+        wdt:P1855               wd:Q44996 , wd:Q165929 ;
+        wdt:P2236               "http://comicmeta.org/cbo/publisher" ;
+        wdt:P2875               wd:Q20989980 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/1#P123" .
+
+wdt:P136  a                     wd:Q18618644 , owl:ObjectProperty , wd:Q18608871 , <http://wikiba.se/ontology-beta#Property> ;
+        a                       []  ;
+        rdfs:domain             []  ;
+        rdfs:label              "genre"@en ;
+        rdfs:range              wd:Q483394 ;
+        rdfs:seeAlso            wdt:P921 , wdt:P135 , wdt:P415 ;
+        owl:equivalentProperty  schema:genre ;
+        wdt:P1629               wd:Q483394 ;
+        wdt:P1855               wd:Q794431 ;
+        wdt:P2236               "http://comicmeta.org/cbo/genre" , "http://rdf.freebase.com/ns/book.book.genre" ;
+        wdt:P2875               wd:Q20990014 .
+
+wdt:P3403  a                    wd:Q18615777 , owl:SymmetricProperty , owl:ObjectProperty , wd:Q21510862 , wd:Q28100549 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             []  ;
+        rdfs:label              "coextensive with"@en ;
+        rdfs:seeAlso            wdt:P460 , wdt:P706 , wdt:P131 , wdt:P3018 , wdt:P3179 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002379> ;
+        wdt:P1855               wd:Q18419 , wd:Q1264575 , wd:Q131664 , wd:Q11980692 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/coextensive_with" ;
+        wdt:P3590               "RO:0002379" .
+
+wdt:P921  a                     <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18618644 ;
+        rdfs:domain             []  ;
+        rdfs:label              "main subject"@en ;
+        rdfs:seeAlso            wdt:P1269 , wdt:P301 , wdt:P136 , wdt:P180 ;
+        owl:equivalentProperty  dcterms:subject , schema:about ;
+        wdt:P1855               wd:Q948923 , wd:Q14915757 ;
+        wdt:P2875               wd:Q20990008 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/14#P921" .
+
+wdt:P655  a                     wd:Q18618644 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        rdfs:domain             wd:Q3331189 ;
+        rdfs:label              "translator"@en ;
+        rdfs:range              []  ;
+        owl:equivalentProperty  schema:translator ;
+        wdt:P1629               wd:Q333634 ;
+        wdt:P1855               wd:Q15741500 ;
+        wdt:P2875               wd:Q23909091 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/9#P655" .
+
+wdt:P128  a                     wd:Q22988603 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        a                       []  ;
+        rdfs:domain             wd:Q8054 ;
+        rdfs:label              "regulates (molecular biology)"@en ;
+        rdfs:range              []  ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002211> ;
+        wdt:P1855               wd:Q13561329 ;
+        wdt:P3590               "RO:0002211" .
+
+wdt:P527  a                     wd:Q28326730 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q28326461 , wd:Q29957815 , owl:TransitiveProperty ;
+        a                       []  ;
+        rdfs:label              "has part"@en ;
+        rdfs:seeAlso            wdt:P2670 , wdt:P3113 , wdt:P658 , wdt:P1637 , wdt:P1012 , wdt:P912 , wdt:P150 , wdt:P186 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/BFO_0000051> , schema:hasPart , dcterms:hasPart ;
+        owl:inverseOf           wdt:P361 ;
+        wdt:P1629               wd:Q24575087 ;
+        wdt:P1855               wd:Q828 , wd:Q544 , wd:Q10980 , wd:Q4066510 , wd:Q1299 , wd:Q5401 , wd:Q1845 ;
+        wdt:P2236               "http://comicmeta.org/cbo/seriesOf" ;
+        wdt:P2875               wd:Q23909038 .
+
+wdt:P1716  a                    <http://wikiba.se/ontology-beta#Property> , wd:Q21451178 , owl:ObjectProperty ;
+        rdfs:domain             wd:Q2424752 ;
+        rdfs:label              "brand"@en ;
+        rdfs:range              wd:Q431289 ;
+        owl:equivalentProperty  schema:brand ;
+        wdt:P1629               wd:Q431289 ;
+        wdt:P1855               wd:Q25907392 , wd:Q15312688 , wd:Q3237209 ;
+        wdt:P2875               wd:Q21037786 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/29#P1716" .
+
+wdt:P276  a                     wd:Q18615777 , owl:TransitiveProperty , owl:ObjectProperty , wd:Q22964785 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:label              "location"@en ;
+        rdfs:range              []  ;
+        rdfs:seeAlso            wdt:P937 , wdt:P1071 , wdt:P3005 , wdt:P206 , wdt:P131 , wdt:P927 , wdt:P706 , wdt:P159 , wdt:P669 , wdt:P625 , wdt:P189 , wdt:P3018 ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0001025> , schema:location ;
+        wdt:P1629               wd:Q17334923 ;
+        wdt:P1855               wd:Q4497840 , wd:Q12418 , wd:Q913640 , wd:Q1764229 , wd:Q2611643 , wd:Q121393 ;
+        wdt:P2875               wd:Q23909010 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/3#P276" ;
+        wdt:P3590               "RO:0001025" .
+
+wdt:P483  a                     wd:Q22965078 , wd:Q18615777 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q2188189 ;
+        rdfs:label              "recorded at"@en ;
+        rdfs:range              wd:Q746369 ;
+        owl:equivalentProperty  schema:recordedAt ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/8#P483" .
+
+wdt:P176  a                     owl:ObjectProperty , wd:Q18616576 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             []  ;
+        rdfs:label              "manufacturer"@en ;
+        rdfs:range              wd:Q43229 ;
+        rdfs:seeAlso            wdt:P186 , wdt:P1071 , wdt:P1056 , wdt:P2079 ;
+        owl:equivalentProperty  schema:provider ;
+        wdt:P1629               wd:Q6606110 ;
+        wdt:P1855               wd:Q6484 , wd:Q194047 ;
+        wdt:P2875               wd:Q22013008 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P176" ;
+        wdt:P3713               wd:Q22013006 .
+
+wdt:P1657  a                    owl:ObjectProperty , wd:Q24716199 , wd:Q22965162 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             []  ;
+        rdfs:label              "MPAA film rating"@en ;
+        rdfs:range              wd:Q23660208 ;
+        owl:equivalentProperty  schema:contentRating ;
+        wdt:P1629               wd:Q23660208 ;
+        wdt:P1646               wd:P2676 ;
+        wdt:P17                 wd:Q30 ;
+        wdt:P1855               wd:Q17738 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/28#P1657" .
+
+wdt:P355  a                     <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q22964476 ;
+        a                       []  ;
+        rdfs:domain             wd:Q43229 ;
+        rdfs:label              "subsidiary"@en ;
+        rdfs:range              wd:Q43229 ;
+        rdfs:seeAlso            wdt:P199 ;
+        owl:equivalentProperty  schema:subOrganization ;
+        owl:inverseOf           wdt:P749 ;
+        wdt:P1629               wd:Q658255 ;
+        wdt:P1855               wd:Q7414 ;
+        wdt:P2875               wd:Q23909080 .
+
+wdt:P201  a                     wd:Q24041622 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q23397 ;
+        rdfs:label              "lake outflow"@en ;
+        rdfs:range              wd:Q355304 ;
+        rdfs:seeAlso            wdt:P200 ;
+        owl:equivalentProperty  dbo:outflow ;
+        wdt:P1855               wd:Q134485 , wd:Q6403 , wd:Q126982 , wd:Q1062 ;
+        wdt:P2875               wd:Q26210238 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P201" .
+
+wdt:P688  a                     <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q19887775 ;
+        rdfs:domain             wd:Q7187 ;
+        rdfs:label              "encodes"@en ;
+        owl:equivalentProperty  <http://purl.obolibrary.org/obo/RO_0002205> ;
+        owl:inverseOf           wdt:P702 ;
+        wdt:P1855               wd:Q414043 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/9#P688" ;
+        wdt:P3590               "RO:0002205" .
+
+wdt:P21  a                      owl:ObjectProperty , wd:Q26935994 , owl:FunctionalProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q18608871 ;
+        rdfs:domain             []  ;
+        rdfs:label              "sex or gender"@en ;
+        rdfs:range              []  ;
+        owl:equivalentProperty  <http://xmlns.com/foaf/0.1/gender> , <http://www.w3.org/2006/vcard/ns#Gender> , schema:gender ;
+        wdt:P1629               wd:Q48277 , wd:Q290 ;
+        wdt:P1855               wd:Q2988585 , wd:Q1395624 ;
+        wdt:P2875               wd:Q28039789 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/1#P21" ;
+        wdt:P3713               wd:Q26220006 , wd:Q23823797 , wd:Q23823801 .
+
+wdt:P170  a                     wd:Q18618644 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q18608871 ;
+        rdfs:domain             []  ;
+        rdfs:label              "creator"@en ;
+        rdfs:range              []  ;
+        rdfs:seeAlso            wdt:P84 , wdt:P175 , wdt:P178 , wdt:P112 , wdt:P676 , wdt:P287 , wdt:P50 , wdt:P193 , wdt:P86 , wdt:P1779 , wdt:P110 , wdt:P943 , wdt:P61 ;
+        owl:equivalentProperty  schema:creator , dc:creator ;
+        wdt:P1629               wd:Q2500638 ;
+        wdt:P1855               wd:Q154469 ;
+        wdt:P1896               "http://www.getty.edu/research/publications/electronic_publications/intrometadata/crosswalks.html" ;
+        wdt:P2875               wd:Q20117434 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/3#P170" .
+
+wdt:P767  a                     <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18618644 ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "contributor(s) to the subject"@en ;
+        rdfs:range              wd:Q5 ;
+        owl:equivalentProperty  <http://comicmeta.org/cbo/contributor> , schema:contributor ;
+        owl:inverseOf           wdt:P3919 ;
+        wdt:P1629               wd:Q20204892 ;
+        wdt:P1855               wd:Q914128 ;
+        wdt:P2875               wd:Q23909066 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/12#P767" .
+
+wdt:P1830  a                    wd:Q18616576 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        rdfs:label              "owner of"@en ;
+        owl:equivalentProperty  schema:owns ;
+        owl:inverseOf           wdt:P127 ;
+        wdt:P1629               wd:Q6422240 ;
+        wdt:P1855               wd:Q12807 , wd:Q45909 ;
+        wdt:P2875               wd:Q23909063 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/30#P1830" .
+
+wdt:P859  a                     wd:Q28106456 , <http://wikiba.se/ontology-beta#Property> , wd:Q22964372 , wd:Q28106586 , owl:ObjectProperty ;
+        rdfs:label              "sponsor"@en ;
+        rdfs:seeAlso            wdt:P1962 ;
+        owl:equivalentProperty  schema:sponsor ;
+        wdt:P1629               wd:Q152478 ;
+        wdt:P1855               wd:Q1381198 , wd:Q11571 ;
+        wdt:P2875               wd:Q20990055 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/14#P859" .
+
+wdt:P275  a                     wd:Q18618644 , wd:Q28464773 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "license"@en ;
+        rdfs:range              wd:Q79719 ;
+        owl:equivalentProperty  schema:license , dcterms:license ;
+        wdt:P1629               wd:Q79719 ;
+        wdt:P1855               wd:Q8041 ;
+        wdt:P2875               wd:Q20989972 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/3#P275" .
+
+wdt:P2789  a                    wd:Q19887775 , wd:Q21510862 , owl:SymmetricProperty , wd:Q23069616 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
+        rdfs:label              "connects with"@en ;
+        rdfs:seeAlso            wdt:P129 , wdt:P559 , wdt:P47 , wdt:P3032 ;
+        owl:equivalentProperty  <http://www.w3.org/ns/org#linkedTo> , <http://purl.obolibrary.org/obo/RO_0002176> ;
+        wdt:P1855               wd:Q228537 , wd:Q2152999 , wd:Q839050 , wd:Q17040 , wd:Q33767 , wd:Q673399 ;
+        wdt:P2875               wd:Q38537438 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/49#P2789" .
+
+wdt:P162  a                     wd:Q22965078 , owl:ObjectProperty , wd:Q22965162 , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             []  ;
+        rdfs:label              "producer"@en ;
+        rdfs:range              wd:Q5 ;
+        rdfs:seeAlso            wdt:P272 , wdt:P1431 ;
+        owl:equivalentProperty  schema:producer ;
+        wdt:P1629               wd:Q183945 , wd:Q3282637 ;
+        wdt:P1855               wd:Q44320 , wd:Q43051 , wd:Q24815 ;
+        wdt:P2875               wd:Q27478237 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P162" .
+
+wdt:P674  a                     wd:Q22984512 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "characters"@en ;
+        rdfs:range              []  ;
+        rdfs:seeAlso            wdt:P2438 , wdt:P453 ;
+        owl:equivalentProperty  schema:character ;
+        owl:inverseOf           wdt:P1441 ;
+        wdt:P1629               wd:Q95074 , wd:Q15632617 ;
+        wdt:P1855               wd:Q180736 ;
+        wdt:P2875               wd:Q23909099 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/10#P674" .
+
+wdt:P175  a                     wd:Q22965078 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
+        rdfs:domain             wd:Q386724 ;
+        rdfs:label              "performer"@en ;
+        rdfs:range              []  ;
+        owl:equivalentProperty  schema:byArtist ;
+        wdt:P1629               wd:Q1294626 , wd:Q177220 , wd:Q2088357 , wd:Q639669 , wd:Q215380 , wd:Q16010345 ;
+        wdt:P2875               wd:Q27949510 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P175" .
+
+wdt:P39  a                      <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18608871 , wd:Q26935994 ;
+        a                       []  ;
+        rdfs:domain             []  ;
+        rdfs:label              "position held"@en ;
+        rdfs:range              wd:Q4164871 ;
+        owl:equivalentProperty  <http://www.w3.org/2006/vcard/ns#role> ;
+        owl:inverseOf           wdt:P1308 ;
+        wdt:P1629               wd:Q845436 ;
+        wdt:P1646               wd:P580 ;
+        wdt:P1855               wd:Q76 , wd:Q23 , wd:Q130221 ;
+        wdt:P2668               wd:Q23611840 ;
+        wdt:P2875               wd:Q23908974 .
+
+wdt:P200  a                     owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q24041622 ;
+        rdfs:domain             wd:Q337567 ;
+        rdfs:label              "lake inflows"@en ;
+        rdfs:range              wd:Q355304 ;
+        rdfs:seeAlso            wdt:P201 ;
+        owl:equivalentProperty  dbo:inflow ;
+        wdt:P1629               wd:Q3247043 ;
+        wdt:P1855               wd:Q5513 , wd:Q5484 , wd:Q6403 , wd:Q4127 ;
+        wdt:P2875               wd:Q26210236 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/2#P200" .
+
+wdt:P2868  a                    <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q26935994 , wd:Q18616576 ;
+        rdfs:domain             []  ;
+        rdfs:label              "subject has role"@en ;
+        rdfs:seeAlso            wdt:P453 , wdt:P366 , wdt:P3831 ;
+        owl:equivalentProperty  <http://www.w3.org/2006/vcard/ns#role> ;
+        wdt:P1855               wd:Q423111 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/has_role" ;
+        wdt:P3590               "RO:0000087" .
+
+wdt:P1889  a                    <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q28100549 , owl:SymmetricProperty , wd:Q21510862 ;
+        rdfs:label              "different from"@en ;
+        rdfs:seeAlso            wdt:P1533 , wdt:P460 , wdt:P461 ;
+        owl:equivalentProperty  owl:differentFrom , <http://vocab.getty.edu/ontology#aat2100_distinguished_from> ;
+        wdt:P1629               wd:Q27679746 ;
+        wdt:P1896               "http://www.w3.org/TR/owl-ref/#differentFrom-def" ;
+        wdt:P2667               wd:Q6458914 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/31#P1889" ;
+        wdt:P854                "http://www.w3.org/TR/owl-ref/#differentFrom-def" .
+
+wdt:P461  a                     <http://wikiba.se/ontology-beta#Property> , owl:FunctionalProperty , owl:ObjectProperty , owl:SymmetricProperty , wd:Q21510862 , wd:Q28100549 ;
+        rdfs:label              "opposite of"@en ;
+        rdfs:seeAlso            wdt:P1696 , wdt:P1889 , wdt:P1013 , wdt:P460 ;
+        owl:equivalentProperty  <http://conceptnet5.media.mit.edu/web/r/Antonym> ;
+        wdt:P1629               wd:Q131779 , wd:Q1498321 ;
+        wdt:P1855               wd:Q218616 , wd:Q198 , wd:Q1311 , wd:Q23445 ;
+        wdt:P2875               wd:Q27949513 ;
+        wdt:P3254               "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/6#P461" .

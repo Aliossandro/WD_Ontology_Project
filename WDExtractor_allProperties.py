@@ -1528,7 +1528,7 @@ def fileAnalyser(file_name, classFile):
 
 def writeOntology(propertyAll):
     ###write properties
-    with open('WD_RDF_export.owl', 'w') as f:
+    with open('WD_RDF_export.rdf', 'w') as f:
         x = fileWriter.OntologyFile(f, 'rdf/owl')
         x.finalWriter(propertyAll)
 

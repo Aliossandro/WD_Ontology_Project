@@ -216,6 +216,7 @@ wdt:P1576  a         wd:Q18616576 , <http://wikiba.se/ontology-beta#Property> , 
 
 wdt:P2551  a          wd:Q18618644 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label    "used metre"@en ;
+        rdfs:subPropertyOf dul:isClassifiedBy ;
         rdfs:seeAlso  wdt:P2552 ;
         wdt:P1629     wd:Q192624 ;
         wdt:P1855     wd:Q9372670 , wd:Q1219433 ;
@@ -240,6 +241,7 @@ wdt:P1078  a         wd:Q22963600 , owl:ObjectProperty , <http://wikiba.se/ontol
 wdt:P398  a            owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q21451142 ;
         rdfs:domain    []  ;
         rdfs:label     "child astronomical body"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range     []  ;
         owl:inverseOf  wdt:P397 ;
         wdt:P1629      wd:Q15731960 ;
@@ -250,6 +252,7 @@ wdt:P398  a            owl:ObjectProperty , <http://wikiba.se/ontology-beta#Prop
 
 wdt:P1299  a           <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18616576 ;
         rdfs:label     "depicted by"@en ;
+        rdfs:subPropertyOf dul:isDescribedBy ;
         rdfs:seeAlso   wdt:P175 , wdt:P1441 , wdt:P913 ;
         owl:inverseOf  wdt:P180 ;
         wdt:P1855      wd:Q171724 , wd:Q1779008 , wd:Q3306217 ;
@@ -443,6 +446,7 @@ wdt:P467  a          wd:Q22984026 , owl:ObjectProperty , <http://wikiba.se/ontol
 
 wdt:P2098  a         wd:Q22997934 , <http://wikiba.se/ontology-beta#Property> , owl:InverseFunctionalProperty , owl:ObjectProperty , owl:FunctionalProperty ;
         rdfs:domain  wd:Q4164871 ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         rdfs:label   "substitute/deputy/replacement of office/officeholder"@en ;
         rdfs:range   wd:Q4164871 ;
         wdt:P1855    wd:Q20804520 ;
@@ -466,6 +470,7 @@ wdt:P3967  a        wd:Q28106586 , owl:ObjectProperty , <http://wikiba.se/ontolo
 wdt:P1589  a          owl:FunctionalProperty , owl:ObjectProperty , wd:Q18615777 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   wd:Q2221906 ;
         rdfs:label    "deepest point"@en ;
+        rdfs:subPropertyOf dul:hasConstraint ;
         rdfs:range    wd:Q2221906 ;
         rdfs:seeAlso  wdt:P610 ;
         wdt:P1629     wd:Q30278109 ;
@@ -475,12 +480,14 @@ wdt:P1589  a          owl:FunctionalProperty , owl:ObjectProperty , wd:Q18615777
 
 wdt:P1880  a        wd:Q18616576 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "measured by"@en ;
+        rfds:subPropertyOf dul:hasParameter ;
         wdt:P1855   wd:Q366886 , wd:Q7944 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/31#P1880" .
 
 wdt:P1336  a          wd:Q19829914 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q22997934 ;
         rdfs:domain   []  ;
         rdfs:label    "territory claimed by"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         rdfs:seeAlso  wdt:P17 ;
         wdt:P1629     wd:Q29933858 ;
         wdt:P1855     wd:Q29460 , wd:Q11579187 ;
@@ -489,6 +496,7 @@ wdt:P1336  a          wd:Q19829914 , owl:ObjectProperty , <http://wikiba.se/onto
 
 wdt:P2739  a        owl:ObjectProperty , wd:Q18618644 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "typeface/font"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         wdt:P1629   wd:Q17451 ;
         wdt:P1855   wd:Q27089568 , wd:Q21996304 ;
         wdt:P2875   wd:Q23774402 ;
@@ -509,6 +517,7 @@ wdt:P3216  a         owl:ObjectProperty , wd:Q24716199 , <http://wikiba.se/ontol
 wdt:P403  a            owl:TransitiveProperty , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q24041622 , owl:FunctionalProperty , wd:Q18615777 ;
         rdfs:domain    []  ;
         rdfs:label     "mouth of the watercourse"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range     []  ;
         rdfs:seeAlso   wdt:P2148 ;
         owl:inverseOf  wdt:P974 ;
@@ -520,6 +529,7 @@ wdt:P403  a            owl:TransitiveProperty , owl:ObjectProperty , <http://wik
 wdt:P1304  a         owl:ObjectProperty , owl:FunctionalProperty , wd:Q21451178 , <http://wikiba.se/ontology-beta#Property> , wd:Q22997934 ;
         rdfs:domain  wd:Q6256 ;
         rdfs:label   "central bank"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range   wd:Q66344 ;
         wdt:P1629    wd:Q66344 ;
         wdt:P1855    wd:Q16 ;
@@ -528,6 +538,7 @@ wdt:P1304  a         owl:ObjectProperty , owl:FunctionalProperty , wd:Q21451178 
 
 wdt:P3437  a        wd:Q22984363 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "people or cargo transported"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         wdt:P1855   wd:Q1607814 , wd:Q25840539 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/people_or_cargo_transported" .
 
@@ -1123,7 +1134,7 @@ wdt:P1754  a           owl:FunctionalProperty , wd:Q18667213 , <http://wikiba.se
 wdt:P180  a            <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 , owl:ObjectProperty , wd:Q28464773 ;
         rdfs:domain    wd:Q386724 ;
         rdfs:label     "depicts"@en ;
-        rdfs:subPropertyOf dul:isAbout ;
+        rdfs:subPropertyOf dul:describes ;
         rdfs:seeAlso   wdt:P921 , wdt:P1354 , wdt:P2677 , wdt:P453 ;
         owl:inverseOf  wdt:P1299 ;
         wdt:P1855      wd:Q128910 , wd:Q775407 , wd:Q2917717 ;
@@ -1454,6 +1465,7 @@ wdt:P2433  a        wd:Q18609040 , owl:ObjectProperty , <http://wikiba.se/ontolo
 
 wdt:P1924  a        wd:Q19887775 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "vaccine for"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         wdt:P1629   wd:Q134808 ;
         wdt:P1855   wd:Q1812946 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/31#P1924" .
@@ -1487,6 +1499,7 @@ wdt:P3306  a         owl:ObjectProperty , wd:Q24716199 , <http://wikiba.se/ontol
 wdt:P4082  a          wd:Q18618644 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   []  ;
         rdfs:label    "image captured with"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range    wd:Q20888659 ;
         rdfs:seeAlso  wdt:P2033 ;
         wdt:P1629     wd:Q20888659 .
@@ -1520,11 +1533,13 @@ wdt:P3075  a          wd:Q22997934 , owl:ObjectProperty , <http://wikiba.se/onto
 
 wdt:P3969  a        wd:Q20824104 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "signed form"@en ;
+        rdfs:subPropertyOf dul:isConcretelyExpressedBy ;
         wdt:P1629   wd:Q1808730 ;
         wdt:P1855   wd:Q143 , wd:Q1860 .
 
 wdt:P437  a           <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 , owl:ObjectProperty ;
         rdfs:domain   wd:Q386724 ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:label    "distribution"@en ;
         rdfs:range    wd:Q867147 ;
         rdfs:seeAlso  wdt:P2079 , wdt:P750 , wdt:P400 ;
@@ -1535,6 +1550,7 @@ wdt:P437  a           <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 ,
 wdt:P3716  a          wd:Q18608871 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   []  ;
         rdfs:label    "social classification"@en ;
+        rdfs:subPropertyOf dul:isDescribedBy ;
         rdfs:range    wd:Q187588 ;
         rdfs:seeAlso  wdt:P97 ;
         wdt:P1629     wd:Q187588 , wd:Q189970 ;
@@ -1544,6 +1560,7 @@ wdt:P3716  a          wd:Q18608871 , owl:ObjectProperty , <http://wikiba.se/onto
 
 wdt:P3264  a          owl:ObjectProperty , owl:FunctionalProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q22988631 ;
         rdfs:domain   wd:Q122653 ;
+        rdfs:subPropertyOf dul:hasRegion ;
         rdfs:label    "radix"@en ;
         rdfs:range    wd:Q11563 ;
         rdfs:seeAlso  wdt:P3263 ;
@@ -1553,6 +1570,7 @@ wdt:P3264  a          owl:ObjectProperty , owl:FunctionalProperty , <http://wiki
 
 wdt:P2289  a           wd:Q19887775 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label     "venous drainage"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range     wd:Q988343 ;
         owl:inverseOf  wdt:P2286 ;
         wdt:P1855      wd:Q9612 ;
@@ -1571,7 +1589,7 @@ wdt:P451  a           wd:Q21510862 , wd:Q22964231 , owl:ObjectProperty , owl:Sym
 
 wdt:P2502  a           wd:Q28106586 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label     "classification of cycling race"@en ;
-        rdfs:subPropertyOf dul:isClassifiedBy ;
+        rdfs:subPropertyOf dul:isDescribedBy ;
         rdfs:seeAlso   wdt:P3085 ;
         owl:inverseOf  wdt:P2501 ;
         wdt:P1855      wd:Q20895314 ;
@@ -1590,6 +1608,7 @@ wdt:P1029  a           wd:Q22984363 , <http://wikiba.se/ontology-beta#Property> 
 wdt:P2976  a         <http://wikiba.se/ontology-beta#Property> , wd:Q19643892 , owl:ObjectProperty ;
         rdfs:domain  wd:Q202444 ;
         rdfs:label   "patronym or matronym"@en ;
+        rdfs:subPropertyOf dul:isRelatedToConcept ;
         rdfs:range   []  ;
         wdt:P1629    wd:Q110874 ;
         wdt:P1855    wd:Q10989273 , wd:Q7331879 ;
@@ -1597,6 +1616,7 @@ wdt:P2976  a         <http://wikiba.se/ontology-beta#Property> , wd:Q19643892 , 
 
 wdt:P2271  a          wd:Q19820110 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   wd:Q22582645 ;
+        rdfs:subPropertyOf dul:associatedWith ;
         rdfs:label    "Wikidata property example for properties"@en ;
         rdfs:range    wd:Q18616576 ;
         rdfs:seeAlso  wdt:P1855 ;
@@ -1605,6 +1625,7 @@ wdt:P2271  a          wd:Q19820110 , owl:ObjectProperty , <http://wikiba.se/onto
 wdt:P2667  a          owl:FunctionalProperty , wd:Q18616576 , owl:InverseFunctionalProperty , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   wd:Q18616576 ;
         rdfs:label    "corresponding template"@en ;
+        rdfs:subPropertyOf dul:isConcretelyExpressedBy ;
         rdfs:range    wd:Q11266439 ;
         rdfs:seeAlso  wdt:P1424 ;
         wdt:P1629     wd:Q11871615 ;
@@ -1613,15 +1634,18 @@ wdt:P2667  a          owl:FunctionalProperty , wd:Q18616576 , owl:InverseFunctio
 
 wdt:P538  a         wd:Q24041781 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "fracturing"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         wdt:P1629   wd:Q488001 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/7#P538" .
 
 wdt:P3610  a        wd:Q23310071 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "fare zone"@en ;
+        rdfs:subPropertyOf dul:hasLocation ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/fare_zone" .
 
 wdt:P1951  a        wd:Q21451178 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "investor"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         wdt:P1855   wd:Q883722 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/32#P1951" .
 
@@ -1833,6 +1857,7 @@ wdt:P2869  a        wd:Q21818626 , owl:ObjectProperty , <http://wikiba.se/ontolo
 
 wdt:P786  a         <http://wikiba.se/ontology-beta#Property> , wd:Q19858569 , owl:ObjectProperty ;
         rdfs:label  "stipe character"@en ;
+        rdfs:subPropertyOf dul:isClassifiedBy ;
         rdfs:range  []  ;
         wdt:P1269   wd:Q83093 ;
         wdt:P1629   wd:Q694131 ;
@@ -1907,6 +1932,7 @@ wdt:P2851  a         wd:Q18616576 , <http://wikiba.se/ontology-beta#Property> , 
 wdt:P3037  a         owl:FunctionalProperty , wd:Q18616576 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty ;
         rdfs:domain  wd:Q4006 ;
         rdfs:label   "spatial reference system"@en ;
+        rdfs:subPropertyOf dul:isClassifiedBy ;
         rdfs:range   wd:Q22664 ;
         wdt:P1629    wd:Q161779 ;
         wdt:P1855    wd:Q24642599 ;
@@ -5155,6 +5181,7 @@ wdt:P3019  a         wd:Q23310071 , <http://wikiba.se/ontology-beta#Property> , 
 wdt:P3310  a          owl:ObjectProperty , wd:Q19887775 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   wd:Q7365 ;
         rdfs:label    "muscle action"@en ;
+        rdfs:subPropertyOf dul:isAgentInvolvedIn ;
         rdfs:range    wd:Q25624925 ;
         rdfs:seeAlso  wdt:P3490 , wdt:P3491 ;
         wdt:P1855     wd:Q201363 ;
@@ -5163,6 +5190,7 @@ wdt:P3310  a          owl:ObjectProperty , wd:Q19887775 , <http://wikiba.se/onto
 wdt:P750  a           owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 ;
         rdfs:domain   wd:Q386724 ;
         rdfs:label    "distributor"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range    wd:Q43229 ;
         rdfs:seeAlso  wdt:P437 ;
         wdt:P1629     wd:Q13405617 ;
@@ -5173,6 +5201,7 @@ wdt:P750  a           owl:ObjectProperty , <http://wikiba.se/ontology-beta#Prope
 
 wdt:P925  a            wd:Q19887775 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label     "presynaptic connection"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         owl:inverseOf  wdt:P926 ;
         wdt:P3254      "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/15#P925" .
 
@@ -5187,6 +5216,8 @@ wdt:P971  a           wd:Q18667213 , <http://wikiba.se/ontology-beta#Property> ,
 wdt:P427  a          wd:Q18609040 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain  wd:Q16521 ;
         rdfs:label   "taxonomic type"@en ;
+        rdfs:subPropertyOf dul:isClassifiedBy ;
+        rdfs
         rdfs:range   []  ;
         wdt:P1629    wd:Q3707858 ;
         wdt:P3254    "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/5#P427" .
@@ -5194,6 +5225,7 @@ wdt:P427  a          wd:Q18609040 , owl:ObjectProperty , <http://wikiba.se/ontol
 wdt:P2058  a         wd:Q22984026 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain  []  ;
         rdfs:label   "depositor"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range   []  ;
         wdt:P1629    wd:Q1191707 ;
         wdt:P1855    wd:Q94947 , wd:Q775865 ;
@@ -5203,6 +5235,7 @@ wdt:P2058  a         wd:Q22984026 , owl:ObjectProperty , <http://wikiba.se/ontol
 wdt:P3033  a         <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q21126229 ;
         rdfs:domain  []  ;
         rdfs:label   "package management system"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         rdfs:range   wd:Q891055 ;
         wdt:P1629    wd:Q891055 ;
         wdt:P1855    wd:Q698 , wd:Q969382 ;
@@ -5212,6 +5245,7 @@ wdt:P3033  a         <http://wikiba.se/ontology-beta#Property> , owl:ObjectPrope
 wdt:P1840  a         wd:Q22964785 , <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q22984026 ;
         rdfs:domain  wd:Q1190554 ;
         rdfs:label   "investigated by"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         rdfs:range   []  ;
         wdt:P1855    wd:Q1028014 , wd:Q6587566 , wd:Q7204344 , wd:Q3182149 ;
         wdt:P2875    wd:Q26250088 ;

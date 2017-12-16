@@ -39,14 +39,14 @@ class classAnalyser(object):
         df.to_csv(fileOut, index=False)
 
 
-h.sort()
-hmean = np.mean(h)
-hstd = np.std(h)
-pdf = stats.norm.pdf(h, hmean, hstd)
-plt.plot(h, pdf)
-sns.distplot(h)
-h = np.array(h)
-sns.kdeplot(h, shade=True);
+# h.sort()
+# hmean = np.mean(h)
+# hstd = np.std(h)
+# pdf = stats.norm.pdf(h, hmean, hstd)
+# plt.plot(h, pdf)
+# sns.distplot(h)
+# h = np.array(h)
+# sns.kdeplot(h, shade=True);
 
 
 def main():

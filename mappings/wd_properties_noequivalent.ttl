@@ -480,7 +480,7 @@ wdt:P1589  a          owl:FunctionalProperty , owl:ObjectProperty , wd:Q18615777
 
 wdt:P1880  a        wd:Q18616576 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "measured by"@en ;
-        rfds:subPropertyOf dul:hasParameter ;
+        rdfs:subPropertyOf dul:hasParameter ;
         wdt:P1855   wd:Q366886 , wd:Q7944 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/31#P1880" .
 
@@ -5217,7 +5217,6 @@ wdt:P427  a          wd:Q18609040 , owl:ObjectProperty , <http://wikiba.se/ontol
         rdfs:domain  wd:Q16521 ;
         rdfs:label   "taxonomic type"@en ;
         rdfs:subPropertyOf dul:isClassifiedBy ;
-        rdfs
         rdfs:range   []  ;
         wdt:P1629    wd:Q3707858 ;
         wdt:P3254    "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/5#P427" .

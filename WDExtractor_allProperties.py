@@ -291,7 +291,7 @@ def propertyExtractor(lineParsed):
                     otherProperties.append(propertyStat)
                 elif i['mainsnak']['snaktype'] == 'somevalue':
                     # propertyStat = '<wdt:'+ prop + '>\n<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--some value-->'
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type> <!--some value-->'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>\n</owl:Class>\n</rdf:type> <!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:
@@ -922,7 +922,7 @@ def classExtractor(lineParsed, hasKey, multiValue):
 
                 elif i['mainsnak']['snaktype'] == 'somevalue':
                     # propertyStat = '<wdt:'+ prop + '>\n<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type>\n</wdt:'+prop+'><!--some value-->'
-                    propertyStat = '<rdf:type>\n<owl:Class>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</owl:Class>\n</rdf:type> <!--some value-->'
+                    propertyStat = '<rdf:type>\n<owl:Class>\n<rdfs:subClassOf>\n<owl:Restriction>\n<owl:onProperty rdf:resource="http://www.wikidata.org/prop/direct/' + prop + '" />\n<owl:minCardinality rdf:datatype="xsd:nonNegativeInteger">1</owl:minCardinality>\n</owl:Restriction>\n</rdfs:subClassOf>\n</owl:Class>\n</rdf:type> <!--some value-->'
                     otherProperties.append(propertyStat)
 
             except TypeError:

@@ -19,8 +19,9 @@ from rdflib import *
 
 def depthCounter(*args):
     g = Graph()
-    # g.parse('/Users/alessandro/Documents/PhD/WDOntology_100k_modified.owl')
-    g.parse('/home/ap1a14/WDOntology_100k_modified.owl')
+    g.parse('/Users/alessandro/Documents/PhD/WDOntology_100k_modified.owl')
+    # g.parse('/home/ap1a14/WDOntology_100k_modified.owl')
+    print('ontology parsed')
 
     e = gd.LocalEndpoint(g)
 

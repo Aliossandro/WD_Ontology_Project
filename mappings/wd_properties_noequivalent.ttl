@@ -1102,6 +1102,7 @@ wdt:P2747  a          wd:Q22965162 , wd:Q24716199 , owl:ObjectProperty , <http:/
 wdt:P664  a          owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q22964785 , wd:Q21818626 ;
         rdfs:domain  wd:Q1656682 ;
         rdfs:label   "organizer"@en ;
+        rdfs:subPropertyOf dul:isAgentInvolvedIn ;
         wdt:P1629    wd:Q2029941 ;
         wdt:P1855    wd:Q300008 , wd:Q276 , wd:Q101751 ;
         wdt:P2875    wd:Q26250054 ;
@@ -1121,6 +1122,7 @@ wdt:P411  a          owl:ObjectProperty , wd:Q18608871 , <http://wikiba.se/ontol
 wdt:P1312  a           owl:ObjectProperty , wd:Q22988631 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain    wd:Q747980 ;
         rdfs:label     "has facet polytope"@en ;
+        rdfs:subPropertyOf dul:hasComponent ;
         rdfs:range     wd:Q747980 ;
         owl:inverseOf  wdt:P1678 ;
         wdt:P1629      wd:Q3847020 ;
@@ -1130,6 +1132,7 @@ wdt:P1312  a           owl:ObjectProperty , wd:Q22988631 , <http://wikiba.se/ont
 wdt:P885  a           owl:ObjectProperty , wd:Q24041622 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain   []  ;
         rdfs:label    "origin of the watercourse"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range    []  ;
         rdfs:seeAlso  wdt:P403 ;
         wdt:P1629     wd:Q7376362 ;
@@ -1139,6 +1142,7 @@ wdt:P885  a           owl:ObjectProperty , wd:Q24041622 , <http://wikiba.se/onto
 wdt:P807  a          wd:Q18608993 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain  wd:Q43229 ;
         rdfs:label   "separated from"@en ;
+        rdfs:subPropertyOf dul:coparticipatesWith ;
         rdfs:range   wd:Q43229 ;
         wdt:P1855    wd:Q3555519 ;
         wdt:P3254    "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/13#P807" .
@@ -1146,6 +1150,7 @@ wdt:P807  a          wd:Q18608993 , owl:ObjectProperty , <http://wikiba.se/ontol
 wdt:P134  a          owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q20824104 , owl:InverseFunctionalProperty , wd:Q18616084 ;
         rdfs:domain  wd:Q34770 ;
         rdfs:label   "has dialect"@en ;
+        rdfs:subPropertyOf dul:isSpecializedBy ;
         rdfs:range   wd:Q33384 ;
         wdt:P1629    wd:Q33384 ;
         wdt:P1855    wd:Q1412 , wd:Q5287 ;
@@ -1154,6 +1159,7 @@ wdt:P134  a          owl:ObjectProperty , <http://wikiba.se/ontology-beta#Proper
 wdt:P1035  a          <http://wikiba.se/ontology-beta#Property> , owl:ObjectProperty , wd:Q18608871 ;
         rdfs:domain   wd:Q5 ;
         rdfs:label    "honorific suffix"@en ;
+        rdfs:subPropertyOf dul:isClassifiedBy ;
         rdfs:range    wd:Q618779 ;
         rdfs:seeAlso  wdt:P511 ;
         wdt:P1629     wd:Q1326966 ;
@@ -1204,6 +1210,7 @@ wdt:P180  a            <http://wikiba.se/ontology-beta#Property> , wd:Q18618644 
 
 wdt:P3680  a          wd:Q15720608 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label    "statement supported by"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:seeAlso  wdt:P1013 , wdt:P1310 ;
         wdt:P1269     wd:Q3962655 ;
         wdt:P3254     "https://www.wikidata.org/wiki/Wikidata:Property_proposal/statement_supported_by" .
@@ -1225,6 +1232,7 @@ wdt:P797  a           owl:ObjectProperty , <http://wikiba.se/ontology-beta#Prope
 
 wdt:P2673  a           <http://wikiba.se/ontology-beta#Property> , wd:Q19829914 , wd:Q29446361 , wd:Q23779665 , owl:ObjectProperty ;
         rdfs:label     "next crossing upstream"@en ;
+        rdfs:subPropertyOf dul:directlyFollows ;
         owl:inverseOf  wdt:P2674 ;
         wdt:P1855      wd:Q456960 , wd:Q2052623 ;
         wdt:P3254      "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/47#P2673" .

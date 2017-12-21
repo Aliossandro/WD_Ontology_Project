@@ -66,26 +66,37 @@ def depthCounter(*args):
     where { ?Z rdf:type <http://www.wikidata.org/entity/Q502895> . ?Z rdfs:subClassOf+   <http://www.wikidata.org/entity/Q7239>.}
     ''')
 
-    properties=e.select("""
-       select ?class (count(?mid)-1 as ?depth) {
-     {
-       select ?root {
-         ?root a owl:Class
-         filter not exists {
-           ?root rdfs:subClassOf ?superroot 
-           filter ( ?root != ?superroot )
-         }
-       }
-     }
-    
-     ?class rdfs:subClassOf* ?mid .
-     ?mid rdfs:subClassOf* ?root .
-    }
-    group by ?class
-    order by ?depth
-    """)
+    # properties=e.select("""
+    #    select ?class (count(?mid)-1 as ?depth) {
+    #  {
+    #    select ?root {
+    #      ?root a owl:Class
+    #      filter not exists {
+    #        ?root rdfs:subClassOf ?superroot
+    #        filter ( ?root != ?superroot )
+    #      }
+    #    }
+    #  }
+    #
+    #  ?class rdfs:subClassOf* ?mid .
+    #  ?mid rdfs:subClassOf* ?root .
+    # }
+    # group by ?class
+    # order by ?depth
+    # """)
 
-    properties.to_csv("WDOntoDepth.csv")
+    property_count = e.select('''
+    SELECT ?s ?sLabel (COUNT(?class) AS ?depth) (COUNT(?b) AS ?top) WHERE {
+    ?s a owl:Class .
+    ?s rdfs:label ?sLabel .
+    OPTIONAL {?class rdfs:subClassOf* ?s . }
+    OPTIONAL {?s rdfs:subClassOf* ?b . } 
+    FILTER(!isBlank(?s))
+    }
+    '''
+    )
+
+    property_count.to_csv("WDAllClasses.csv")
     print('done!')
 
 

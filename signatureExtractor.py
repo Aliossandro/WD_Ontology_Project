@@ -70,7 +70,6 @@ class signatureSelector(object):
         try:
             subjectType = self.Types[triList[0]]
         except KeyError:
-            print(triList[0])
             self.noTypeItems.add(triList[0])
             subjectType = 'NA'
 

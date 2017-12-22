@@ -120,8 +120,9 @@ class signatureSelector(object):
             s.close()
 
     def fileTypesWrite(self):
-        with open('WDSignedtriples-triples.nt', 'a') as s:
+        with open('WDSignedtriples-types.nt', 'w') as s:
             for i in self.savedTypes:
+                print()
                 s.write(i)
             s.close()
 
@@ -131,9 +132,9 @@ def main():
     fileTriples = sys.argv[2]
     x = signatureSelector(fileTypes, fileTriples)
     x.signatureCreator()
+    x.fileWriterCharacteristicSigned()
     x.getSignedTypes()
     x.fileTypesWrite()
-    x.fileWriterCharacteristicSigned()
     x.fileWriterNoType()
     x.fileNoType()
 

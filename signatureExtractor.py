@@ -33,13 +33,16 @@ class signatureSelector(object):
                 typeAxiom = line.split(' ')
                 typeAxiom[2] = typeAxiom[2].replace('<http://www.wikidata.org/entity/', '').replace(' .', '')
                 typeAxiom[2] = typeAxiom[2].replace('>', '')
-                if typeAxiom[0] in dictTypes.keys():
-                    if type(dictTypes[typeAxiom[0]]) is not 'list':
-                        typeList = []
-                        typeList.append(dictTypes[typeAxiom[0]])
-                        typeList.append(typeAxiom[2])
+                typeSubject = typeAxiom[0].replace('<http://www.wikidata.org/entity/', '').replace('>', '')
+                if typeSubject in dictTypes.keys():
+                    objectList = dictTypes[typeSubject]
+                    if type(objectList) is not tuple:
+                        typeList = (dictTypes[typeSubject],)
+                        typeList = typeList + (typeAxiom[2], )
+                        dictTypes[typeSubject] = typeList
                     else:
-                        dictTypes[typeAxiom[0]].append(typeAxiom[2])
+                        objectList = objectList + (typeAxiom[2], )
+                        dictTypes[typeSubject] = objectList
                 else:
                     dictTypes[typeAxiom[0].replace('<http://www.wikidata.org/entity/', '').replace('>', '')] = typeAxiom[2]
 
@@ -69,6 +72,7 @@ class signatureSelector(object):
     def tripleSignature(self, triList):
         try:
             subjectType = self.Types[triList[0]]
+            # print(subjectType)
         except KeyError:
             self.noTypeItems.add(triList[0])
             subjectType = 'NA'
@@ -83,9 +87,22 @@ class signatureSelector(object):
 
         return(tripleSig)
 
+    def getSignedTypes(self):
+        savedTypes = []
+        for statement in self.signedTypes:
+            subjectT = statement[0].replace('<http://www.wikidata.org/entity/', '').replace('>', '')
+            sType = self.Types[subjectT]
+            if type(sType) is tuple:
+                for item in sType:
+                    statSubject = statement[0] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
+                    savedTypes.append(statSubject)
+            else:
+                savedTypes.append(statement[0] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + sType + '> .\n')
+
+        self.savedTypes = savedTypes
 
     def fileWriterCharacteristicSigned(self):
-        with open('WDSignedtriples.nt', 'w') as s:
+        with open('WDSignedtriples-triples.nt', 'w') as s:
             for triple in self.signedTypes:
                 s.write(' '.join(triple) + ' .\n')
             s.close()
@@ -100,6 +117,12 @@ class signatureSelector(object):
         with open('WDMissingTypes.txt', 'w') as s:
             for i in self.noTypeItems:
                 s.write(i +'\n')
+            s.close()
+
+    def fileTypes(self):
+        with open('WDSignedtriples-triples.nt', 'a') as s:
+            for i in self.savedTypes:
+                s.write(i)
             s.close()
 
 

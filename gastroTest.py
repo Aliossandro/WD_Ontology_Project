@@ -86,11 +86,10 @@ def depthCounter(*args):
     # """)
 
     property_count = e.select('''
-    SELECT ?s ?sLabel (COUNT(?class) AS ?depth) (COUNT(?b) AS ?top) WHERE {
+    SELECT (COUNT(?s) AS ?classes) 
+    WHERE {
     ?s a owl:Class .
-    ?s rdfs:label ?sLabel .
-    OPTIONAL {?class rdfs:subClassOf* ?s . }
-    OPTIONAL {?s rdfs:subClassOf* ?b . } 
+    
     FILTER(!isBlank(?s))
     }
     '''

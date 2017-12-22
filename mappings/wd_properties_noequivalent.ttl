@@ -1239,6 +1239,7 @@ wdt:P2673  a           <http://wikiba.se/ontology-beta#Property> , wd:Q19829914 
 
 wdt:P2848  a         <http://wikiba.se/ontology-beta#Property> , wd:Q24239898 , owl:ObjectProperty ;
         rdfs:domain  wd:Q2221906 ;
+        rdfs:subPropertyOf dul:hasRegion ;
         rdfs:label   "Wi-Fi"@en ;
         rdfs:range   []  ;
         wdt:P1282    "Tag:internet_access=wlan" ;
@@ -1270,6 +1271,7 @@ wdt:P3823  a         <http://wikiba.se/ontology-beta#Property> , wd:Q20824104 , 
 wdt:P85  a           owl:InverseFunctionalProperty , owl:ObjectProperty , wd:Q18608993 , wd:Q22965078 , owl:FunctionalProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain  wd:Q15642541 ;
         rdfs:label   "anthem"@en ;
+        rdfs:subPropertyOf dul:isExpressedBy ;
         rdfs:range   wd:Q207628 ;
         wdt:P1629    wd:Q541947 ;
         wdt:P1855    wd:Q30 , wd:Q15180 , wd:Q2807451 , wd:Q17 ;
@@ -1279,6 +1281,7 @@ wdt:P85  a           owl:InverseFunctionalProperty , owl:ObjectProperty , wd:Q18
 wdt:P3150  a          wd:Q26935994 , <http://wikiba.se/ontology-beta#Property> , owl:FunctionalProperty , owl:ObjectProperty , wd:Q18608756 ;
         rdfs:domain   []  ;
         rdfs:label    "birthday"@en ;
+        rdfs:subPropertyOf dul:isObservableAt ;
         rdfs:range    wd:Q14795564 ;
         rdfs:seeAlso  wdt:P569 , wdt:P837 ;
         wdt:P1629     wd:Q47223 ;
@@ -1287,12 +1290,14 @@ wdt:P3150  a          wd:Q26935994 , <http://wikiba.se/ontology-beta#Property> ,
 
 wdt:P1911  a        wd:Q18616576 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "increased expression in"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range  wd:Q12136 ;
         wdt:P1855   wd:Q14865565 ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/31#P1911" .
 
 wdt:P3578  a        wd:Q27968522 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:label  "autologous cell line"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         wdt:P1855   wd:Q28472974 ;
         wdt:P1896   "http://web.expasy.org/cellosaurus/" ;
         wdt:P3254   "https://www.wikidata.org/wiki/Wikidata:Property_proposal/autologous_cell_line" .
@@ -1300,6 +1305,7 @@ wdt:P3578  a        wd:Q27968522 , owl:ObjectProperty , <http://wikiba.se/ontolo
 wdt:P765  a          <http://wikiba.se/ontology-beta#Property> , wd:Q28106485 , owl:ObjectProperty , wd:Q28106586 ;
         rdfs:domain  wd:Q13406554 ;
         rdfs:label   "surface played on"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         rdfs:range   []  ;
         wdt:P1855    wd:Q41520 ;
         wdt:P2875    wd:Q23909057 ;

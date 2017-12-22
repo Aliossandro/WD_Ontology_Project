@@ -131,6 +131,8 @@ def main():
     fileTriples = sys.argv[2]
     x = signatureSelector(fileTypes, fileTriples)
     x.signatureCreator()
+    x.getSignedTypes()
+    x.fileTypes()
     x.fileWriterCharacteristicSigned()
     x.fileWriterNoType()
     x.fileNoType()

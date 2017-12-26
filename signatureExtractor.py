@@ -88,7 +88,10 @@ class signatureSelector(object):
         return(tripleSig)
 
     def getSignedTypes(self):
+        counter = 0
+        fileCounter = 0
         savedTypes = []
+        savedTriples = []
         for statement in self.signedTypes:
             subjectT = statement[0].replace('<http://www.wikidata.org/entity/', '').replace('>', '')
             sType = self.Types[subjectT]
@@ -97,9 +100,42 @@ class signatureSelector(object):
                     statSubject = statement[0] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
                     savedTypes.append(statSubject)
             else:
-                savedTypes.append(statement[0] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + sType + '> .\n')
+                statSubject = statement[0] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + sType + '> .\n'
+                savedTypes.append(statSubject)
 
-        self.savedTypes = savedTypes
+            objectT = statement[2].replace('<http://www.wikidata.org/entity/', '').replace('>', '')
+            oType = self.Types[objectT]
+            if type(sType) is tuple:
+                for item in sType:
+                    statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
+                    savedTypes.append(statObject)
+            else:
+                statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + oType + '> .\n'
+                savedTypes.append(statObject)
+
+            savedTriples.append(statement)
+            counter += 1
+            if counter == 250:
+                fileCounter += 1
+                self.fileWriterMini(fileCounter, savedTriples, savedTypes)
+                savedTriples = []
+                savedTypes = []
+                counter = 0
+
+            # print(statement, statSubject)
+
+        # self.savedTypes = savedTypes
+
+    def fileWriterMini(self, counter, savedTriples, savedTypes):
+        fileName = 'WDSignedfiles-' +str(counter) +'.nt'
+
+        with open(fileName, 'w') as s:
+            for triple in savedTriples:
+                s.write(' '.join(triple) + ' .\n')
+
+            for i in savedTypes:
+                s.write(i)
+            s.close()
 
     def fileWriterCharacteristicSigned(self):
         with open('WDSignedtriples-triples.nt', 'w') as s:
@@ -122,7 +158,6 @@ class signatureSelector(object):
     def fileTypesWrite(self):
         with open('WDSignedtriples-types.nt', 'w') as s:
             for i in self.savedTypes:
-                print()
                 s.write(i)
             s.close()
 

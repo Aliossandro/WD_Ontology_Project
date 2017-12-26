@@ -106,7 +106,7 @@ class signatureSelector(object):
             objectT = statement[2].replace('<http://www.wikidata.org/entity/', '').replace('>', '')
             oType = self.Types[objectT]
             if type(oType) is tuple:
-                for item in sType:
+                for item in oType:
                     statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
                     savedTypes.append(statObject)
             else:

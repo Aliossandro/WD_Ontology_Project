@@ -110,7 +110,7 @@ class signatureSelector(object):
                     statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
                     savedTypes.append(statObject)
             else:
-                statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + oType + '> .\n'
+                statObjects = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + oType + '> .\n'
                 savedTypes.append(statObject)
 
             savedTriples.append(statement)
@@ -167,11 +167,11 @@ def main():
     fileTriples = sys.argv[2]
     x = signatureSelector(fileTypes, fileTriples)
     x.signatureCreator()
-    x.fileWriterCharacteristicSigned()
+    # x.fileWriterCharacteristicSigned()
     x.getSignedTypes()
-    x.fileTypesWrite()
-    x.fileWriterNoType()
-    x.fileNoType()
+    # x.fileTypesWrite()
+    # x.fileWriterNoType()
+    # x.fileNoType()
 
 
 if __name__ == "__main__":

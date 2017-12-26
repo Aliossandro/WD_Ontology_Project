@@ -110,12 +110,12 @@ class signatureSelector(object):
                     statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + item + '> .\n'
                     savedTypes.append(statObject)
             else:
-                statObjects = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + oType + '> .\n'
+                statObject = statement[2] + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.wikidata.org/entity/' + oType + '> .\n'
                 savedTypes.append(statObject)
 
             savedTriples.append(statement)
             counter += 1
-            if counter == 250:
+            if counter == 25:
                 fileCounter += 1
                 self.fileWriterMini(fileCounter, savedTriples, savedTypes)
                 savedTriples = []

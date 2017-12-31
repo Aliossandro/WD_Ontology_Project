@@ -88,7 +88,7 @@ class signatureSelector(object):
         return(tripleSig)
 
     def getSignedTypes(self):
-        # counter = 0
+        counter = 0
         fileCounter = 0
         savedTypes = []
         savedTriples = []
@@ -114,13 +114,13 @@ class signatureSelector(object):
                 savedTypes.append(statObject)
 
             savedTriples.append(statement)
-            # counter += 1
-            # if counter == 3:
-            fileCounter += 1
-            self.fileWriterMini(fileCounter, savedTriples, savedTypes)
-            savedTriples = []
-            savedTypes = []
-                # counter = 0
+            counter += 1
+            if counter == 3:
+                fileCounter += 1
+                self.fileWriterMini(fileCounter, savedTriples, savedTypes)
+                savedTriples = []
+                savedTypes = []
+                counter = 0
 
             # print(statement, statSubject)
 

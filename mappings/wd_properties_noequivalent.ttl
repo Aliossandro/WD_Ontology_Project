@@ -2180,6 +2180,7 @@ wdt:P3650  a         wd:Q24716199 , <http://wikiba.se/ontology-beta#Property> , 
 wdt:P546  a          wd:Q22984363 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain  wd:Q40218 ;
         rdfs:label   "docking port"@en ;
+        rdfs:subPropertyOf dul:sameSettingAs ;
         wdt:P1855    wd:Q591584 ;
         wdt:P1896    "http://space.kursknet.ru/cosmos/russian/machines/stma9.sht" ;
         wdt:P3254    "https://www.wikidata.org/wiki/Wikidata:Property_proposal/Archive/7#P546" .

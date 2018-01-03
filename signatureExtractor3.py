@@ -115,7 +115,7 @@ class signatureSelector(object):
 
             savedTriples.append(statement)
             counter += 1
-            if counter == 3:
+            if counter == 5:
                 fileCounter += 1
                 self.fileWriterMini(fileCounter, savedTriples, savedTypes)
                 savedTriples = []

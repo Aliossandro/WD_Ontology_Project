@@ -7,8 +7,14 @@ import os
 import sys
 
 
-def javaRun(jarFile, wdClasses, typeFile, fileName, fileOut):
-    subprocess.call(['java', '-Xmx4280M', '-jar', jarFile, wdClasses, typeFile, fileName, fileOut])
+# def javaRun(jarFile, wdClasses, typeFile, fileName, fileOut):
+#     subprocess.call(['java', '-Xmx4280M', '-jar', jarFile, wdClasses, typeFile, fileName, fileOut])
+
+def countSth(fileName):
+    with open(fileName, 'r') as f:
+        for i in xrange(1000000):
+            f.write(i)
+        f.close()
 
 
 if __name__ == "__main__":
@@ -19,16 +25,9 @@ if __name__ == "__main__":
     # the job list
     jobs = []
     folder = sys.argv[1]
-    jarFile = sys.argv[2]
-    wdClasses = sys.argv[3]
-    typeFile = sys.argv[4]
-    fileOut = sys.argv[5]
-    dirName = os.path.abspath(folder)
 
-    for filename in os.listdir(folder):
-        fileCsv = dirName + '/' + filename
-        print(fileCsv)
-        process = multiprocessing.Process(target=javaRun, args=(jarFile, wdClasses, typeFile, fileCsv, fileOut))
+    for num in xrange(16):
+        process = multiprocessing.Process(target=countSth, args=(folder,))
         jobs.append(process)
 
     # Start the processes (i.e. calculate the random number lists)

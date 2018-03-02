@@ -1,0 +1,19 @@
+<http://www.wikidata.org/entity/Q600134> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#SocialPerson> .
+<http://www.wikidata.org/entity/Q2632011> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#Location> .
+<http://www.wikidata.org/entity/Q7500021> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#SocialPerson> .
+<http://www.wikidata.org/entity/Q658274> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#InformationEntity> .
+<http://www.wikidata.org/entity/Q1367530> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#Location> .
+<http://www.wikidata.org/entity/Q5070802> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Situation> .
+<http://www.wikidata.org/entity/Q401404> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#SocialPerson> .
+<http://www.wikidata.org/entity/Q1347572> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#InformationEntity> .
+<http://www.wikidata.org/entity/Q28955245> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#CognitiveEntity> .
+
+#from yago
+<http://www.wikidata.org/entity/Q1318959> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#System> .
+<http://www.wikidata.org/entity/Q1318959> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#PhysicalObject> .
+<http://www.wikidata.org/entity/Q1318959> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Organism> .
+<http://www.wikidata.org/entity/Q1318959> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Person> .
+<http://www.wikidata.org/entity/Q189210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#InformationEntity> .
+<http://www.wikidata.org/entity/Q189210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#Description> .
+<http://www.wikidata.org/entity/Q189210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#CognitiveEntity> .
+<http://www.wikidata.org/entity/Q189210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.ontologydesignpatterns.org/ont/d0.owl#Characteristic> .

@@ -741,7 +741,8 @@ wdt:P504  a          owl:ObjectProperty , wd:Q23779665 , <http://wikiba.se/ontol
 wdt:P2388  a           wd:Q18608993 , <http://wikiba.se/ontology-beta#Property> , owl:FunctionalProperty , owl:ObjectProperty , owl:InverseFunctionalProperty ;
         rdfs:domain    wd:Q43229 ;
         rdfs:label     "office held by head of the organisation"@en ;
-        rdfs:subPropertyOf dul:actsThrough ;
+        # rdfs:subPropertyOf dul:actsThrough ;
+        rdfs:subPropertyOf dul:isSpecializedBy ;
         rdfs:range     wd:Q4164871 ;
         rdfs:seeAlso   wdt:P1308 , wdt:P1906 , wdt:P1313 ;
         owl:inverseOf  wdt:P2389 ;
@@ -2540,7 +2541,8 @@ wdt:P2361  a        wd:Q18616576 , owl:ObjectProperty , <http://wikiba.se/ontolo
 wdt:P1308  a           wd:Q18608993 , owl:ObjectProperty , wd:Q18608871 , <http://wikiba.se/ontology-beta#Property> ;
         rdfs:domain    wd:Q4164871 ;
         rdfs:label     "officeholder"@en ;
-        rdfs:subPropertyOf dul:actsThrough ;
+        # rdfs:subPropertyOf dul:actsThrough ;
+        rdfs:subPropertyOf dul:isSpecializedBy ;
         rdfs:range     wd:Q5 ;
         rdfs:seeAlso   wdt:P488 , wdt:P3320 ;
         owl:inverseOf  wdt:P39 ;
@@ -4419,7 +4421,8 @@ wdt:P412  a           <http://wikiba.se/ontology-beta#Property> , wd:Q27525351 ,
 wdt:P1313  a          wd:Q18608993 , owl:ObjectProperty , <http://wikiba.se/ontology-beta#Property> , wd:Q22984475 , wd:Q22997934 ;
         rdfs:domain   []  ;
         rdfs:label    "office held by head of government"@en ;
-        rdfs:subPropertyOf dul:actsThrough ;
+        # rdfs:subPropertyOf dul:actsThrough ;
+        rdfs:subPropertyOf dul:isSpecializedBy ;
         rdfs:range    wd:Q4164871 ;
         rdfs:seeAlso  wdt:P2388 , wdt:P6 , wdt:P1906 ;
         wdt:P1855     wd:Q174450 , wd:Q145 , wd:Q30 ;
